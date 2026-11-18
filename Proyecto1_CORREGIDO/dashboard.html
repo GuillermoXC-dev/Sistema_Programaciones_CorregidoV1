@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<title>Sistema de Programaciones · INICIO</title>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css?v=2">
+
+
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="estilos-v2.css">
+    <link rel="stylesheet" href="tema-tren-maya-v4.css">
+    <link rel="stylesheet" href="tema-tren-maya-v5.css">
+    <link rel="stylesheet" href="tema-tren-maya-v6.css">
+    <link rel="stylesheet" href="tema-tren-maya-v7.css">
+
+    <style>
+        /* =========================================================
+   BARRA DE NAVEGACIÓN DINÁMICA (PÍLDORA Y LÍNEA DORADA)
+========================================================= */
+
+/* =========================================================
+   BARRA DE NAVEGACIÓN DINÁMICA (PÍLDORA Y LÍNEA DORADA)
+========================================================= */
+
+.nav-bar {
+    position: relative;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    gap:4px;
+    width: 100%;
+    padding: 6px;
+    margin: 9px 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--tm-verde-oscuro), var(--tm-verde), var(--tm-jade));
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid var(--borde);
+}
+
+/* La píldora de vidrio deslizante */
+.nav-pill {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Botones de navegación con ancho uniforme */
+.nav-btn {
+    flex: 1;                /* ESTO REPARTE EL ESPACIO EN PARTES IGUALES */
+    width: 100%;            /* Fuerza a que midan lo mismo */
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 8px 6px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.25s ease, color 0.25s ease;
+    letter-spacing: 0.5px;
+    text-align: center;     /* Centra el texto */
+    white-space: nowrap;    /* Evita saltos de línea extraños */
+}
+
+/* Divisores verticales con degradado entre botones */
+.nav-btn:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.35), transparent);
+}
+
+/* Línea dorada inferior que crece desde el centro */
+.nav-btn::before {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--tm-dorado);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+/* Efectos al pasar el cursor (Hover) */
+.nav-btn:hover {
+    transform: translateY(-1px);
+    color: #fffdf5;
+}
+
+.nav-btn:hover::before,
+.nav-btn.active::before {
+    width: 50%;
+}
+
+/* Accesibilidad con teclado */
+.nav-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--tm-dorado);
+    border-radius: 10px;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .nav-btn span.label {
+        font-size: 11px;
+    }
+}
+
+        /* =========================================================
+           DASHBOARD TREN MAYA
+           DISEÑO CORPORATIVO COMPACTO
+        ========================================================= */
+
+        :root {
+            --tm-verde: #082c79;
+            --tm-verde-oscuro: #4b5d84;
+            --tm-jade: #008f83;
+            --tm-turquesa: #00a99d;
+            --tm-dorado: #c8a951;
+            --tm-dorado-claro: #e2c875;
+
+            --fondo: #f3f6f5;
+            --blanco: #ffffff;
+            --texto: #26332f;
+            --texto-secundario: #66736f;
+            --borde: #dfe7e4;
+
+            --azul: #2563eb;
+            --naranja: #f59e0b;
+            --verde: #16a34a;
+            --rojo: #dc2626;
+
+            --sombra: 0 4px 14px rgba(0, 60, 50, 0.07);
+            --radio: 12px;
+        }
+
+
+        /* =========================================================
+           BASE
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #eef5f3 0%,
+                    #f7f9f8 50%,
+                    #eef3f1 100%
+                );
+
+            color: var(--texto);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        .dashboard {
+            width: min(1500px, 97%);
+            margin: 12px auto 22px;
+        }
+
+
+        /* =========================================================
+           ENCABEZADO
+        ========================================================= */
+
+        .dashboard-header {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px 24px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    var(--tm-verde-oscuro),
+                    var(--tm-verde),
+                    var(--tm-jade)
+                );
+
+            color: white;
+
+            border-radius: var(--radio);
+
+            box-shadow: var(--sombra);
+
+            overflow: hidden;
+        }
+
+
+        .dashboard-header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            right: -90px;
+            top: -135px;
+
+            border: 42px solid rgba(255,255,255,.06);
+
+            border-radius: 50%;
+        }
+
+
+        .dashboard-header h1 {
+            margin: 0 0 5px;
+
+            font-size: clamp(19px, 2vw, 29px);
+
+            line-height: 1.2;
+
+            font-weight: 700;
+        }
+
+
+        .dashboard-header p {
+            margin: 0;
+
+            color: rgba(255,255,255,.88);
+
+            font-size: 13px;
+        }
+
+
+        .fecha-dashboard {
+            position: relative;
+            z-index: 2;
+
+            min-width: 210px;
+
+            padding-left: 16px;
+
+            text-align: right;
+
+            border-left: 2px solid var(--tm-dorado);
+        }
+
+
+        .fecha-dashboard strong {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           MENÚ
+        ========================================================= */
+
+        .menu-dashboard {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(105px, 1fr)
+                );
+
+            gap: 6px;
+
+            margin: 9px 0;
+
+            padding: 6px;
+
+            background: white;
+
+            border: 1px solid var(--borde);
+
+            border-radius: var(--radio);
+
+            box-shadow: var(--sombra);
+        }
+
+
+        .menu-dashboard button {
+            min-height: 38px;
+
+            padding: 6px 9px;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: var(--texto);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .18s ease;
+        }
+
+
+        .menu-dashboard button:hover {
+            background: #e8f4f1;
+
+            color: var(--tm-verde-oscuro);
+
+            transform: translateY(-1px);
+        }
+
+
+        .menu-dashboard button.menu-activo {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--tm-verde),
+                    var(--tm-jade)
+                );
+
+            color: white;
+
+            box-shadow:
+                0 3px 7px rgba(0,105,95,.2);
+        }
+
+
+        /* =========================================================
+           FILTROS
+        ========================================================= */
+
+        .filtros-dashboard {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 10px;
+
+            padding: 9px 13px;
+
+            background: white;
+
+            border: 1px solid var(--borde);
+
+            border-radius: var(--radio);
+
+            box-shadow: var(--sombra);
+        }
+
+
+        .filtro-titulo {
+            color: var(--tm-verde-oscuro);
+
+            font-size: 13px;
+        }
+
+
+        .filtro-opciones {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 5px;
+        }
+
+
+        .filtro-opciones button {
+            padding: 6px 12px;
+
+            border: 1px solid #cbd8d4;
+
+            border-radius: 18px;
+
+            background: #f8faf9;
+
+            color: #52615d;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .filtro-opciones button:hover,
+        .filtro-opciones button.filtro-activo {
+            border-color: #f3f6f4;
+
+            background: #399dcf;
+
+            color: white;
+        }
+
+
+        /* =========================================================
+           INDICADORES SUPERIORES
+        ========================================================= */
+
+        .indicadores {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    5,
+                    minmax(0, 1fr)
+                );
+
+            gap: 9px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .tarjeta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-width: 0;
+
+            padding: 11px 13px;
+
+            background: white;
+
+            border: 1px solid var(--borde);
+
+            border-radius: var(--radio);
+
+            box-shadow: var(--sombra);
+
+            transition: .18s ease;
+        }
+
+
+        .tarjeta:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 18px rgba(0,60,50,.11);
+        }
+
+
+        .tarjeta-icono {
+            display: grid;
+
+            place-items: center;
+
+            flex: 0 0 37px;
+
+            width: 37px;
+            height: 37px;
+
+            border-radius: 9px;
+
+            background: #e8f4f1;
+
+            font-size: 18px;
+        }
+
+
+        .tarjeta span {
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: var(--texto-secundario);
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .tarjeta strong {
+            display: block;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 22px;
+
+            line-height: 1;
+        }
+
+
+        /* =========================================================
+           GRID PRINCIPAL
+        ========================================================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(420px, 1.15fr);
+
+            gap: 10px;
+
+            align-items: stretch;
+        }
+
+
+        .dashboard-card,
+        .panel {
+            min-width: 0;
+
+            background: white;
+
+            border: 1px solid var(--borde);
+
+            border-radius: var(--radio);
+
+            box-shadow: var(--sombra);
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           ENCABEZADOS DE TARJETAS
+        ========================================================= */
+
+        .card-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            min-height: 43px;
+
+            padding: 10px 14px;
+
+            border-bottom: 1px solid #e8eeec;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #f7faf9
+                );
+        }
+
+
+        .card-header h2,
+        .panel h2 {
+            margin: 0;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 15px;
+        }
+
+
+        .card-header button {
+            padding: 5px 9px;
+
+            border: 1px solid #c9d9d5;
+
+            border-radius: 6px;
+
+            background: white;
+
+            color: var(--tm-verde);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .card-header button:hover {
+            background: #eaf5f2;
+        }
+
+        /* =========================================================
+           CALENDARIO
+        ========================================================= */
+
+        .calendario-real {
+            padding: 9px;
+        }
+
+
+        .calendario-controles {
+            display: grid;
+
+            grid-template-columns: 34px 1fr 34px;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .calendario-controles button {
+            width: 31px;
+            height: 29px;
+
+            border: 0;
+
+            border-radius: 7px;
+
+            background: var(--tm-verde);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 11px;
+        }
+
+
+        .calendario-controles button:hover {
+            background: var(--tm-verde-oscuro);
+        }
+
+
+        .calendario-controles h3 {
+            margin: 0;
+
+            text-align: center;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 15px;
+        }
+
+
+        .dias-semana {
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, minmax(0, 1fr));
+
+            gap: 3px;
+
+            margin-bottom: 3px;
+        }
+
+
+        .dias-semana div {
+            padding: 4px 2px;
+
+            text-align: center;
+
+            color: var(--tm-verde);
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .dias-calendario {
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, minmax(0, 1fr));
+
+            gap: 3px;
+        }
+
+
+        .dias-calendario > * {
+            min-height: 42px;
+        }
+
+
+        .detalle-dia {
+            margin-top: 6px;
+        }
+
+
+        /* =========================================================
+           PRÓXIMAS SALIDAS
+        ========================================================= */
+
+             #proximasSalidas {
+    	     display: grid;
+
+    		gap: 8px;
+
+    		min-height: 300px;
+
+    		max-height: 380px;
+
+   		padding: 10px 12px;
+	
+    		overflow-y: auto;
+				}
+
+
+        .sin-datos {
+            margin: 0;
+
+            padding: 20px 8px;
+
+            text-align: center;
+
+            color: var(--texto-secundario);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           NUEVA ZONA COMPACTA
+           RECEPCIONES / INCIDENCIAS / COMBUSTIBLE / COSTOS
+        ========================================================= */
+
+
+.zona-estadisticas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#seccionRecepciones {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#seccionCombustible {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#seccionIncidencias {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#seccionCostos {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+@media (max-width: 760px) {
+    .zona-estadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    #seccionRecepciones,
+    #seccionCombustible,
+    #seccionIncidencias,
+    #seccionCostos {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+
+
+
+
+        /* =========================================================
+           RECEPCIONES
+        ========================================================= */
+
+        #seccionRecepciones {
+            padding: 0;
+        }
+
+
+        #seccionRecepciones > h2 {
+            display: flex;
+
+            align-items: center;
+
+            min-height: 43px;
+
+            margin: 0;
+
+            padding: 10px 14px;
+
+            border-bottom: 1px solid #e8eeec;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 16px;
+
+            background:linear-gradient(105deg, #399dcf, #187f99 60%, #024b70) !important;
+        }
+
+
+        #seccionRecepciones .indicadores {
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 7px;
+
+            margin: 0;
+
+            padding: 8px;
+        }
+
+
+        #seccionRecepciones .indicador {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            min-height: 51px;
+
+            padding: 8px;
+
+            border: 1px solid #e2ebe8;
+
+            border-radius: 8px;
+
+            background: #fbfcfc;
+        }
+
+
+        .indicador-icono {
+            flex: 0 0 auto;
+
+            font-size: 19px;
+        }
+
+
+        .indicador-titulo {
+            display: block;
+
+            color: var(--texto-secundario);
+
+            font-size: 10px;
+        }
+
+
+        .indicador strong {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 18px;
+        }
+
+
+        /* =========================================================
+           ESTADÍSTICAS
+        ========================================================= */
+
+        .estadisticas {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 7px;
+
+            padding: 8px;
+        }
+
+
+        .estadisticas > div {
+            display: flex;
+
+            flex-direction: column;
+            justify-content: center;
+
+            min-height: 62px;
+
+            padding: 9px;
+
+            border: 1px solid #e2ebe8;
+
+            border-radius: 8px;
+
+            background: #fbfcfc;
+        }
+
+
+        .estadisticas span {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: var(--texto-secundario);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            line-height: 1.25;
+        }
+
+
+        .estadisticas strong {
+            display: block;
+
+            color: var(--tm-verde-oscuro);
+
+            font-size: 18px;
+
+            line-height: 1.1;
+        }
+
+
+        /* =========================================================
+           COSTO TOTAL
+        ========================================================= */
+
+        #seccionCostoTotal {
+            margin-top: 10px;
+        }
+
+
+        #seccionCostoTotal .card-header {
+            background:
+                linear-gradient(
+                    90deg,
+                    #fffdf5,
+                    #ffffff
+                );
+        }
+
+
+        #seccionCostoTotal .estadisticas {
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+        }
+
+
+        #costoTotalGeneral {
+            color: var(--tm-dorado) !important;
+
+            font-size: 23px !important;
+        }
+
+
+        /* =========================================================
+           GRÁFICAS
+        ========================================================= */
+
+        .graficas-dashboard {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 10px;
+
+            margin-top: 10px;
+        }
+
+
+        .panel {
+            padding: 0;
+        }
+
+
+        .panel h2 {
+            min-height: 43px;
+
+            padding: 12px 14px;
+
+            border-bottom: 1px solid #e8eeec;
+
+            background:linear-gradient(105deg, #399dcf, #187f99 60%, #024b70) !important;
+        }
+
+
+        .grafica-contenedor {
+            position: relative;
+
+            width: 100%;
+
+            height: 260px;
+
+            padding: 10px;
+        }
+
+
+        .grafica-contenedor canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+
+        /* =========================================================
+           ESTADOS
+        ========================================================= */
+
+        .estado-programado {
+            color: var(--azul);
+        }
+
+
+        .estado-curso {
+            color: var(--naranja);
+        }
+
+
+        .estado-finalizado {
+            color: var(--verde);
+        }
+
+
+        .estado-cancelado {
+            color: var(--rojo);
+        }
+
+
+        /* =========================================================
+           SCROLLBAR
+        ========================================================= */
+
+        #proximasSalidas::-webkit-scrollbar {
+            width: 5px;
+        }
+
+
+        #proximasSalidas::-webkit-scrollbar-thumb {
+            background: #b9ccc7;
+
+            border-radius: 10px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1200px) {
+
+            .indicadores {
+                grid-template-columns:
+                    repeat(
+                        3,
+                        minmax(0, 1fr)
+                    );
+            }
+
+
+            .zona-estadisticas {
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+            }
+
+        }
+
+
+        @media (max-width: 1050px) {
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 760px) {
+
+            .dashboard {
+                width: 95%;
+                margin-top: 8px;
+            }
+
+
+            .dashboard-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                padding: 16px;
+            }
+
+
+            .fecha-dashboard {
+                width: 100%;
+
+                min-width: 0;
+
+                padding:
+                    8px 0 0;
+
+                text-align: left;
+
+                border-left: 0;
+
+                border-top:
+                    1px solid var(--tm-dorado);
+            }
+
+
+            .indicadores {
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+            }
+
+
+            .filtros-dashboard {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .filtro-opciones {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(4, 1fr);
+            }
+
+
+            .filtro-opciones button {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+
+            .zona-estadisticas {
+                grid-template-columns: 1fr;
+            }
+
+
+            #seccionRecepciones .indicadores {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            #seccionCostoTotal .estadisticas {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+
+            .graficas-dashboard {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .indicadores {
+                grid-template-columns: 1fr;
+            }
+
+
+            #seccionRecepciones .indicadores {
+                grid-template-columns: 1fr;
+            }
+
+
+            .filtro-opciones {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .dashboard-header h1 {
+                font-size: 19px;
+            }
+
+
+            .zona-estadisticas {
+                grid-template-columns: 1fr;
+            }
+
+
+            #seccionCostoTotal .estadisticas {
+                grid-template-columns: 1fr;
+            }
+
+
+            .grafica-contenedor {
+                height: 240px;
+            }
+
+        }
+/* =========================================================
+   REDONDEAR TARJETA DEL CALENDARIO POR COMPLETO
+========================================================= */
+.calendario-card,
+#seccionCalendario {
+    border-radius: 16px !important; /* Esquinas redondeadas generales */
+    overflow: hidden !important;    /* Fuerza a los elementos internos a ajustarse al borde */
+    border: 2px solid var(--tm-dorado) !important; /* El contorno dorado que pediste antes */
+}
+/* =========================================================
+   MEJORAS PARA EL CALENDARIO (DÍAS DE LA SEMANA Y SELECCIÓN)
+========================================================= */
+
+/* 1. Darle formato de separadores/cajitas a los días de la semana */
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px; /* Espacio entre separadores */
+    margin-bottom: 6px;
+    padding: 0 4px;
+}
+
+.dias-semana div {
+    padding: 6px 2px;
+    text-align: center;
+    background: rgba(0, 107, 95, 0.08); /* Fondo sutil estilo corporativo */
+    color: var(--tm-verde-oscuro);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 107, 95, 0.15); /* Contorno sutil para que no floten */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 2. Asegurar que el cuadro seleccionado (hoy / verde) tenga su borde visible */
+.dias-calendario .dia-seleccionado, 
+.dias-calendario [class*="seleccionado"] {
+    border: 2px solid var(--tm-verde) !important;
+    box-shadow: 0 0 0 2px rgba(0, 107, 95, 0.2);
+}
+
+/* O si la clase que usa tu JavaScript para el día activo es específica (por ejemplo .activo o .hoy): */
+.dias-calendario .activo,
+.dias-calendario .hoy {
+    border: 2px solid var(--tm-verde) !important;
+}
+/* =========================================================
+   REDONDEAR BORDES DE LAS CELDAS DEL CALENDARIO
+========================================================= */
+
+/* Aplica esquinas redondeadas a todas las celdas de los días */
+.dias-calendario > div,
+.dias-calendario td,
+.dia-calendario {
+    border-radius: 12px !important; /* Ajusta el radio según prefieras (ej. 8px, 12px, 16px) */
+    overflow: hidden; /* Evita que contenido interno rompa el redondeo */
+}
+
+/* Si el día actual ("HOY" o seleccionado) tiene un borde específico que se ve cuadrado */
+.dias-calendario .hoy,
+.dias-calendario .dia-actual,
+.dias-calendario .seleccionado {
+    border-radius: 12px !important;
+}
+/* =========================================================
+   REDONDEAR ESQUINAS DEL CONTENEDOR GENERAL DEL CALENDARIO
+========================================================= */
+#calendario, 
+.calendario-real {
+    border-radius: 16px !important; /* Ajusta el nivel de redondez a tu gusto */
+    overflow: hidden !important;    /* Obliga a que los hijos respeten las esquinas */
+}
+/* =========================================================
+   CORRECCIÓN DEFINITIVA DE ESQUINAS EN EL CALENDARIO
+========================================================= */
+
+#seccionCalendario,
+.calendario-card {
+    border-radius: 16px !important;
+    overflow: hidden !important; /* Corta cualquier elemento hijo que sobresalga de las esquinas */
+    border: 2px solid var(--tm-dorado) !important;
+    background: #ffffff;
+}
+
+/* Redondear también las esquinas superiores del encabezado interno */
+#seccionCalendario .card-header {
+    border-top-left-radius: 14px !important;
+    border-top-right-radius: 14px !important;
+}
+
+/* Asegurar que la parte inferior no rompa el diseño */
+#seccionCalendario .calendario-real,
+#seccionCalendario #calendario {
+    border-bottom-left-radius: 14px !important;
+    border-bottom-right-radius: 14px !important;
+    background: transparent !important;
+}
+
+#detalleDia {
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    overflow: hidden !important;
+}
+    </style>
+
+
+<!-- ESTILOS MÓVILES DE MÁXIMA PRIORIDAD -->
+<style>
+  @media (max-width: 768px) {
+      /* 1. Recorte tajante del banner */
+      body.tm-page-dashboard .dashboard-header {
+          height: 105px !important; 
+          min-height: 105px !important;
+          max-height: 105px !important;
+          overflow: hidden !important;
+      }
+
+      /* 2. Eliminación absoluta de la línea dorada */
+      body.tm-page-dashboard .fecha-dashboard {
+          border: none !important;
+          border-left: none !important;
+          border-top: none !important;
+          box-shadow: none !important;
+      }
+
+      /* 3. Apagar pseudo-elementos del tema corporativo */
+      body.tm-page-dashboard .fecha-dashboard::before,
+      body.tm-page-dashboard .fecha-dashboard::after {
+          display: none !important;
+          content: none !important;
+      }
+  }
+</style>
+
+
+
+
+
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+<link rel="stylesheet" href="clima-referencia.css?v=2">
+<script src="clima-iconos.js?v=2" defer></script>
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-dashboard">
+
+<div class="dashboard">
+
+
+    <div class="dashboard">
+
+    <!-- =========================================================
+         ENCABEZADO UNIFICADO TREN MAYA (Igual al Dashboard)
+    ========================================================== -->
+    <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">INICIO</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+    <!-- =========================================================
+         BARRA DE NAVEGACIÓN DINÁMICA (Píldora y Línea Dorada)
+    ========================================================== -->
+    <nav class="nav-bar" id="ferroviaryNav">
+        <div class="nav-pill"></div>
+
+        <button class="nav-btn" onclick="window.location.href='dashboard.html'" type="button">
+            <span class="label">INICIO</span>
+        </button>
+        <button class="nav-btn active" onclick="window.location.href='index.html' /* o tu archivo de operaciones */" type="button">
+            <span class="label">OPERACIONES</span>
+        </button>
+        <button class="nav-btn" id="btnLocomotoras" type="button">
+            <span class="label">MATERIAL RODANTE</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='distribucion_personal.html'" type="button">
+            <span class="label">PERSONAL</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='incidencias.html'" type="button">
+            <span class="label">INCIDENCIAS</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='combustible.html'" type="button">
+            <span class="label">COMBUSTIBLE</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='costos.html'" type="button">
+            <span class="label">COSTOS</span>
+        </button>
+    </nav>
+<!-- =========================================================
+     FILTROS + CLIMA
+========================================================== -->
+
+<section class="filtros-dashboard">
+
+    <!-- PERÍODO DE CONSULTA -->
+    <div class="periodo-consulta-dashboard">
+
+        <div class="filtro-titulo">
+            📅 <strong>Período de consulta</strong>
+        </div>
+
+        <div class="filtro-opciones">
+
+            <button
+                class="filtro-activo"
+                id="filtroHoy"
+                type="button"
+            >
+                Hoy
+            </button>
+
+            <button
+                id="filtroSemana"
+                type="button"
+            >
+                Esta semana
+            </button>
+
+            <button
+                id="filtroMes"
+                type="button"
+            >
+                Este mes
+            </button>
+
+            <button
+                id="filtroTodo"
+                type="button"
+            >
+                Todo
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CLIMA OPERATIVO
+    ====================================================== -->
+
+    <div
+        id="climaOperativo"
+        class="clima-dashboard-inline"
+    >
+
+        <div class="clima-inline-titulo">
+            🌦️ <strong>Clima operativo</strong>
+        </div>
+
+        <select id="selectorEstacionClima">
+
+            <option value="Palenque, Chiapas, Mexico">
+                TM Palenque
+            </option>
+
+            <option value="Escarcega, Campeche, Mexico">
+                POC Escárcega
+            </option>
+
+            <option value="Pomuch, Campeche, Mexico">
+                POC Pomuch
+            </option>
+
+            <option value="Poxila, Yucatan, Mexico">
+                TDC Poxilá
+            </option>
+
+            <option value="Progreso, Yucatan, Mexico">
+                TM Progreso
+            </option>
+
+            <option value="Valladolid, Yucatan, Mexico">
+                POC Valladolid
+            </option>
+
+            <option value="Cancun, Quintana Roo, Mexico">
+                TM Cancún
+            </option>
+
+            <option value="Chetumal, Quintana Roo, Mexico">
+                TM Chetumal
+            </option>
+
+            <option value="Xpujil, Campeche, Mexico">
+                POC Xpujil
+            </option>
+
+        </select>
+
+
+        <div id="climaContenido">
+
+            <div class="clima-cargando">
+                🌐 Consultando clima...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- =========================================================
+         CALENDARIO + PRÓXIMAS SALIDAS
+    ========================================================== -->
+
+    <main class="dashboard-grid">
+
+
+        <!-- CALENDARIO -->
+
+        <section
+            id="seccionCalendario"
+            class="dashboard-card calendario-card"
+        >
+
+            <div class="card-header">
+
+                <h2>
+                     Calendario
+                </h2>
+ 
+
+            </div>
+
+
+            <div
+                id="calendario"
+                class="calendario-real"
+            >
+
+                <div class="calendario-controles">
+
+                    <button
+                        id="mesAnterior"
+                        type="button"
+                    >
+                        ◀
+                    </button>
+
+
+                    <h3 id="mesAnio">
+                        --
+                    </h3>
+
+
+                    <button
+                        id="mesSiguiente"
+                        type="button"
+                    >
+                        ▶
+                    </button>
+
+                </div>
+
+
+                <div class="dias-semana">
+
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mié</div>
+                    <div>Jue</div>
+                    <div>Vie</div>
+                    <div>Sáb</div>
+                    <div>Dom</div>
+
+                </div>
+
+
+                <div
+                    id="diasCalendario"
+                    class="dias-calendario"
+                ></div>
+
+
+                <div
+                    id="detalleDia"
+                    class="detalle-dia"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRÓXIMAS SALIDAS -->
+
+    <section class="dashboard-card">
+
+        <div class="card-header">
+            <h2>Próximas salidas</h2>
+
+        <div style="display: flex; gap: 10px;">
+            <button onclick="exportarTablaAExcel('idDeLaTabla', 'proximas_salidas.xlsx')" type="button">📥 Exportar a Excel</button>
+            <button id="btnVerTodas" type="button"> Ver todas </button>
+        </div>
+    </div>
+
+            <div id="proximasSalidas">
+
+                <p class="sin-datos">
+                    Cargando Operaciones...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         ESTADÍSTICAS OPERATIVAS
+    ========================================================== -->
+
+    <section class="zona-estadisticas">
+
+
+        <!-- RECEPCIONES -->
+
+        <section
+            id="seccionRecepciones"
+            class="dashboard-card"
+        >
+
+            <h2>
+                 Recepciones
+            </h2>
+
+
+            <div class="indicadores">
+
+                <div class="indicador">
+
+                    <span class="indicador-icono">
+                        🚆
+                    </span>
+
+                    <div>
+
+                        <span class="indicador-titulo">
+                            Trenes recibidos
+                        </span>
+
+                        <strong id="totalRecepciones">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="indicador">
+
+                    <span class="indicador-icono">
+                        ⛽
+                    </span>
+
+                    <div>
+
+                        <span class="indicador-titulo">
+                            Combustible recibido
+                        </span>
+
+                        <strong id="combustibleRecepcion">
+                            0 L
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INCIDENCIAS -->
+
+        <section
+            id="seccionIncidencias"
+            class="dashboard-card"
+        >
+
+            <div class="card-header">
+
+                <h2>
+                    ⚠️ Incidencias
+                </h2>
+
+                <button
+                    type="button"
+                    onclick="window.location.href='incidencias.html'"
+                >
+                    Ver incidencias
+                </button>
+
+            </div>
+
+
+            <div class="estadisticas">
+
+                <div>
+
+                    <span>
+                        Incidencias registradas
+                    </span>
+
+                    <strong id="totalIncidencias">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Minutos de demora
+                    </span>
+
+                    <strong id="totalDemoras">
+                        0 min
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMBUSTIBLE -->
+
+        <section
+            id="seccionCombustible"
+            class="dashboard-card"
+        >
+
+            <div class="card-header">
+
+                <h2>
+                    ⛽ Combustible
+                </h2>
+
+            </div>
+
+
+            <div class="estadisticas">
+
+                <div>
+
+                    <span>
+                        Litros utilizados
+                    </span>
+
+                    <strong id="totalLitros">
+                        0 L
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Costo
+                    </span>
+
+                    <strong id="costoCombustible">
+                        $0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COSTOS DE DEMORA -->
+
+        <section
+            id="seccionCostos"
+            class="dashboard-card costos-card"
+        >
+
+            <div class="card-header">
+
+                <h2>
+                    💰 Costos de demora
+                </h2>
+
+            </div>
+
+
+            <div class="estadisticas">
+
+                <div>
+
+                    <span>
+                        Minutos acumulados
+                    </span>
+
+                    <strong id="minutosCosto">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Costo acumulado
+                    </span>
+
+                    <strong id="costoDemora">
+                        $0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </section>
+
+
+    <!-- =========================================================
+         COSTO TOTAL
+    ========================================================== -->
+
+    <section
+        id="seccionCostoTotal"
+        class="dashboard-card"
+    >
+
+        <div class="card-header">
+
+            <h2>
+                💵 Costo total
+            </h2>
+
+        </div>
+
+
+        <div class="estadisticas">
+
+            <div>
+
+                <span>
+                    Combustible
+                </span>
+
+                <strong id="costoTotalCombustible">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Demoras
+                </span>
+
+                <strong id="costoTotalDemoras">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="costoTotalGeneral">
+                    $0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         GRÁFICAS
+    ========================================================== -->
+
+    <div class="graficas-dashboard">
+
+
+        <section class="panel">
+
+            <h2>
+                📊 Operaciones por estatus
+            </h2>
+
+
+            <div class="grafica-contenedor">
+
+                <canvas id="graficaEstatus"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <h2>
+                💰 Costos del sistema
+            </h2>
+
+
+            <div class="grafica-contenedor">
+
+                <canvas id="graficaCostos"></canvas>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="temayin.js"></script>
+<script src="dashboard.js"></script>
+
+<!-- =========================================================
+     CHART.JS
+========================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+
+
+/* =========================================================
+   GRÁFICA DE OPERACIONES POR ESTATUS
+   La gráfica pertenece a dashboard.html
+========================================================= */
+
+(function () {
+
+    let graficaEstatusInstancia = null;
+
+    async function cargarGraficaEstatus() {
+
+        const canvas =
+            document.getElementById("graficaEstatus");
+
+        if (!canvas) {
+            console.error(
+                "No se encontró el canvas #graficaEstatus"
+            );
+            return;
+        }
+
+        if (typeof Chart === "undefined") {
+            console.error(
+                "Chart.js no está cargado."
+            );
+            return;
+        }
+
+        if (typeof supabaseClient === "undefined") {
+            console.error(
+                "No se encontró supabaseClient."
+            );
+            return;
+        }
+
+        try {
+
+            /* =================================================
+               CONSULTAR OPERACIONES
+            ================================================= */
+
+            const { data, error } =
+                await supabaseClient
+                    .from("Programaciones")
+                    .select("estatus");
+
+
+            if (error) {
+
+                console.error(
+                    "Error consultando estatus:",
+                    error
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+               CONTADORES
+            ================================================= */
+
+            const conteo = {
+
+                "Programado": 0,
+
+                "En curso": 0,
+
+                "Finalizado": 0,
+
+                "Cancelado": 0
+
+            };
+
+
+            (data || []).forEach(
+                registro => {
+
+                    const estatus =
+                        String(
+                            registro.estatus || ""
+                        ).trim();
+
+
+                    if (
+                        Object.prototype.hasOwnProperty.call(
+                            conteo,
+                            estatus
+                        )
+                    ) {
+
+                        conteo[estatus]++;
+
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               ELIMINAR GRÁFICA ANTERIOR
+            ================================================= */
+
+            const graficaExistente =
+                Chart.getChart(canvas);
+
+
+            if (graficaExistente) {
+
+                graficaExistente.destroy();
+
+            }
+
+
+            if (graficaEstatusInstancia) {
+
+                graficaEstatusInstancia.destroy();
+
+                graficaEstatusInstancia = null;
+
+            }
+
+
+            /* =================================================
+               CREAR GRÁFICA
+            ================================================= */
+
+            graficaEstatusInstancia =
+                new Chart(
+                    canvas.getContext("2d"),
+                    {
+
+                        type: "doughnut",
+
+                        data: {
+
+                            labels: [
+
+                                "Programado",
+
+                                "En curso",
+
+                                "Finalizado",
+
+                                "Cancelado"
+
+                            ],
+
+                            datasets: [
+
+                                {
+
+                                    data: [
+
+                                        conteo.Programado,
+
+                                        conteo["En curso"],
+
+                                        conteo.Finalizado,
+
+                                        conteo.Cancelado
+
+                                    ],
+
+                                    backgroundColor: [
+
+                                        "#2563eb",
+
+                                        "#f59e0b",
+
+                                        "#16a34a",
+
+                                        "#dc2626"
+
+                                    ],
+
+                                    borderColor:
+                                        "#ffffff",
+
+                                    borderWidth: 2
+
+                                }
+
+                            ]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            maintainAspectRatio: false,
+
+                            plugins: {
+
+                                legend: {
+
+                                    position: "bottom"
+
+                                },
+
+                                tooltip: {
+
+                                    callbacks: {
+
+                                        label:
+                                            function (context) {
+
+                                                const valores =
+                                                    context.dataset.data;
+
+
+                                                const total =
+                                                    valores.reduce(
+                                                        (
+                                                            acumulado,
+                                                            valor
+                                                        ) =>
+                                                            acumulado +
+                                                            Number(valor),
+                                                        0
+                                                    );
+
+
+                                                const valor =
+                                                    Number(
+                                                        context.raw
+                                                    );
+
+
+                                                const porcentaje =
+                                                    total > 0
+                                                        ? (
+                                                            valor /
+                                                            total *
+                                                            100
+                                                        ).toFixed(1)
+                                                        : "0.0";
+
+
+                                                return (
+                                                    context.label +
+                                                    ": " +
+                                                    valor +
+                                                    " (" +
+                                                    porcentaje +
+                                                    "%)"
+                                                );
+
+                                            }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                );
+
+
+            console.log(
+                "Gráfica de estatus cargada correctamente."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error creando gráfica de estatus:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       CARGAR CUANDO TODO ESTÉ LISTO
+    ========================================================= */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            setTimeout(
+                cargarGraficaEstatus,
+                500
+            );
+
+        }
+    );
+
+
+})();
+
+</script>
+
+
+<script>
+
+/* ============================================================
+   CLIMA OPERATIVO
+   Open-Meteo
+============================================================ */
+
+const selectorEstacionClima =
+    document.getElementById(
+        "selectorEstacionClima"
+    );
+
+
+const climaContenido =
+    document.getElementById(
+        "climaContenido"
+    );
+
+
+function descripcionClima(codigo) {
+
+    const estados = {
+
+        0:  ["☀️", "Despejado"],
+
+        1:  ["🌤️", "Principalmente despejado"],
+
+        2:  ["⛅", "Parcialmente nublado"],
+
+        3:  ["☁️", "Nublado"],
+
+        45: ["🌫️", "Niebla"],
+
+        48: ["🌫️", "Niebla"],
+
+        51: ["🌦️", "Lluvia ligera"],
+
+        53: ["🌦️", "Lluvia moderada"],
+
+        55: ["🌧️", "Lluvia intensa"],
+
+        56: ["🌧️", "Lluvia helada ligera"],
+
+        57: ["🌧️", "Lluvia helada intensa"],
+
+        61: ["🌧️", "Lluvia ligera"],
+
+        63: ["🌧️", "Lluvia moderada"],
+
+        65: ["🌧️", "Lluvia intensa"],
+
+        66: ["🌧️", "Lluvia helada ligera"],
+
+        67: ["🌧️", "Lluvia helada intensa"],
+
+        71: ["❄️", "Nieve ligera"],
+
+        73: ["❄️", "Nieve moderada"],
+
+        75: ["❄️", "Nieve intensa"],
+
+        80: ["🌦️", "Chubascos ligeros"],
+
+        81: ["🌧️", "Chubascos moderados"],
+
+        82: ["⛈️", "Chubascos intensos"],
+
+        95: ["⛈️", "Tormenta eléctrica"],
+
+        96: ["⛈️", "Tormenta con granizo"],
+
+        99: ["⛈️", "Tormenta intensa"]
+
+    };
+
+
+    return (
+        estados[codigo] ||
+        ["🌡️", "Condición desconocida"]
+    );
+
+}
+
+
+async function cargarClima() {
+
+    if (
+        !selectorEstacionClima ||
+        !climaContenido
+    ) {
+        return;
+    }
+
+
+    const lugar =
+        selectorEstacionClima.value;
+
+
+    if (!lugar) {
+        return;
+    }
+
+
+    climaContenido.innerHTML = `
+        <div class="clima-cargando">
+            🌐 Consultando clima de ${lugar}...
+        </div>
+    `;
+
+
+    try {
+
+        /* =====================================================
+           OBTENER UBICACIÓN
+        ===================================================== */
+
+        const respuestaGeo =
+            await fetch(
+                "https://geocoding-api.open-meteo.com/v1/search"
+                + "?name="
+                + encodeURIComponent(lugar)
+                + "&count=1"
+                + "&language=es"
+                + "&format=json"
+            );
+
+
+        if (!respuestaGeo.ok) {
+
+            throw new Error(
+                "No se pudo consultar la ubicación."
+            );
+
+        }
+
+
+        const geo =
+            await respuestaGeo.json();
+
+
+        if (
+            !geo.results ||
+            geo.results.length === 0
+        ) {
+
+            throw new Error(
+                "No se encontró la estación seleccionada."
+            );
+
+        }
+
+
+        const ubicacion =
+            geo.results[0];
+
+
+        /* =====================================================
+           CONSULTAR CLIMA
+        ===================================================== */
+
+        const urlClima =
+            "https://api.open-meteo.com/v1/forecast"
+            + "?latitude="
+            + ubicacion.latitude
+            + "&longitude="
+            + ubicacion.longitude
+            + "&current="
+            + "temperature_2m,"
+            + "relative_humidity_2m,"
+            + "apparent_temperature,"
+            + "weather_code,"
+            + "wind_speed_10m"
+            + "&timezone=auto";
+
+
+        const respuestaClima =
+            await fetch(urlClima);
+
+
+        if (!respuestaClima.ok) {
+
+            throw new Error(
+                "No se pudo obtener el clima."
+            );
+
+        }
+
+
+        const clima =
+            await respuestaClima.json();
+
+
+        /* =====================================================
+           DATOS
+        ===================================================== */
+
+        const actual =
+            clima.current;
+
+
+        const [icono, condicion] =
+            descripcionClima(
+                actual.weather_code
+            );
+
+
+        /* =====================================================
+           MOSTRAR CLIMA
+        ===================================================== */
+
+        climaContenido.innerHTML = `
+
+            <div class="clima-principal">
+
+                <div class="clima-icono">
+                    ${icono}
+                </div>
+
+
+                <div>
+
+                    <div class="clima-temperatura">
+                        ${Math.round(
+                            actual.temperature_2m
+                        )} °C
+                    </div>
+
+
+                    <div class="clima-condicion">
+                        ${condicion}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="clima-datos">
+
+
+                <div class="clima-dato">
+
+                    <span>
+                        Sensación térmica
+                    </span>
+
+                    <strong>
+                        ${Math.round(
+                            actual.apparent_temperature
+                        )} °C
+                    </strong>
+
+                </div>
+
+
+                <div class="clima-dato">
+
+                    <span>
+                        Humedad
+                    </span>
+
+                    <strong>
+                        ${actual.relative_humidity_2m} %
+                    </strong>
+
+                </div>
+
+
+                <div class="clima-dato">
+
+                    <span>
+                        Viento
+                    </span>
+
+                    <strong>
+                        ${Math.round(
+                            actual.wind_speed_10m
+                        )} km/h
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="clima-estacion">
+
+                Estación consultada:
+
+                <strong>
+                    ${lugar}
+                </strong>
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando clima:",
+            error
+        );
+
+
+        climaContenido.innerHTML = `
+
+            <div class="clima-error">
+
+                ⚠️ No fue posible consultar el clima
+                de esta estación.
+
+            </div>
+        `;
+    }
+}
+
+/* ============================================================
+   CARGA INICIAL DEL CLIMA
+============================================================ */
+
+if (selectorEstacionClima) {
+
+    selectorEstacionClima.addEventListener(
+        "change",
+        cargarClima
+    );
+
+
+    cargarClima();
+
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="alertas-realtime.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const navBar = document.getElementById("ferroviaryNav");
+    if (!navBar) return;
+
+    const pill = navBar.querySelector(".nav-pill");
+    const buttons = navBar.querySelectorAll(".nav-btn");
+
+    // 1. Detectar la página actual de forma automática basándonos en la URL
+    const paginaActual = window.location.pathname.split("/").pop() || "dashboard.html";
+
+    // 2. Limpiar clases activas previas y asignar la correcta según la URL
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+        const onclickAttr = btn.getAttribute("onclick") || "";
+        if (onclickAttr.includes(paginaActual)) {
+            btn.classList.add("active");
+        }
+    });
+
+    // Fallback: si ninguno coincide por URL, mantener el primero o el que tenga .active por defecto
+    let botonActivo = navBar.querySelector(".nav-btn.active");
+    if (!botonActivo) {
+        botonActivo = buttons[0];
+        botonActivo.classList.add("active");
+    }
+
+    // 3. Función para mover y dimensionar la píldora con precisión
+    function actualizarPildora(boton) {
+        const navRect = navBar.getBoundingClientRect();
+        const btnRect = boton.getBoundingClientRect();
+        const leftPos = btnRect.left - navRect.left;
+        const widthBtn = btnRect.width;
+
+        pill.style.left = `${leftPos}px`;
+        pill.style.width = `${widthBtn}px`;
+    }
+
+    // Posicionar la píldora al cargar la página sin animación de vuelo inicial
+    pill.style.transition = "none";
+    actualizarPildora(botonActivo);
+    setTimeout(() => {
+        pill.style.transition = "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)";
+    }, 50);
+
+    // Reajustar si la ventana cambia de tamaño
+    window.addEventListener("resize", () => {
+        const activoActual = navBar.querySelector(".nav-btn.active");
+        if (activoActual) actualizarPildora(activoActual);
+    });
+});
+</script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

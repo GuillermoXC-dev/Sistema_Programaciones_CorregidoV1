@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<title>Sistema de Programaciones · MATERIAL RODANTE</title>   
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css">
+
+
+
+
+
+<link rel="stylesheet" href="tema-tren-maya-v4.css">
+<link rel="stylesheet" href="tema-tren-maya-v5.css">
+<link rel="stylesheet" href="tema-tren-maya-v6.css">
+<link rel="stylesheet" href="tema-tren-maya-v7.css">
+<style>
+    /* Estilos interactivos para la barra de navegación y pestañas */
+    .menu-dashboard button, .sub-menu-capsulas button, .pestanas button {
+        transition: all 0.2s ease-in-out !important;
+    }
+    .menu-dashboard button:hover, .sub-menu-capsulas button:hover, .pestanas button:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Estilos mejorados para hacer las imágenes de fondo más grandes e independientes */
+    .resumen-card {
+        position: relative !important;
+        background-size: 140% !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        min-height: 75px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .resumen-card::before {
+        display: none !important; 
+    }
+    
+    #card_locomotoras { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/Locomotora.png') !important; }
+    #card_gondolas { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/Gondola.png') !important; }
+    #card_furgones { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/Furgon.png') !important; }
+    #card_carro_tanque { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/carrotanque.png') !important; }
+    #card_tolvas { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/Tolva.png') !important; }
+    #card_plataformas { background-image: linear-gradient(0deg, rgba(0,35,47,.65), rgba(0,49,65,.2)), url('img/Plataforma.png') !important; }
+    
+    /* Estilos para el Calendario de Mantenimientos */
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 10px; }
+    .cal-header { text-align: center; font-weight: bold; color: var(--tm-verde-oscuro); font-size: 12px; padding: 4px; }
+    .cal-day { background: #fff; border: 1px solid var(--tm-borde); border-radius: 6px; min-height: 85px; padding: 6px; font-size: 11px; position: relative; overflow: hidden; }
+    .cal-day-num { font-weight: bold; color: #333; margin-bottom: 4px; display: block; }
+    .cal-evento { font-size: 9px; padding: 3px 6px; border-radius: 4px; margin-bottom: 2px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; }
+    .cal-evento:hover { transform: scale(1.02); filter: brightness(1.1); }
+    .evento-preventivo { background-color: #2563eb; }
+    .evento-predictivo { background-color: #f59e0b; }
+    .evento-correctivo { background-color: #dc2626; }
+
+    /* Estilo para la tarjeta flotante / hoja sobresaliente */
+    #tarjetaFlotanteDetalle {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        background: #ffffff;
+        border: 2px solid var(--tm-verde-oscuro);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        padding: 20px;
+        width: 420px;
+        max-width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        z-index: 9999;
+        display: none;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+    }
+    #tarjetaFlotanteDetalle.activo {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        display: block;
+    }
+    .tarjeta-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.4);
+        z-index: 9998;
+        display: none;
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-servicio-patio">
+
+<!-- TARJETA FLOTANTE TIPO HOJA SOBRESALIENTE -->
+<div class="tarjeta-overlay" id="overlayTarjeta" onclick="cerrarTarjetaFlotante()"></div>
+<div id="tarjetaFlotanteDetalle">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--tm-verde-oscuro); padding-bottom: 8px; margin-bottom: 12px;">
+        <h4 id="tarjetaTitulo" style="margin: 0; color: var(--tm-verde-oscuro);">Detalles del Mantenimiento</h4>
+        <button type="button" onclick="cerrarTarjetaFlotante()" style="background: transparent; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: #666;">✕</button>
+    </div>
+    <div id="tarjetaContenido" style="font-size: 13px; line-height: 1.5; color: #333;">
+        <!-- Contenido dinámico -->
+    </div>
+    <div style="margin-top: 15px; text-align: right;">
+        <button type="button" onclick="cerrarTarjetaFlotante()" style="background: var(--tm-verde-oscuro); color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold;">Cerrar</button>
+    </div>
+</div>
+
+
+
+    <!-- ENCABEZADO -->
+    <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">MATERIAL RODANTE</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+<!-- BARRA PRINCIPAL UNIFICADA INTERACTIVA -->
+    <nav class="menu-dashboard" id="menuPrincipal" style="background:#ffffff; border-radius:14px; padding:8px 16px; margin:16px auto; display:flex; flex-wrap:wrap; gap:8px; box-shadow:0 4px 14px rgba(0,0,0,0.06); border:1px solid #dfe7e4;">
+        <button onclick="window.location.href='dashboard.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Inicio</button>
+        <button onclick="window.location.href='index.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Operaciones</button>
+        <button class="menu-activo" type="button" style="border:none; background:#123c2a; color:#fff; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Material Rodante</button>
+        <button onclick="window.location.href='distribucion_personal.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Personal</button>
+        <button onclick="window.location.href='incidencias.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Incidencias</button>
+        <button onclick="window.location.href='combustible.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Combustible</button>
+        <button onclick="window.location.href='costos.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Costos</button>
+    </nav>
+
+    <!-- SUBMENÚ REDIRECCIONABLE -->
+    <div id="subMenuOperaciones" hidden aria-hidden="true" class="sub-menu-capsulas" style="display:flex; gap:8px; margin-bottom:20px;">
+        <button class="pestana" type="button" onclick="window.location.href='index.html'" style="border:1px solid #cbd5e1; background:#fff; padding:6px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Operaciones</button>
+        <button class="pestana" type="button" onclick="window.location.href='index.html'" style="border:1px solid #cbd5e1; background:#fff; padding:6px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Recepción</button>
+        <button class="pestana" type="button" onclick="window.location.href='index.html'" style="border:1px solid #cbd5e1; background:#fff; padding:6px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Servicio de patio</button>
+        <button class="pestana" type="button" onclick="window.location.href='index.html'" style="border:1px solid #cbd5e1; background:#fff; padding:6px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Salidas</button>
+    </div>
+
+    <!-- SECCIÓN MATERIAL RODANTE Y MANTENIMIENTOS -->
+    <section id="seccionLocomotoras">
+        
+        <div class="locomotoras-encabezado" style="margin-bottom: 15px;">
+            <div>
+                <h2> Material Rodante</h2>
+                <p>Gestión integral de equipo tractivo y de arrastre.</p>
+            </div>
+        </div>
+
+        <!-- CONTADORES DE DISPONIBILIDAD CON IDs INDEPENDIENTES -->
+        <div class="resumen-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px;">
+            <div id="card_locomotoras" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Locomotoras</span><strong id="contador_locomotoras" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+            <div id="card_gondolas" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Góndolas</span><strong id="contador_gondolas" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+            <div id="card_furgones" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Furgones</span><strong id="contador_furgones" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+            <div id="card_carro_tanque" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Carro Tanque</span><strong id="contador_carro_tanque" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+            <div id="card_tolvas" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Tolvas</span><strong id="contador_tolvas" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+            <div id="card_plataformas" class="resumen-card" style="padding: 12px; text-align: center;"><span style="font-size: 11px; color: #ffffff; font-weight: 700; text-transform: uppercase; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Plataformas</span><strong id="contador_plataformas" style="display: block; font-size: 20px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">0</strong></div>
+        </div>
+
+        <!-- SUB-PESTAÑAS DE NAVEGACIÓN -->
+        <div class="pestanas sub-menu-operaciones" style="margin-bottom: 20px; display: flex; gap: 10px;">
+            <button id="subTabCatalogo" class="pestana activa" onclick="cambiarSubPestanaRodante('catalogo')">📋 Catálogo Maestro</button>
+            <button id="subTabMantenimientos" class="pestana" onclick="cambiarSubPestanaRodante('mantenimientos')">🔧 Mantenimientos</button>
+        </div>
+
+        <!-- CONTENEDOR 1: CATÁLOGO MAESTRO -->
+        <div id="subSeccionCatalogo">
+            
+            <!-- LOCOMOTORAS -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Locomotoras</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Locomotora</summary>
+                    <div id="formCatalogo_locomotoras" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_locomotoras" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_locomotoras" placeholder="Ej. 001">
+                        <label>Tipo / Posición</label>
+                        <select id="equipo_tipo_locomotoras">
+                            <option value="Camino">Camino</option>
+                            <option value="Patio">Patio</option>
+                        </select>
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('Locomotoras', 'locomotoras')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_locomotoras').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_locomotoras"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Locomotora</th>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoLocomotoras">
+                            <tr><td colspan="4" style="text-align: center; padding: 15px;">Cargando locomotoras...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+            <!-- GÓNDOLAS -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Góndolas</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Góndola</summary>
+                    <div id="formCatalogo_gondolas" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_gondolas" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_gondolas" placeholder="Ej. G-001">
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('Gondola', 'gondolas')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_gondolas').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_gondolas"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoGondola">
+                            <tr><td colspan="3" style="text-align: center; padding: 15px;">Cargando góndolas...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+            <!-- FURGONES -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Furgones</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Furgón</summary>
+                    <div id="formCatalogo_furgones" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_furgones" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_furgones" placeholder="Ej. F-001">
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('Furgon', 'furgones')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_furgones').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_furgones"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoFurgon">
+                            <tr><td colspan="3" style="text-align: center; padding: 15px;">Cargando furgones...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+            <!-- CARRO TANQUE -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Carro Tanque</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Carro Tanque</summary>
+                    <div id="formCatalogo_carro_tanque" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_carro_tanque" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_carro_tanque" placeholder="Ej. 100101">
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('CarroTanque', 'carro_tanque')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_carro_tanque').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_carro_tanque"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoCarroTanque">
+                            <tr><td colspan="3" style="text-align: center; padding: 15px;">Cargando carros tanque...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+            <!-- TOLVAS -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Tolvas</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Tolva</summary>
+                    <div id="formCatalogo_tolvas" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_tolvas" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_tolvas" placeholder="Ej. T-001">
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('Tolva', 'tolvas')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_tolvas').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_tolvas"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoTolva">
+                            <tr><td colspan="3" style="text-align: center; padding: 15px;">Cargando tolvas...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+            <!-- PLATAFORMAS INTERMODALES -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>Plataformas Intermodales</h3>
+                <details style="margin: 10px 0; padding: 10px;">
+                    <summary style="cursor: pointer;">➕ Llenar / Registrar Plataforma</summary>
+                    <div id="formCatalogo_plataforma_intermodal" class="formulario" style="margin-top: 10px; border-top: 1px solid var(--tm-borde); padding-top: 10px;">
+                        <label>Inicial</label><input type="text" id="equipo_inicial_plataforma_intermodal" value="TMY">
+                        <label>Número</label><input type="text" id="equipo_numero_plataforma_intermodal" placeholder="Ej. 500101">
+                        <div class="botones" style="margin-top: 10px;">
+                            <button type="button" onclick="guardarEquipo('plataforma_intermodal', 'plataforma_intermodal')">💾 Guardar</button>
+                            <button type="button" onclick="document.getElementById('equipo_numero_plataforma_intermodal').value=''" style="background-color: #64736b;">Limpiar</button>
+                        </div>
+                        <div id="mensajeEquipo_plataforma_intermodal"></div>
+                    </div>
+                </details>
+                <div class="tabla-contenedor" style="margin-top: 15px;">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                        <thead>
+                            <tr>
+                                <th>Inicial</th>
+                                <th>Número</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCatalogoPlataforma_intermodal">
+                            <tr><td colspan="3" style="text-align: center; padding: 15px;">Cargando plataformas...</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- CONTENEDOR 2: MANTENIMIENTOS -->
+        <div id="subSeccionMantenimientos" style="display: none;">
+            
+            <!-- BOTÓN NUEVO REGISTRO ARRIBA A LA DERECHA -->
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                <button type="button" onclick="abrirFormularioMantenimiento()" class="btn-primary" style="padding: 10px 20px; font-weight: bold; cursor: pointer; background: var(--tm-verde-oscuro); color: #fff; border: none; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                    ➕ Registrar / Programar Mantenimiento
+                </button>
+            </div>
+
+            <!-- FORMULARIO DESPLEGABLE (OCULTO POR DEFECTO) -->
+            <section class="panel" id="seccionFormularioMant" style="margin-bottom: 20px; display: none;">
+                <details id="detailsFormularioMant" style="padding: 10px;">
+                    <summary style="cursor: pointer; font-size: 15px; font-weight: bold;">Formulario de Mantenimiento</summary>
+                    <div id="formulario_mantenimiento" class="formulario" style="margin-top: 15px; border-top: 1px solid var(--tm-borde); padding-top: 15px;">
+                        <label>Equipo (Material Rodante) *</label>
+                        <select id="mant_equipo_general"><option value="">Cargando equipos...</option></select>
+
+                        <label>Tipo de Mantenimiento *</label>
+                        <select id="mant_tipo">
+                            <option value="">Seleccionar...</option>
+                            <option value="Preventivo">Preventivo</option>
+                            <option value="Predictivo">Predictivo</option>
+                            <option value="Correctivo">Correctivo</option>
+                        </select>
+
+                        <label>Estatus *</label>
+                        <select id="mant_estatus">
+                            <option value="Programada">Programada</option>
+                            <option value="En curso">En curso</option>
+                            <option value="Finalizada">Finalizada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+
+                        <label>Fecha de inicio *</label><input type="date" id="mant_fecha_inicio">
+                        <label>Hora de inicio *</label><input type="time" id="mant_hora_inicio">
+                        <label>Fecha de término *</label><input type="date" id="mant_fecha_termino">
+                        <label>Hora de término *</label><input type="time" id="mant_hora_termino">
+
+                        <label>Responsable</label><input type="text" id="mant_responsable" placeholder="Pendiente de asignación">
+                        <label>Descripción general *</label><textarea id="mant_descripcion" placeholder="Describe los detalles..."></textarea>
+
+                        <label>¿Requiere refacción?</label>
+                        <select id="mant_requiere_refaccion"><option value="No">No</option><option value="Sí">Sí</option></select>
+
+                        <label>Nombre de la refacción / piezas</label><input type="text" id="mant_refaccion_desc" placeholder="Ej. Filtro de aire...">
+                        <label>Costo de la refacción</label><input type="number" id="mant_refaccion_costo" placeholder="0.00" step="0.01">
+
+                        <div class="botones" style="margin-top: 15px; grid-column: 1 / -1; display: flex; gap: 10px;">
+                            <button type="button" id="btnGuardarMantenimiento" class="btn-primary" style="padding:10px 20px; font-weight:bold; cursor:pointer;">💾 Guardar</button>
+                            <button type="button" id="btnLimpiarMantenimiento" style="background:#e0e8e4; color: var(--tm-texto); padding:10px 20px; border:1px solid var(--tm-borde); border-radius:5px; font-weight:bold; cursor:pointer;">Limpiar</button>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- INDICADORES Y GRÁFICA INTELIGENTE -->
+            <section class="panel" style="margin-bottom: 20px;">
+                <h3>📊 Resumen y Análisis de Mantenimientos (Haz clic en las barras para ver detalles)</h3>
+                
+                <div class="resumen-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
+                    <div class="resumen-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: #64736b; font-weight: 700;">Programadas</span><strong id="mant_programados" style="display: block; font-size: 20px; color: #2563eb;">0</strong></div>
+                    <div class="resumen-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: #64736b; font-weight: 700;">En Curso</span><strong id="mant_curso" style="display: block; font-size: 20px; color: #f59e0b;">0</strong></div>
+                    <div class="resumen-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: #64736b; font-weight: 700;">Finalizadas</span><strong id="mant_finalizados" style="display: block; font-size: 20px; color: #16a34a;">0</strong></div>
+                    <div class="resumen-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: #64736b; font-weight: 700;">Canceladas</span><strong id="mant_cancelados" style="display: block; font-size: 20px; color: #dc2626;">0</strong></div>
+                </div>
+
+                <!-- Gráfica -->
+                <div style="position: relative; height: 250px; width: 100%;">
+                    <canvas id="graficaTiposMantenimiento"></canvas>
+                </div>
+            </section>
+
+            <!-- CALENDARIO INTERACTIVO DE MANTENIMIENTOS -->
+            <section class="panel" style="margin-bottom: 20px; padding: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 id="tituloMesCalendario" style="margin: 0; border: none;">📅 Calendario de Mantenimientos</h3>
+                    <div style="display: flex; gap: 6px;">
+                        <button type="button" onclick="cambiarMesCalendario(-1)" style="padding: 4px 10px; cursor: pointer; border: 1px solid var(--tm-borde); background: #fff; border-radius: 4px;">◀ Mes Anterior</button>
+                        <button type="button" onclick="cambiarMesCalendario(1)" style="padding: 4px 10px; cursor: pointer; border: 1px solid var(--tm-borde); background: #fff; border-radius: 4px;">Mes Siguiente ▶</button>
+                    </div>
+                </div>
+                <div id="contenedorCalendarioMantenimientos"></div>
+            </section>
+
+            <!-- TABLA DE HISTORIAL -->
+            <section class="panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="margin: 0; border: none;">📋 Historial de Mantenimientos</h3>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <input type="text" id="buscadorMantenimientos" placeholder="🔍 Buscar equipo, pieza..." style="padding: 6px 10px; border: 1px solid var(--tm-borde); border-radius: 4px; width: 200px;">
+                    </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table id="tablaMantenimientos">
+                        <thead>
+                            <tr>
+                                <th>Equipo</th>
+                                <th>Tipo</th>
+                                <th>Inicio</th>
+                                <th>Término</th>
+                                <th>Responsable</th>
+                                <th>Estatus</th>
+                                <th>Refacción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyMantenimientos">
+                            <tr><td colspan="8" style="text-align: center; padding: 15px;">No hay registros de mantenimiento.</td></tr>
+                        </tbody>
+                    </table></div>
+                </div>
+            </section>
+
+        </div>
+
+    </section>
+
+</div>
+</div>
+
+<!-- SUPABASE Y LIBRERÍAS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="config.js"></script>
+<script src="temayin.js"></script>
+<script src="app.js"></script> 
+
+<!-- SCRIPT COMPLETO CON GRÁFICA Y CALENDARIO INTERACTIVOS -->
+<script>
+(function() {
+    function cerrarCargaServicioPatio() {
+        const loader = document.getElementById("pantallaCarga");
+        if (loader) {
+            loader.classList.add("oculta");
+            loader.style.setProperty("opacity", "0", "important");
+            loader.style.setProperty("pointer-events", "none", "important");
+            setTimeout(() => {
+                loader.style.setProperty("display", "none", "important");
+                loader.style.setProperty("visibility", "hidden", "important");
+            }, 500);
+        }
+    }
+    setTimeout(cerrarCargaServicioPatio, 2500);
+})();
+
+let idMantenimientoEditando = null;
+let chartInstancia = null;
+let fechaCalendarioActual = new Date();
+let listaGlobalMantenimientos = [];
+
+function abrirFormularioMantenimiento() {
+    const seccionForm = document.getElementById("seccionFormularioMant");
+    const details = document.getElementById("detailsFormularioMant");
+    if (seccionForm && details) {
+        seccionForm.style.display = 'block';
+        details.open = true;
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
+}
+
+function mostrarDetalleMantenimiento(eventoJson) {
+    const tarjeta = document.getElementById("tarjetaFlotanteDetalle");
+    const overlay = document.getElementById("overlayTarjeta");
+    const contenido = document.getElementById("tarjetaContenido");
+    const titulo = document.getElementById("tarjetaTitulo");
+
+    if (!tarjeta || !overlay || !contenido) return;
+
+    titulo.textContent = `🔧 ${eventoJson.tipo_mantenimiento || 'Mantenimiento'}`;
+    
+    contenido.innerHTML = `
+        <p><strong>Locomotora / Equipo:</strong> ${eventoJson.locomotora || 'N/D'}</p>
+        <p><strong>Tipo:</strong> ${eventoJson.tipo_mantenimiento || 'N/D'}</p>
+        <p><strong>Estatus:</strong> <span style="color: #2563eb; font-weight: bold;">${eventoJson.estatus || 'Programada'}</span></p>
+        <p><strong>Periodo:</strong> Del ${eventoJson.fecha_inicio || '--'} al ${eventoJson.fecha_fin || '--'}</p>
+        <p><strong>Horario:</strong> ${eventoJson.hora_inicio || '--'} a ${eventoJson.hora_fin || '--'}</p>
+        <p><strong>Responsable:</strong> ${eventoJson.responsable || 'Pendiente'}</p>
+        <p><strong>Descripción:</strong> ${eventoJson.descripcion || 'Sin descripción'}</p>
+        <p><strong>Refacciones:</strong> ${eventoJson.refacciones || 'Ninguna'}</p>
+    `;
+
+    overlay.style.display = 'block';
+    tarjeta.classList.add('activo');
+}
+
+function mostrarDetalleGraficaPorTipo(tipoSeleccionado) {
+    const tarjeta = document.getElementById("tarjetaFlotanteDetalle");
+    const overlay = document.getElementById("overlayTarjeta");
+    const contenido = document.getElementById("tarjetaContenido");
+    const titulo = document.getElementById("tarjetaTitulo");
+
+    if (!tarjeta || !overlay || !contenido) return;
+
+    const filtrados = listaGlobalMantenimientos.filter(m => (m.tipo_mantenimiento || "").toLowerCase().includes(tipoSeleccionado.toLowerCase()));
+
+    titulo.textContent = `📊 Mantenimientos: ${tipoSeleccionado} (${filtrados.length})`;
+
+    if (filtrados.length === 0) {
+        contenido.innerHTML = `<p style="text-align: center; color: #666; padding: 15px;">No hay registros de mantenimiento para este tipo.</p>`;
+    } else {
+        let htmlList = `<div style="display: flex; flex-direction: column; gap: 10px;">`;
+        filtrados.forEach(item => {
+            htmlList += `
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 6px;">
+                    <p style="margin: 0 0 4px 0;"><strong>🚂 Equipo:</strong> ${item.locomotora || 'N/D'}</p>
+                    <p style="margin: 0 0 4px 0;"><strong>📌 Estatus:</strong> ${item.estatus || 'Programada'}</p>
+                    <p style="margin: 0 0 4px 0;"><strong>📅 Fecha:</strong> ${item.fecha_inicio || '--'} al ${item.fecha_fin || '--'}</p>
+                    <p style="margin: 0;"><strong>👤 Responsable:</strong> ${item.responsable || 'Pendiente'}</p>
+                </div>
+            `;
+        });
+        htmlList += `</div>`;
+        contenido.innerHTML = htmlList;
+    }
+
+    overlay.style.display = 'block';
+    tarjeta.classList.add('activo');
+}
+
+function cerrarTarjetaFlotante() {
+    const tarjeta = document.getElementById("tarjetaFlotanteDetalle");
+    const overlay = document.getElementById("overlayTarjeta");
+    if (tarjeta) tarjeta.classList.remove('activo');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function cambiarSubPestanaRodante(subpestana) {
+    const seccionCatalogo = document.getElementById("subSeccionCatalogo");
+    const seccionMantenimientos = document.getElementById("subSeccionMantenimientos");
+    const btnCatalogo = document.getElementById("subTabCatalogo");
+    const btnMantenimientos = document.getElementById("subTabMantenimientos");
+
+    if (subpestana === 'catalogo') {
+        if (seccionCatalogo) seccionCatalogo.style.display = 'block';
+        if (seccionMantenimientos) seccionMantenimientos.style.display = 'none';
+        if (btnCatalogo) btnCatalogo.classList.add('activa');
+        if (btnMantenimientos) btnMantenimientos.classList.remove('activa');
+    } else if (subpestana === 'mantenimientos') {
+        if (seccionCatalogo) seccionCatalogo.style.display = 'none';
+        if (seccionMantenimientos) seccionMantenimientos.style.display = 'block';
+        if (btnCatalogo) btnCatalogo.classList.remove('activa');
+        if (btnMantenimientos) btnMantenimientos.classList.add('activa');
+    }
+}
+
+async function cargarEquiposMantenimiento() {
+    const selectEquipo = document.getElementById("mant_equipo_general");
+    if (!selectEquipo) return;
+
+    selectEquipo.innerHTML = '<option value="">Cargando equipos...</option>';
+
+    try {
+        if (!window.supabaseClient) {
+            selectEquipo.innerHTML = '<option value="">Error: Supabase no conectado</option>';
+            return;
+        }
+
+        let listaOpciones = '<option value="">Seleccionar equipo...</option>';
+        const tablasReales = ['Locomotoras', 'Gondola', 'Furgon', 'CarroTanque', 'Tolva', 'plataforma_intermodal'];
+        
+        for (const tabla of tablasReales) {
+            const { data, error } = await window.supabaseClient.from(tabla).select('*');
+            if (!error && data && data.length > 0) {
+                data.forEach(item => {
+                    const inicial = item.inicial || item.equipo_inicial || item.tipo || 'TMY';
+                    const numero = item.numero || item.equipo_numero || item.no_serie || item.id;
+                    const nombreEquipo = `${tabla.toUpperCase()} - ${inicial} ${numero}`;
+                    listaOpciones += `<option value="${nombreEquipo}">${nombreEquipo}</option>`;
+                });
+            }
+        }
+
+        selectEquipo.innerHTML = listaOpciones;
+    } catch (err) {
+        console.error("Error al cargar equipos:", err);
+        selectEquipo.innerHTML = '<option value="">Error al cargar equipos</option>';
+    }
+}
+
+async function cargarCatalogoTabla(nombreTabla, idTbody, tipoEquipo) {
+    const tbody = document.getElementById(idTbody);
+    if (!tbody) return;
+
+    try {
+        if (!window.supabaseClient) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: orange;">Esperando conexión con Supabase...</td></tr>`;
+            return;
+        }
+
+        const { data, error } = await window.supabaseClient.from(nombreTabla).select('*').order('id', { ascending: true });
+        
+        if (error) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Error al cargar: ${error.message}</td></tr>`;
+            return;
+        }
+
+        const contadorEl = document.getElementById(`contador_${tipoEquipo}`);
+        if (!data || data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No hay registros.</td></tr>`;
+            if (contadorEl) contadorEl.textContent = "0";
+            return;
+        }
+
+        if (contadorEl) contadorEl.textContent = data.length;
+        let html = "";
+        data.forEach(item => {
+            const inicial = item.inicial || 'TMY';
+            const numero = item.numero || item.no_serie || '';
+            const tipoPos = item.locomotora || '';
+
+            if (tipoEquipo === 'locomotoras') {
+                html += `<tr><td>${tipoPos}</td><td>${inicial}</td><td>${numero}</td><td><button type="button" onclick="eliminarRegistro('${nombreTabla}', ${item.id})" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">🗑️</button></td></tr>`;
+            } else {
+                html += `<tr><td>${inicial}</td><td>${numero}</td><td><button type="button" onclick="eliminarRegistro('${nombreTabla}', ${item.id})" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">🗑️</button></td></tr>`;
+            }
+        });
+        tbody.innerHTML = html;
+    } catch (err) {
+        console.error(`Error en la tabla ${nombreTabla}:`, err);
+    }
+}
+
+async function guardarEquipo(nombreTabla, sufijoId) {
+    const inicial = document.getElementById(`equipo_inicial_${sufijoId}`)?.value.trim();
+    const numero = document.getElementById(`equipo_numero_${sufijoId}`)?.value.trim();
+    const tipoLocomotora = document.getElementById(`equipo_tipo_${sufijoId}`)?.value || null;
+
+    if (!inicial || !numero) {
+        alert("Por favor completa los campos de inicial y número.");
+        return;
+    }
+
+    try {
+        let objetoGuardar = { inicial, numero };
+        if (sufijoId === 'locomotoras') {
+            objetoGuardar.locomotora = tipoLocomotora;
+        }
+
+        const { error } = await window.supabaseClient.from(nombreTabla).insert([objetoGuardar]);
+        
+        if (error) {
+            alert("Error al guardar: " + error.message);
+        } else {
+            alert("¡Registro guardado con éxito!");
+            const inputNum = document.getElementById(`equipo_numero_${sufijoId}`);
+            if (inputNum) inputNum.value = '';
+            cargarTodosCatalogosRodantes();
+        }
+    } catch (err) {
+        console.error("Error al insertar:", err);
+        alert("Ocurrió un error al guardar el registro.");
+    }
+}
+
+async function eliminarRegistro(nombreTabla, id) {
+    if (!confirm("¿Estás seguro de eliminar este registro?")) return;
+    try {
+        const { error } = await window.supabaseClient.from(nombreTabla).delete().eq('id', id);
+        if (error) {
+            alert("Error al eliminar: " + error.message);
+        } else {
+            cargarTodosCatalogosRodantes();
+        }
+    } catch (err) {
+        console.error("Error al eliminar:", err);
+    }
+}
+
+function cargarTodosCatalogosRodantes() {
+    cargarCatalogoTabla('Locomotoras', 'tablaCatalogoLocomotoras', 'locomotoras');
+    cargarCatalogoTabla('Gondola', 'tablaCatalogoGondola', 'gondolas');
+    cargarCatalogoTabla('Furgon', 'tablaCatalogoFurgon', 'furgones');
+    cargarCatalogoTabla('CarroTanque', 'tablaCatalogoCarroTanque', 'carro_tanque');
+    cargarCatalogoTabla('Tolva', 'tablaCatalogoTolva', 'tolvas');
+    cargarCatalogoTabla('plataforma_intermodal', 'tablaCatalogoPlataforma_intermodal', 'plataformas');
+}
+
+async function cargarHistorialMantenimientos() {
+    const tbody = document.getElementById("tbodyMantenimientos");
+    if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 15px;">Cargando historial...</td></tr>';
+
+    try {
+        if (!window.supabaseClient) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 15px;">Error: Supabase no conectado.</td></tr>';
+            return;
+        }
+
+        const { data, error } = await window.supabaseClient
+            .from("MantenimientosLocomotoras")
+            .select("*")
+            .order("id", { ascending: false });
+
+        if (error) {
+            console.error("Error al obtener historial:", error);
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 15px;">Error al cargar el historial.</td></tr>';
+            return;
+        }
+
+        listaGlobalMantenimientos = data || [];
+
+        if (listaGlobalMantenimientos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 15px;">No hay registros de mantenimiento.</td></tr>';
+            actualizarContadores([]);
+            actualizarGraficaMantenimientos([]);
+            renderizarCalendarioMantenimientos([]);
+            return;
+        }
+
+        actualizarContadores(listaGlobalMantenimientos);
+        actualizarGraficaMantenimientos(listaGlobalMantenimientos);
+        renderizarCalendarioMantenimientos(listaGlobalMantenimientos);
+
+        let filasHtml = "";
+        listaGlobalMantenimientos.forEach(item => {
+            filasHtml += `
+                <tr>
+                    <td>${item.locomotora || 'N/D'}</td>
+                    <td>${item.tipo_mantenimiento || 'N/D'}</td>
+                    <td>${item.fecha_inicio || '--'}</td>
+                    <td>${item.fecha_fin || '--'}</td>
+                    <td>${item.responsable || 'Pendiente'}</td>
+                    <td><strong>${item.estatus || 'Programada'}</strong></td>
+                    <td>${item.refacciones || 'Ninguna'}</td>
+                    <td>
+                        <button type="button" onclick='prepararEdicion(${JSON.stringify(item)})' style="background:#2563eb; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; margin-right:4px;" title="Editar">✏️</button>
+                        <button type="button" onclick="eliminarMantenimiento(${item.id})" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" title="Eliminar">🗑️</button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML = filasHtml;
+    } catch (err) {
+        console.error("Excepción al cargar historial:", err);
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 15px;">Error al conectar con la base de datos.</td></tr>';
+    }
+}
+
+function renderizarCalendarioMantenimientos(mantenimientos) {
+    const contenedor = document.getElementById("contenedorCalendarioMantenimientos");
+    const tituloMes = document.getElementById("tituloMesCalendario");
+    if (!contenedor) return;
+
+    const anio = fechaCalendarioActual.getFullYear();
+    const mes = fechaCalendarioActual.getMonth();
+
+    const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    if (tituloMes) tituloMes.textContent = `📅 Calendario de Mantenimientos - ${nombresMeses[mes]} ${anio}`;
+
+    const primerDiaIndex = new Date(anio, mes, 1).getDay();
+    const totalDiasMes = new Date(anio, mes + 1, 0).getDate();
+
+    let html = `<div class="cal-grid">`;
+    const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    diasSemana.forEach(d => { html += `<div class="cal-header">${d}</div>`; });
+
+    for (let i = 0; i < primerDiaIndex; i++) {
+        html += `<div class="cal-day" style="background: #f1f5f3; opacity: 0.5;"></div>`;
+    }
+
+    for (let dia = 1; dia <= totalDiasMes; dia++) {
+        const fechaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        
+        let eventosDelDia = mantenimientos.filter(m => {
+            const inicio = m.fecha_inicio;
+            const fin = m.fecha_fin || m.fecha_inicio;
+            return fechaStr >= inicio && fechaStr <= fin;
+        });
+
+        html += `<div class="cal-day">
+                    <span class="cal-day-num">${dia}</span>`;
+        
+        eventosDelDia.forEach(ev => {
+            const tipo = (ev.tipo_mantenimiento || "").toLowerCase();
+            let claseColor = "evento-preventivo";
+            if (tipo.includes("predictiv")) claseColor = "evento-predictivo";
+            if (tipo.includes("correctiv")) claseColor = "evento-correctivo";
+
+            const nombreCorto = (ev.locomotora || "Equipo").split("-").pop().trim();
+            html += `<div class="cal-evento ${claseColor}" onclick='mostrarDetalleMantenimiento(${JSON.stringify(ev)})' title="Hacer clic para ver detalles">[${nombreCorto}] ${ev.tipo_mantenimiento}</div>`;
+        });
+
+        html += `</div>`;
+    }
+
+    html += `</div>`;
+    contenedor.innerHTML = html;
+}
+
+function cambiarMesCalendario(delta) {
+    fechaCalendarioActual.setMonth(fechaCalendarioActual.getMonth() + delta);
+    renderizarCalendarioMantenimientos(listaGlobalMantenimientos);
+}
+
+function actualizarContadores(data) {
+    let programados = 0, enCurso = 0, finalizados = 0, cancelados = 0;
+
+    data.forEach(item => {
+        const est = (item.estatus || "").toLowerCase();
+        if (est.includes("programad")) programados++;
+        else if (est.includes("curso")) enCurso++;
+        else if (est.includes("finaliz")) finalizados++;
+        else if (est.includes("cancelad")) cancelados++;
+    });
+
+    if (document.getElementById("mant_programados")) document.getElementById("mant_programados").textContent = programados;
+    if (document.getElementById("mant_curso")) document.getElementById("mant_curso").textContent = enCurso;
+    if (document.getElementById("mant_finalizados")) document.getElementById("mant_finalizados").textContent = finalizados;
+    if (document.getElementById("mant_cancelados")) document.getElementById("mant_cancelados").textContent = cancelados;
+}
+
+function actualizarGraficaMantenimientos(data) {
+    const canvas = document.getElementById("graficaTiposMantenimiento");
+    if (!canvas) return;
+
+    let preventivo = 0, predictivo = 0, correctivo = 0;
+    if (data && data.length > 0) {
+        data.forEach(item => {
+            const tipo = (item.tipo_mantenimiento || "").toLowerCase();
+            if (tipo.includes("preventiv")) preventivo++;
+            else if (tipo.includes("predictiv")) predictivo++;
+            else if (tipo.includes("correctiv")) correctivo++;
+        });
+    }
+
+    if (chartInstancia) chartInstancia.destroy();
+
+    chartInstancia = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: ['Preventivo', 'Predictivo', 'Correctivo'],
+            datasets: [{
+                label: 'Cantidad de Mantenimientos',
+                data: [preventivo, predictivo, correctivo],
+                backgroundColor: ['#2563eb', '#f59e0b', '#dc2626'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            onClick: (evt, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const labels = ['Preventivo', 'Predictivo', 'Correctivo'];
+                    mostrarDetalleGraficaPorTipo(labels[index]);
+                }
+            },
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+        }
+    });
+}
+
+function prepararEdicion(item) {
+    idMantenimientoEditando = item.id;
+    abrirFormularioMantenimiento();
+
+    if (document.getElementById("mant_equipo_general")) document.getElementById("mant_equipo_general").value = item.locomotora || '';
+    if (document.getElementById("mant_tipo")) document.getElementById("mant_tipo").value = item.tipo_mantenimiento || '';
+    if (document.getElementById("mant_estatus")) document.getElementById("mant_estatus").value = item.estatus || 'Programada';
+    if (document.getElementById("mant_fecha_inicio")) document.getElementById("mant_fecha_inicio").value = item.fecha_inicio || '';
+    if (document.getElementById("mant_hora_inicio")) document.getElementById("mant_hora_inicio").value = item.hora_inicio || '';
+    if (document.getElementById("mant_fecha_termino")) document.getElementById("mant_fecha_termino").value = item.fecha_fin || '';
+    if (document.getElementById("mant_hora_termino")) document.getElementById("mant_hora_termino").value = item.hora_fin || '';
+    if (document.getElementById("mant_responsable")) document.getElementById("mant_responsable").value = item.responsable || '';
+    if (document.getElementById("mant_descripcion")) document.getElementById("mant_descripcion").value = item.descripcion || '';
+    if (document.getElementById("mant_refaccion_desc")) document.getElementById("mant_refaccion_desc").value = item.refacciones || '';
+}
+
+async function eliminarMantenimiento(id) {
+    if (!confirm("¿Estás seguro de eliminar este registro de mantenimiento?")) return;
+    
+    const { error } = await window.supabaseClient.from("MantenimientosLocomotoras").delete().eq("id", id);
+    if (error) alert("Error al eliminar: " + error.message);
+    else cargarHistorialMantenimientos();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnGuardar = document.getElementById("btnGuardarMantenimiento");
+    const btnLimpiar = document.getElementById("btnLimpiarMantenimiento");
+
+    if (btnGuardar) {
+        btnGuardar.addEventListener("click", async () => {
+            const equipo = document.getElementById("mant_equipo_general")?.value;
+            const tipo = document.getElementById("mant_tipo")?.value;
+            const estatus = document.getElementById("mant_estatus")?.value;
+            const fechaInicio = document.getElementById("mant_fecha_inicio")?.value;
+            const horaInicio = document.getElementById("mant_hora_inicio")?.value;
+            const fechaTermino = document.getElementById("mant_fecha_termino")?.value;
+            const horaTermino = document.getElementById("mant_hora_termino")?.value;
+            const responsable = document.getElementById("mant_responsable")?.value;
+            const descripcion = document.getElementById("mant_descripcion")?.value;
+            const refaccionDesc = document.getElementById("mant_refaccion_desc")?.value;
+
+            if (!equipo || !tipo || !estatus || !fechaInicio || !descripcion) {
+                alert("Por favor completa los campos obligatorios (*).");
+                return;
+            }
+
+            try {
+                if (!window.supabaseClient) {
+                    alert("Error: Supabase no está conectado.");
+                    return;
+                }
+
+                const datosMantenimiento = {
+                    locomotora: equipo,
+                    tipo_mantenimiento: tipo,
+                    estatus: estatus,
+                    fecha_inicio: fechaInicio,
+                    fecha_fin: fechaTermino || null,
+                    hora_inicio: horaInicio ? (horaInicio.length === 5 ? horaInicio + ":00" : horaInicio) : null,
+                    hora_fin: horaTermino ? (horaTermino.length === 5 ? horaTermino + ":00" : horaTermino) : null,
+                    responsable: responsable,
+                    descripcion: descripcion,
+                    refacciones: refaccionDesc || null
+                };
+
+                let resultado;
+                if (idMantenimientoEditando) {
+                    resultado = await window.supabaseClient.from("MantenimientosLocomotoras").update(datosMantenimiento).eq("id", idMantenimientoEditando);
+                } else {
+                    resultado = await window.supabaseClient.from("MantenimientosLocomotoras").insert([datosMantenimiento]);
+                }
+
+                if (resultado.error) {
+                    alert("Error al guardar: " + resultado.error.message);
+                } else {
+                    alert(idMantenimientoEditando ? "¡Mantenimiento actualizado correctamente!" : "¡Mantenimiento guardado correctamente!");
+                    document.getElementById("formulario_mantenimiento").querySelectorAll("input, textarea, select").forEach(el => el.value = "");
+                    idMantenimientoEditando = null;
+                    document.getElementById("seccionFormularioMant").style.display = 'none';
+                    cargarHistorialMantenimientos();
+                }
+            } catch (err) {
+                console.error("Excepción:", err);
+                alert("Ocurrió un error inesperado al guardar.");
+            }
+        });
+    }
+
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener("click", () => {
+            document.getElementById("formulario_mantenimiento").querySelectorAll("input:not([type='hidden']), select, textarea").forEach(el => {
+                if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+                else el.value = '';
+            });
+            idMantenimientoEditando = null;
+            alert("Formulario limpiado.");
+        });
+    }
+
+    // Inicialización general (Mantenimientos y Tablas de Catálogos)
+    setTimeout(() => {
+        cargarEquiposMantenimiento();
+        cargarHistorialMantenimientos();
+        cargarTodosCatalogosRodantes();
+    }, 1200);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="alertas-realtime.js"></script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

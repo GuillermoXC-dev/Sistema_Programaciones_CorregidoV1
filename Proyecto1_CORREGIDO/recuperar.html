@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acceso · Sistema de Operaciones</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px "Segoe UI",sans-serif;color:#173a42;background:#f6f6ef}main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(340px,1fr);min-height:100vh}
+header{display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,5vw,80px);background:linear-gradient(0deg,#003742 3%,#003742bb 45%,#00374266),url("img/fondo_carga_.png") center/cover;color:white;border-bottom:6px solid #c9a65c}
+.logos{display:flex;align-items:center;gap:20px;background:#fffefa;padding:10px 16px;border-radius:6px;width:fit-content}.logos img{max-width:130px;max-height:46px}h1{font-size:clamp(36px,5vw,78px);line-height:1.02;margin:16px 0}.marca{font-weight:700;color:#f3d590}section{align-self:center;width:min(100%,490px);margin:auto;padding:34px}h2{font-size:32px;margin:0 0 24px}label{display:grid;gap:7px;margin:16px 0;font-weight:600}input,button,select{font:inherit;padding:12px;border-radius:6px}input{width:100%;border:1px solid #96adb1}button{background:#075664;color:white;border:0;cursor:pointer;font-weight:650}button:disabled{opacity:.55}.tabs{display:flex;gap:6px;margin-bottom:24px}.tabs button{flex:1;background:#e5eeed;color:#21494d}.tabs button[aria-pressed=true]{background:#075664;color:white}form>button{width:100%}a{color:#075664}#mensaje{line-height:1.45}[hidden]{display:none!important}@media(max-width:740px){main{display:block}header{padding:22px}.logos img{max-height:30px}h1{font-size:34px}header p{margin:8px 0}section{padding:26px 20px}}
+</style></head><body><main><header><div class="logos"><img src="img/Defensa_Logo_(2024).png" alt="Defensa"><img src="img/LOGO_TREN_MAYA_.png" alt="Tren Maya"></div><div><p class="marca">Tren Maya · Servicio de carga</p><h1>Sistema de Operaciones</h1><p>Dirección de Control de Operaciones Ferroviarias de Carga</p></div></header>
+<section><h2 id="titulo">Recuperar contraseña</h2>
+<form id="solicitud"><label>Correo electrónico<input name="correo" type="email" autocomplete="email" required></label><button>Enviar enlace de recuperación</button></form>
+<form id="cambio" hidden><label>Nueva contraseña<input name="clave" type="password" autocomplete="new-password" required></label><label>Confirmar contraseña<input name="confirmar" type="password" autocomplete="new-password" required></label><button>Guardar contraseña</button></form>
+<p id="mensaje" role="status"></p><a href="acceso.html">Volver al acceso</a></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="recuperar.js"></script></body></html>
+

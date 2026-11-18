@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Sistema de Programaciones · COSTOS</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css">
+
+
+
+
+
+<link rel="stylesheet" href="tema-tren-maya-v4.css">
+<link rel="stylesheet" href="tema-tren-maya-v5.css">
+<link rel="stylesheet" href="tema-tren-maya-v6.css">
+<link rel="stylesheet" href="tema-tren-maya-v7.css">
+
+
+
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+
+<style>
+    #tablaCostos {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+    }
+
+    #tablaCostos thead th {
+        background: #07566a !important;
+        color: #ffffff !important;
+        padding: 12px;
+        text-align: left;
+        white-space: nowrap;
+        border-bottom: 3px solid #b8974d;
+    }
+
+    #tablaCostos tbody td {
+        padding: 12px;
+        color: #172b36 !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #d7e2e5;
+        vertical-align: top;
+    }
+
+    #tablaCostos tbody tr:nth-child(even) td {
+        background: #edf4f6 !important;
+    }
+
+    #tablaCostos tbody tr:hover td {
+        background: #dceef1 !important;
+    }
+
+    #tablaCostos td:nth-child(6),
+    #tablaCostos td:nth-child(7) {
+        min-width: 160px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+</style>
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-costos">
+
+
+    <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">COSTOS</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+   <nav class="menu-dashboard" style="background:#ffffff; border-radius:14px; padding:8px 16px; margin:16px auto; display:flex; flex-wrap:wrap; gap:8px; box-shadow:0 4px 14px rgba(0,0,0,0.06); border:1px solid #dfe7e4;">
+    <button onclick="window.location.href='dashboard.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Inicio</button>
+    <button onclick="window.location.href='index.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Operaciones</button>
+    <button onclick="window.location.href='servicio-patio.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Material Rodante</button>
+    <button onclick="window.location.href='distribucion_personal.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Personal</button>
+    <button onclick="window.location.href='incidencias.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Incidencias</button>
+    <button onclick="window.location.href='combustible.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Control de Combustible</button>
+    <button onclick="window.location.href='costos.html'" type="button" style="border:none; background:transparent; padding:8px 16px; border-radius:20px; font-weight:600; cursor:pointer;">Costos</button>
+</nav>
+
+    <main class="contenedor">
+
+        <!-- FORMULARIO -->
+
+        <section class="tarjeta">
+
+            <h2>💰 Registrar costo por demora</h2>
+
+            <div class="formulario">
+
+                <div class="campo">
+
+                    <label for="programacion_id">
+                        Programación
+                    </label>
+
+                    <select id="programacion_id">
+
+                        <option value="">
+                            Selecciona una programación
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="fecha">
+                        Fecha
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="minutos_demora">
+                        Minutos de demora
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minutos_demora"
+                        min="1"
+                        placeholder="Ingresa el tiempo que llevo la demora en minutos. "
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="costo_por_minuto">
+                        Costo por minuto
+                    </label>
+
+                    <input
+                        type="number"
+                        id="costo_por_minuto"
+                        min="0"
+                        step="0.01"
+                        placeholder="Ingresa la cantidad en MXN."
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="motivo">
+                        Motivo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="motivo"
+                        placeholder="Asunto de la demora (Ej. Falla mecánica)."
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="observaciones">
+                        Observaciones
+                    </label>
+
+                    <textarea
+                        id="observaciones"
+                        rows="3"
+                        placeholder="Especifique el motivo por el cual se demoro la operación."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="acciones-formulario">
+
+                <button
+                    id="btnGuardarCosto"
+                    class="btn-guardar"
+                >
+                    💾 GUARDAR
+                </button>
+
+                <button
+                    id="btnLimpiarCosto"
+                    class="btn-limpiar"
+                >
+                    🧹 LIMPIAR
+                </button>
+
+            </div>
+
+
+            <div
+                id="mensajeCosto"
+                class="mensaje"
+            ></div>
+
+        </section>
+
+
+     <!-- TABLA -->
+
+        <section class="tarjeta">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="margin: 0;">📋 Registro de costos por demora</h2>
+                <button onclick="exportarTablaAExcel('tablaCostos', 'costos_demora.xlsx')" class="btn btn-success btn-sm" style="padding: 6px 12px; background-color: #16a34a; color: white; border: none; border-radius: 6px; cursor: pointer;">📥 Exportar a Excel</button>
+            </div>
+
+            <div class="tabla-contenedor">
+
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table id="tablaCostos"> <!-- Asegúrate de que tu tabla tenga este ID -->
+
+                   <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Locomotora</th>
+        <th>Minutos</th>
+        <th>Costo/minuto</th>
+        <th>Total</th>
+        <th>Motivo</th>
+        <th>Observaciones</th>
+        <th>Acciones</th>
+    </tr>
+</thead>
+
+                    <tbody id="cuerpoTablaCostos">
+
+                    </tbody>
+
+                </table></div>
+
+            </div>
+
+
+            <p
+                id="mensajeTabla"
+                class="mensaje"
+            ></p>
+
+        </section>
+
+    </main>
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="permisos.js"></script>
+    <script src="temayin.js"></script>
+    <script src="costos.js"></script>
+  
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="alertas-realtime.js"></script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

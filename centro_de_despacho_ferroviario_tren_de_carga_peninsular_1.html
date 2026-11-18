@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTC Carga - Tren Maya Peninsular | Despacho y Telemetría</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1"></script>
+  <!-- Leaflet CSS & JS (cdnjs) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            tactical: {
+              bg: '#080d14',
+              panel: '#0b111a',
+              card: '#111a26',
+              border: '#1c2e42',
+              neon: '#00f2ff',
+              gold: '#fbbf24',
+              tmyTeal: '#18525e',
+              tmyRed: '#8b251e',
+              tmyBox: '#6e2a22'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Efecto de flujo neón continuo a lo largo de las vías */
+    @keyframes trackNeonFlow {
+      from { stroke-dashoffset: 60; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .animated-route-flow {
+      stroke-dasharray: 12 18;
+      animation: trackNeonFlow 1.1s linear infinite;
+      filter: drop-shadow(0 0 6px #00f2ff) drop-shadow(0 0 12px rgba(0, 242, 255, 0.75));
+    }
+
+    .neon-track-glow {
+      filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.7));
+    }
+
+    /* Baliza limpia para los 9 Patios Oficiales */
+    .yard-pin-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto !important;
+    }
+    .yard-pin-core {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fbbf24;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 8px rgba(251, 191, 36, 0.95), 0 2px 6px rgba(0,0,0,0.85);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .yard-pin-wrapper.is-active .yard-pin-core {
+      background: #00f2ff;
+      border-color: #ffffff;
+      transform: scale(1.35);
+      box-shadow: 0 0 14px rgba(0, 242, 255, 1), 0 0 24px rgba(0, 242, 255, 0.6);
+    }
+
+    /* Cartelas tácticas idénticas al modelo de despacho */
+    .leaflet-tooltip-yard {
+      background: #0b111a !important;
+      border: 1.5px solid #fbbf24 !important;
+      border-radius: 6px !important;
+      color: #fbbf24 !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      font-weight: 700 !important;
+      font-size: 11px !important;
+      letter-spacing: 0.03em !important;
+      padding: 3px 8px !important;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.85) !important;
+      transition: all 0.25s ease;
+    }
+    .leaflet-tooltip-yard.is-active-endpoint {
+      background: #091a2e !important;
+      border-color: #00f2ff !important;
+      color: #00f2ff !important;
+      box-shadow: 0 0 14px rgba(0, 242, 255, 0.7) !important;
+    }
+
+    /* Marcadores del convoy articulado */
+    .train-consist-car {
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .leaflet-container {
+      background: #080d14 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .leaflet-control-zoom {
+      border: 1px solid #1c2e42 !important;
+      border-radius: 8px !important;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7) !important;
+    }
+    .leaflet-control-zoom a {
+      background: #0b111a !important;
+      color: #00f2ff !important;
+      border-bottom: 1px solid #1c2e42 !important;
+    }
+    .leaflet-control-zoom a:hover {
+      background: #111a26 !important;
+      color: #ffffff !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: #0b111a !important;
+      color: #e2e8f0 !important;
+      border: 1px solid #00f2ff !important;
+      border-radius: 8px !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.85) !important;
+    }
+    .leaflet-popup-tip {
+      background: #0b111a !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b111a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1c2e42;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f2ff;
+    }
+  </style>
+</head>
+
+<body class="bg-tactical-bg text-slate-100 font-sans h-screen w-screen overflow-hidden flex flex-col select-none">
+
+  <!-- CABECERA DE CONTROL CTC -->
+  <header class="h-14 border-b border-tactical-border bg-tactical-panel flex items-center justify-between px-4 z-30 shrink-0">
+    <div class="flex items-center space-x-3">
+      <div class="h-9 w-9 rounded-lg bg-[#18525e]/60 border border-[#00f2ff]/60 flex items-center justify-center text-cyan-300 shadow-md">
+        <i class="ph-bold ph-train text-xl"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-xs sm:text-sm font-bold tracking-wider uppercase text-white font-mono">DESPACHO CTC • TREN MAYA DE CARGA</h1>
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-500/40">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse"></span> 9 PATIOS ACTIVOS
+          </span>
+        </div>
+        <p class="text-[10px] text-slate-400 font-mono hidden sm:block">Convoy TMY 1009 (Defensa) • Monitoreo Satelital en Tiempo Real</p>
+      </div>
+    </div>
+
+    <!-- Indicadores de cabecera -->
+    <div class="hidden lg:flex items-center space-x-6 text-xs font-mono">
+      <div class="flex items-center gap-2 border-r border-tactical-border pr-5">
+        <span class="text-slate-500">HORA CTC:</span>
+        <span id="clock-display" class="text-cyan-400 font-bold tracking-widest">--:--:--</span>
+      </div>
+      <div class="flex items-center gap-2 border-r border-tactical-border pr-5">
+        <span class="text-slate-500">TRACCIÓN LÍDER:</span>
+        <span class="text-amber-400 font-bold">TMY 1009</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-slate-500">VELOCIDAD EN VÍA:</span>
+        <span id="header-train-speed" class="text-emerald-400 font-bold">65 km/h</span>
+      </div>
+    </div>
+
+    <!-- Selectores y Acciones Rápidas -->
+    <div class="flex items-center space-x-2">
+      <!-- Selector de Capas Satelitales -->
+      <div class="flex items-center bg-tactical-card border border-tactical-border rounded-lg px-2.5 py-1 text-xs font-mono">
+        <i class="ph-fill ph-satellite text-cyan-400 mr-1.5"></i>
+        <select id="layer-selector" onchange="ctcApp.switchLayer(this.value)" class="bg-transparent text-cyan-300 font-bold outline-none cursor-pointer">
+          <option value="googleSat" class="bg-slate-900 text-slate-200">Google Satélite</option>
+          <option value="googleHyb" class="bg-slate-900 text-slate-200">Google Híbrido</option>
+          <option value="esriSat" class="bg-slate-900 text-slate-200">Esri Imagery</option>
+        </select>
+      </div>
+
+      <!-- Recentrar Península -->
+      <button onclick="ctcApp.resetView()" title="Vista General Peninsular" class="p-2 rounded-lg bg-tactical-card border border-tactical-border hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 text-xs font-mono transition">
+        <i class="ph-bold ph-arrows-out"></i>
+      </button>
+
+      <!-- Botón móvil para panel -->
+      <button id="toggle-panel-btn" class="sm:hidden px-2.5 py-1.5 rounded-lg bg-cyan-950/70 border border-cyan-500/50 text-cyan-300 text-xs font-mono">
+        <i class="ph-bold ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR CENTRAL: MAPA + PANEL -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- MAPA LEAFLET -->
+    <main id="leaflet-map" class="flex-1 h-full w-full z-10"></main>
+
+    <!-- FICHA FLOTANTE DE INFORMACIÓN SUPERIOR IZQUIERDA -->
+    <div class="absolute top-4 left-4 z-20 bg-tactical-panel/90 backdrop-blur-md border border-tactical-border px-4 py-3 rounded-xl text-xs font-mono shadow-2xl pointer-events-none max-w-sm hidden md:block">
+      <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-widest gap-3 mb-1">
+        <span class="flex items-center gap-1.5 text-cyan-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          CORRIDA EN CURSO
+        </span>
+        <span id="badge-train-type" class="px-1.5 py-0.5 rounded bg-[#18525e]/80 text-cyan-300 border border-cyan-500/40 font-bold">LOGÍSTICA</span>
+      </div>
+      <div id="float-route-name" class="text-sm font-bold text-white tracking-wide">TM Cancún ➔ TM Chetumal</div>
+      <div id="float-route-corridor" class="text-[11px] text-slate-400">Insumos Turísticos y Carga Refrigerada</div>
+      <div class="mt-2 pt-2 border-t border-tactical-border/70 flex items-center justify-between text-[10px]">
+        <span class="text-slate-400">Progreso en vía:</span>
+        <span id="float-progress-text" class="text-cyan-300 font-bold">0% (0 / 380 km)</span>
+      </div>
+    </div>
+
+    <!-- CONTROLES FLOTANTES DE SIMULACIÓN Y CONVOY -->
+    <div class="absolute bottom-5 left-4 z-20 bg-tactical-panel/95 backdrop-blur-md border border-tactical-border px-3.5 py-2.5 rounded-xl text-xs font-mono shadow-2xl flex items-center gap-3">
+      <button id="btn-play-pause" onclick="ctcApp.togglePlayPause()" class="px-3 py-1.5 rounded-lg bg-cyan-950 border border-cyan-400/60 text-cyan-300 font-bold hover:bg-cyan-900 transition flex items-center gap-1.5">
+        <i id="play-pause-icon" class="ph-bold ph-pause"></i>
+        <span id="play-pause-label">Pausar</span>
+      </button>
+
+      <div class="flex items-center gap-1 border-l border-tactical-border pl-3">
+        <span class="text-[10px] text-slate-400 uppercase">Velocidad:</span>
+        <button onclick="ctcApp.setSimulationSpeed(1)" id="spd-btn-1" class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400 font-bold text-[11px]">1x</button>
+        <button onclick="ctcApp.setSimulationSpeed(2.5)" id="spd-btn-2" class="px-2 py-0.5 rounded bg-tactical-card text-slate-300 hover:text-white border border-tactical-border font-bold text-[11px]">2.5x</button>
+        <button onclick="ctcApp.setSimulationSpeed(5)" id="spd-btn-3" class="px-2 py-0.5 rounded bg-tactical-card text-slate-300 hover:text-white border border-tactical-border font-bold text-[11px]">5x</button>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-2 border-l border-tactical-border pl-3 text-[11px]">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span class="text-slate-300">TMY 1009 + 5 Vagones Oficiales</span>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-2 border-l border-tactical-border pl-3 text-[11px]">
+        <i class="ph-bold ph-path text-cyan-400"></i>
+        <span id="geo-status" class="text-amber-300">Vía: aproximada</span>
+      </div>
+    </div>
+
+    <!-- PANEL LATERAL DE DESPACHO -->
+    <aside id="side-panel" class="w-full sm:w-96 bg-tactical-panel/95 backdrop-blur-lg border-l border-tactical-border flex flex-col z-20 transition-all duration-300 shrink-0 absolute sm:static inset-y-0 right-0 transform translate-x-full sm:translate-x-0 shadow-2xl">
+
+      <!-- Pestañas Superiores -->
+      <div class="flex border-b border-tactical-border bg-tactical-card text-xs font-mono">
+        <button id="tab-btn-schedules" onclick="ctcApp.switchTab('schedules')" class="flex-1 py-3 px-2 text-center border-b-2 border-cyan-400 text-cyan-300 font-bold bg-tactical-panel flex items-center justify-center gap-1.5">
+          <i class="ph-bold ph-calendar-check"></i>
+          <span>Programaciones</span>
+        </button>
+        <button id="tab-btn-custom" onclick="ctcApp.switchTab('custom')" class="flex-1 py-3 px-2 text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5">
+          <i class="ph-bold ph-navigation-arrow"></i>
+          <span>Ruta Libre</span>
+        </button>
+        <button id="tab-btn-yards" onclick="ctcApp.switchTab('yards')" class="flex-1 py-3 px-2 text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5">
+          <i class="ph-bold ph-warehouse"></i>
+          <span>9 Patios</span>
+        </button>
+        <button id="close-panel-btn" class="sm:hidden px-3 text-slate-400 hover:text-white">
+          <i class="ph-bold ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Contenedor con Scroll -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+
+        <!-- TAB 1: LISTA DE PROGRAMACIONES DE CARGA -->
+        <div id="tab-content-schedules" class="space-y-2.5">
+          <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider flex justify-between items-center mb-1">
+            <span>Corridas de Carga</span>
+            <span class="text-cyan-400 font-bold">CLICK PARA ACTIVAR</span>
+          </div>
+
+          <div id="schedules-list" class="space-y-2.5">
+            <!-- Inyectadas dinámicamente -->
+          </div>
+        </div>
+
+        <!-- TAB 2: SELECCIÓN DE RUTA LIBRE ENTRE LOS 9 PATIOS -->
+        <div id="tab-content-custom" class="hidden space-y-3.5">
+          <div class="bg-tactical-card border border-tactical-border rounded-xl p-3.5 space-y-3 text-xs font-mono">
+            <div class="text-[11px] text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <i class="ph-bold ph-path"></i> Trazar Corrida Punto a Punto
+            </div>
+
+            <div>
+              <label class="block text-slate-400 text-[10px] uppercase mb-1">Patio de Origen:</label>
+              <select id="select-origin" class="w-full bg-tactical-panel border border-tactical-border text-slate-100 rounded-lg px-2.5 py-2 focus:border-cyan-400 outline-none">
+                <option value="CANCUN" selected>TM Cancún</option>
+                <option value="PROGRESO">TM Progreso</option>
+                <option value="POXILA">TDC Poxilá</option>
+                <option value="VALLADOLID">POC Valladolid</option>
+                <option value="POMUCH">POC Pomuch</option>
+                <option value="ESCARCEGA">POC Escárcega</option>
+                <option value="PALENQUE">TM Palenque</option>
+                <option value="CHETUMAL">TM Chetumal</option>
+                <option value="XPUJIL">POC Xpujil</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-slate-400 text-[10px] uppercase mb-1">Patio de Destino:</label>
+              <select id="select-dest" class="w-full bg-tactical-panel border border-tactical-border text-slate-100 rounded-lg px-2.5 py-2 focus:border-cyan-400 outline-none">
+                <option value="CHETUMAL" selected>TM Chetumal</option>
+                <option value="CANCUN">TM Cancún</option>
+                <option value="PROGRESO">TM Progreso</option>
+                <option value="POXILA">TDC Poxilá</option>
+                <option value="VALLADOLID">POC Valladolid</option>
+                <option value="POMUCH">POC Pomuch</option>
+                <option value="ESCARCEGA">POC Escárcega</option>
+                <option value="PALENQUE">TM Palenque</option>
+                <option value="XPUJIL">POC Xpujil</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-slate-400 text-[10px] uppercase mb-1">Tipo de Mercancía / Carga:</label>
+              <select id="select-cargo" class="w-full bg-tactical-panel border border-tactical-border text-slate-100 rounded-lg px-2.5 py-2 focus:border-cyan-400 outline-none">
+                <option value="Insumos Turísticos y Cadena de Frío">Insumos Turísticos y Cadena de Frío</option>
+                <option value="Contenedores Intermodales TEU">Contenedores Intermodales TEU</option>
+                <option value="Combustibles e Hidrocarburos">Combustibles e Hidrocarburos</option>
+                <option value="Granos Agrícolas y Maíz">Granos Agrícolas y Maíz</option>
+                <option value="Balasto Ferroviario y Pétreos">Balasto Ferroviario y Pétreos</option>
+              </select>
+            </div>
+
+            <button onclick="ctcApp.dispatchCustomRoute()" class="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50 transition">
+              <i class="ph-bold ph-play-circle text-base"></i>
+              <span>DESPACHAR CONVOY TREN MAYA</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: CATÁLOGO DE LOS 9 PATIOS -->
+        <div id="tab-content-yards" class="hidden space-y-2 font-mono text-xs">
+          <div class="text-[11px] text-slate-400 uppercase tracking-wider flex justify-between mb-1">
+            <span>Patios Oficiales de Carga</span>
+            <span class="text-amber-400 font-bold">9 INSTALACIONES</span>
+          </div>
+
+          <div id="yards-cards-list" class="space-y-2">
+            <!-- Inyectados dinámicamente -->
+          </div>
+        </div>
+
+        <!-- INSPECTOR DE COMPOSICIÓN DEL CONVOY OFICIAL (FOTOS REALES SEDENA / TREN MAYA) -->
+        <div class="bg-tactical-card border border-tactical-border rounded-xl p-3.5 space-y-3 text-xs font-mono shadow-xl">
+          <div class="flex items-center justify-between border-b border-tactical-border pb-2">
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              COMPOSICIÓN OFICIAL TREN MAYA
+            </span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-cyan-300 font-bold">6 UNIDADES</span>
+          </div>
+
+          <div class="space-y-2 pt-1 text-[11px]">
+            <!-- 1. Locomotora TMY 1009 -->
+            <div class="p-2 rounded bg-tactical-panel border border-[#18525e] flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#18525e] border border-[#fef08a] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-cyan-300 font-bold">TMY 1009 (Defensa)</div>
+                  <div class="text-[10px] text-slate-400">Azul Petróleo / Franja Oro</div>
+                </div>
+              </div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-[#18525e]/60 text-emerald-300 font-bold">4,400 HP</span>
+            </div>
+
+            <!-- 2. Portacontenedor TMY 500101 -->
+            <div class="p-2 rounded bg-tactical-panel border border-tactical-border/60 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#8b251e] border border-[#f59e0b] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-rose-300 font-semibold">TMY 500101 (Defensa)</div>
+                  <div class="text-[10px] text-slate-400">Plataforma Espina Roja 53"</div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-400">25 T Tara</span>
+            </div>
+
+            <!-- 3. Tolva TMY 300130 Tsíimin K'áak -->
+            <div class="p-2 rounded bg-tactical-panel border border-tactical-border/60 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#e2e8f0] border border-[#94a3b8] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-slate-100 font-semibold">TMY 300130 Tsíimin K'áak</div>
+                  <div class="text-[10px] text-slate-400">Tolva Cubierta Blanca Grano</div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-400">61 T Tara</span>
+            </div>
+
+            <!-- 4. Góndola TMY 200106 -->
+            <div class="p-2 rounded bg-tactical-panel border border-tactical-border/60 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#18181b] border border-[#eab308] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-amber-200 font-semibold">TMY 200106 (Balastera)</div>
+                  <div class="text-[10px] text-slate-400">Góndola Negra con Glifo Maya</div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-400">67 T Tara</span>
+            </div>
+
+            <!-- 5. Furgón TMY 400113 -->
+            <div class="p-2 rounded bg-tactical-panel border border-tactical-border/60 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#6e2a22] border border-[#f59e0b] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-orange-200 font-semibold">TMY 40 01 13 (Furgón)</div>
+                  <div class="text-[10px] text-slate-400">Caja Marrón Óxido Corrugada</div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-400">80 T Tara</span>
+            </div>
+
+            <!-- 6. Tanque TMY 100255 -->
+            <div class="p-2 rounded bg-tactical-panel border border-tactical-border/60 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-5 rounded-sm bg-[#09090b] border border-[#f59e0b] inline-block shrink-0 shadow-sm"></span>
+                <div>
+                  <div class="text-amber-400 font-semibold">TMY 100255 (Combustibles)</div>
+                  <div class="text-[10px] text-slate-400">Carro Tanque Negro DOT-111</div>
+                </div>
+              </div>
+              <span class="text-[10px] text-slate-400">41 T Tara</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FICHA TÉCNICA DEL DESPACHO ACTIVO -->
+        <div class="bg-tactical-card border border-tactical-border rounded-xl p-3.5 space-y-3 text-xs font-mono shadow-xl">
+          <div class="flex items-center justify-between border-b border-tactical-border pb-2">
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+              TELEMETRÍA CTC
+            </span>
+            <span id="panel-train-code" class="text-cyan-400 font-extrabold text-sm">C-412</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <div class="bg-tactical-panel p-2 rounded border border-tactical-border/60">
+              <div class="text-[9px] text-slate-500 uppercase">Longitud Vía</div>
+              <div id="panel-dist" class="text-sm font-bold text-slate-100">380 km</div>
+            </div>
+            <div class="bg-tactical-panel p-2 rounded border border-tactical-border/60">
+              <div class="text-[9px] text-slate-500 uppercase">Tiempo Estimado</div>
+              <div id="panel-time" class="text-sm font-bold text-slate-100">5 h 10 min</div>
+            </div>
+            <div class="bg-tactical-panel p-2 rounded border border-tactical-border/60">
+              <div class="text-[9px] text-slate-500 uppercase">Longitud Convoy</div>
+              <div class="text-[11px] font-bold text-slate-200">152 metros</div>
+            </div>
+            <div class="bg-tactical-panel p-2 rounded border border-tactical-border/60">
+              <div class="text-[9px] text-slate-500 uppercase">Peso Bruto Total</div>
+              <div id="panel-weight" class="text-sm font-bold text-amber-400">2,950 Ton</div>
+            </div>
+          </div>
+
+          <!-- Barra de progreso del tren -->
+          <div class="pt-1 space-y-1">
+            <div class="flex justify-between text-[10px] text-slate-400">
+              <span>Avance del Convoy:</span>
+              <span id="panel-progress-percent" class="text-cyan-300 font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-tactical-border">
+              <div id="panel-progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-0 transition-all duration-100"></div>
+            </div>
+          </div>
+
+          <div class="pt-1 text-[11px] space-y-1">
+            <div class="text-[9px] text-slate-500 uppercase">Patios de Paso:</div>
+            <p id="panel-path-nodes" class="text-slate-300 leading-snug">Ruta Directa Tulum - Carrillo Puerto - Bacalar</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PIE DEL PANEL -->
+      <div class="p-3 border-t border-tactical-border bg-tactical-card flex items-center justify-between text-xs font-mono">
+        <span class="text-slate-400 text-[10px]">Tracción CTC:</span>
+        <span class="text-emerald-400 font-bold text-[11px] flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          DIÉSEL-ELÉCTRICA TMY 1009
+        </span>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- SCRIPT CTC Y TRAZADOS GEOGRÁFICOS -->
+  <script>
+    // 1. LOS 9 PATIOS Y TERMINALES DE CARGA OFICIALES (EXCLUSIVOS)
+    const OFFICIAL_YARDS = {
+      PALENQUE: {
+        id: "PALENQUE",
+        tag: "TM Palenque",
+        fullName: "Terminal Multimodal Palenque",
+        latlng: [17.5145, -91.9825],
+        info: "Intercambio Intermodal Sur y conexión al Corredor Interoceánico del Istmo."
+      },
+      ESCARCEGA: {
+        id: "ESCARCEGA",
+        tag: "POC Escárcega",
+        fullName: "Patio de Operaciones y Clasificación Escárcega",
+        latlng: [18.6080, -90.7420],
+        info: "Gran Patio Clasificador Central y Centro de Mantenimiento de Tolvas y Locomotoras."
+      },
+      POMUCH: {
+        id: "POMUCH",
+        tag: "POC Pomuch",
+        fullName: "Patio de Operaciones de Carga Pomuch",
+        latlng: [20.1375, -90.1740],
+        info: "Patio de carga para granos agrícolas, maíz peninsular y cemento regional."
+      },
+      POXILA: {
+        id: "POXILA",
+        tag: "TDC Poxilá",
+        fullName: "Terminal de Distribución de Carga Poxilá",
+        latlng: [20.8850, -89.7520],
+        info: "Gran HUB Logístico Peninsular, maniobras de contenedores e hidrocarburos Pemex."
+      },
+      PROGRESO: {
+        id: "PROGRESO",
+        tag: "TM Progreso",
+        fullName: "Terminal Multimodal Progreso",
+        latlng: [21.2820, -89.6640],
+        info: "Conexión Marítima Portuaria con el viaducto alterno de carga de Puerto Progreso."
+      },
+      VALLADOLID: {
+        id: "VALLADOLID",
+        tag: "POC Valladolid",
+        fullName: "Patio de Operaciones de Carga Valladolid",
+        latlng: [20.6920, -88.2020],
+        info: "Distribución Central Oriente, material pétreo, balasto y mercancía general."
+      },
+      CANCUN: {
+        id: "CANCUN",
+        tag: "TM Cancún",
+        fullName: "Terminal Multimodal Cancún",
+        latlng: [21.0500, -86.8400],
+        info: "Hub de distribución turística, insumos y turbosina para el Aeropuerto Internacional."
+      },
+      CHETUMAL: {
+        id: "CHETUMAL",
+        tag: "TM Chetumal",
+        fullName: "Terminal Multimodal Chetumal",
+        latlng: [18.5200, -88.3100],
+        info: "Recinto Fiscalizado Estratégico y comercio transfronterizo con Centroamérica."
+      },
+      XPUJIL: {
+        id: "XPUJIL",
+        tag: "POC Xpujil",
+        fullName: "Patio de Operaciones de Carga Xpujil",
+        latlng: [18.5080, -89.4000],
+        info: "Patio de cruce, laderos extendidos y abastecimiento selva de Calakmul."
+      }
+    };
+
+    // 2. SEGMENTOS FERROVIARIOS GEOGRÁFICOS EXACTOS (RED COMPLETA 1,554 KM + RAMAL PROGRESO)
+    const RAIL_SEGMENTS = {
+      // Progreso <-> Poxilá (Ramal a Puerto Progreso)
+      "PROGRESO-POXILA": [
+        [21.2820, -89.6640], // TM Progreso
+        [21.1850, -89.6920],
+        [21.0850, -89.7420],
+        [21.0180, -89.8700],
+        [20.9320, -89.8150],
+        [20.8850, -89.7520]  // TDC Poxilá
+      ],
+
+      // Palenque <-> Escárcega
+      "PALENQUE-ESCARCEGA": [
+        [17.5145, -91.9825], // TM Palenque
+        [17.4720, -91.5000],
+        [17.4750, -91.4200],
+        [17.7120, -91.1300],
+        [18.1850, -90.9650],
+        [18.6080, -90.7420]  // POC Escárcega
+      ],
+
+      // Escárcega <-> Pomuch
+      "ESCARCEGA-POMUCH": [
+        [18.6080, -90.7420], // POC Escárcega
+        [19.3400, -90.7100],
+        [19.8350, -90.5300],
+        [20.0380, -90.2350],
+        [20.1375, -90.1740]  // POC Pomuch
+      ],
+
+      // Pomuch <-> Poxilá
+      "POMUCH-POXILA": [
+        [20.1375, -90.1740], // POC Pomuch
+        [20.1980, -90.1300],
+        [20.3700, -90.0500],
+        [20.5850, -89.9950],
+        [20.7300, -89.8800],
+        [20.8850, -89.7520]  // TDC Poxilá
+      ],
+
+      // Poxilá <-> Valladolid
+      "POXILA-VALLADOLID": [
+        [20.8850, -89.7520], // TDC Poxilá
+        [20.9100, -89.7150],
+        [20.9420, -89.5400],
+        [20.9350, -89.0200],
+        [20.7100, -88.5700],
+        [20.6920, -88.2020]  // POC Valladolid
+      ],
+
+      // Valladolid <-> Cancún
+      "VALLADOLID-CANCUN": [
+        [20.6920, -88.2020], // POC Valladolid
+        [20.8700, -87.6100],
+        [20.9950, -87.1200],
+        [21.0500, -86.8400]  // TM Cancún
+      ],
+
+      // Cancún <-> Chetumal
+      "CANCUN-CHETUMAL": [
+        [21.0500, -86.8400], // TM Cancún
+        [20.8500, -86.8900],
+        [20.6350, -87.0700],
+        [20.2100, -87.4600], // Tulum
+        [20.1300, -87.6500],
+        [19.5800, -88.0400], // Felipe Carrillo Puerto
+        [18.9900, -88.2200],
+        [18.6800, -88.3900], // Bacalar
+        [18.5200, -88.3100]  // TM Chetumal
+      ],
+
+      // Chetumal <-> Xpujil
+      "CHETUMAL-XPUJIL": [
+        [18.5200, -88.3100], // TM Chetumal
+        [18.4900, -88.7500],
+        [18.5080, -89.4000]  // POC Xpujil
+      ],
+
+      // Xpujil <-> Escárcega
+      "XPUJIL-ESCARCEGA": [
+        [18.5080, -89.4000], // POC Xpujil
+        [18.4500, -89.8900],
+        [18.5200, -90.3500],
+        [18.6080, -90.7420]  // POC Escárcega
+      ]
+    };
+
+    // Matriz de adyacencia para el ruteador Dijkstra
+    const GRAPH_ADJACENCY = {
+      PROGRESO: { POXILA: 55 },
+      POXILA: { PROGRESO: 55, POMUCH: 120, VALLADOLID: 165 },
+      POMUCH: { POXILA: 120, ESCARCEGA: 215 },
+      ESCARCEGA: { POMUCH: 215, PALENQUE: 226, XPUJIL: 153 },
+      PALENQUE: { ESCARCEGA: 226 },
+      VALLADOLID: { POXILA: 165, CANCUN: 155 },
+      CANCUN: { VALLADOLID: 155, CHETUMAL: 380 },
+      CHETUMAL: { CANCUN: 380, XPUJIL: 119 },
+      XPUJIL: { CHETUMAL: 119, ESCARCEGA: 153 }
+    };
+
+    // 3. PROGRAMACIONES OFICIALES
+    const OFFICIAL_SCHEDULES = [
+      {
+        id: "C-412",
+        name: "TM Cancún ➔ TM Chetumal",
+        cargo: "Insumos Turísticos y Carga Refrigerada",
+        typeBadge: "LOGÍSTICA",
+        origin: "TM Cancún",
+        dest: "TM Chetumal",
+        originKey: "CANCUN",
+        destKey: "CHETUMAL",
+        distance: "380 km",
+        time: "5 h 10 min",
+        cars: "32 Furgones Frío",
+        weight: "2,950 Ton",
+        pathNodes: ["CANCUN", "CHETUMAL"]
+      },
+      {
+        id: "C-201",
+        name: "TM Progreso ➔ TM Cancún",
+        cargo: "Contenedores de Importación TEU y Mercancías Críticas",
+        typeBadge: "INTERMODAL",
+        origin: "TM Progreso",
+        dest: "TM Cancún",
+        originKey: "PROGRESO",
+        destKey: "CANCUN",
+        distance: "475 km",
+        time: "6 h 10 min",
+        cars: "38 Plataformas TEU",
+        weight: "3,200 Ton",
+        pathNodes: ["PROGRESO", "POXILA", "VALLADOLID", "CANCUN"]
+      },
+      {
+        id: "C-104",
+        name: "TM Palenque ➔ TDC Poxilá",
+        cargo: "Combustibles Líquidos y Balasto Estratégico",
+        typeBadge: "HIDROCARBUROS",
+        origin: "TM Palenque",
+        dest: "TDC Poxilá",
+        originKey: "PALENQUE",
+        destKey: "POXILA",
+        distance: "561 km",
+        time: "7 h 45 min",
+        cars: "44 Tolvas y Tanques",
+        weight: "4,620 Ton",
+        pathNodes: ["PALENQUE", "ESCARCEGA", "POMUCH", "POXILA"]
+      },
+      {
+        id: "C-305",
+        name: "TDC Poxilá ➔ POC Valladolid",
+        cargo: "Materiales Pétreos, Cemento y Alimentos",
+        typeBadge: "GRANEL",
+        origin: "TDC Poxilá",
+        dest: "POC Valladolid",
+        originKey: "POXILA",
+        destKey: "VALLADOLID",
+        distance: "165 km",
+        time: "2 h 15 min",
+        cars: "30 Góndolas y Tolvas",
+        weight: "2,800 Ton",
+        pathNodes: ["POXILA", "VALLADOLID"]
+      },
+      {
+        id: "C-509",
+        name: "TM Chetumal ➔ POC Escárcega",
+        cargo: "Madera, Granel Agrícola y Minerales",
+        typeBadge: "AGRO-FORESTAL",
+        origin: "TM Chetumal",
+        dest: "POC Escárcega",
+        originKey: "CHETUMAL",
+        destKey: "ESCARCEGA",
+        distance: "272 km",
+        time: "3 h 40 min",
+        cars: "35 Cajas y Tolvas",
+        weight: "3,100 Ton",
+        pathNodes: ["CHETUMAL", "XPUJIL", "ESCARCEGA"]
+      },
+      {
+        id: "C-610",
+        name: "TM Progreso ➔ POC Escárcega",
+        cargo: "Importación Marítima de Acero y Maquinaria",
+        typeBadge: "PESADA",
+        origin: "TM Progreso",
+        dest: "POC Escárcega",
+        originKey: "PROGRESO",
+        destKey: "ESCARCEGA",
+        distance: "390 km",
+        time: "5 h 20 min",
+        cars: "28 Plataformas",
+        weight: "3,450 Ton",
+        pathNodes: ["PROGRESO", "POXILA", "POMUCH", "ESCARCEGA"]
+      }
+    ];
+
+    // 4. MODELOS EXACTOS DE ROLLING STOCK BASADOS EN LAS IMÁGENES PROVISTAS
+    const CONSIST_CARS_CONFIG = [
+      {
+        // 1. LOCOMOTORA TMY 1009 DEFENSA
+        type: 'locomotive',
+        name: 'Locomotora TMY 1009 (Defensa)',
+        offsetMeters: 0,
+        renderSvg: () => `
+          <div style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+            <!-- Haz de luz del faro frontal proyectado hacia adelante -->
+            <div style="position: absolute; top: -38px; width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 42px solid rgba(0, 242, 255, 0.55); filter: blur(2.5px); pointer-events: none;"></div>
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" style="filter: drop-shadow(0 3px 6px rgba(0,0,0,0.9));">
+              <!-- Chasis y faldón en gris oscuro -->
+              <rect x="13" y="4" width="18" height="36" rx="4" fill="#0f172a" stroke="#18525e" stroke-width="1.5"/>
+              
+              <!-- Cuerpo principal: Azul petróleo oficial (#18525e) -->
+              <rect x="14" y="6" width="16" height="32" rx="3" fill="#18525e"/>
+              
+              <!-- Franja de velocidad crema/oro longitudinal -->
+              <line x1="14" y1="18" x2="30" y2="18" stroke="#fef08a" stroke-width="1.8"/>
+              
+              <!-- Cabina con parabrisas angulares dobles -->
+              <rect x="15" y="10" width="6.5" height="4.5" rx="0.8" fill="#38bdf8"/>
+              <rect x="22.5" y="10" width="6.5" height="4.5" rx="0.8" fill="#38bdf8"/>
+              
+              <!-- Placas de número blancas 1009 -->
+              <rect x="18" y="7" width="8" height="2" fill="#ffffff" rx="0.4"/>
+              
+              <!-- Faro proyector dual central -->
+              <circle cx="22" cy="5" r="2.2" fill="#ffffff" stroke="#38bdf8" stroke-width="0.8"/>
+              
+              <!-- Pasamanos / barandillas blancas frontales y laterales -->
+              <path d="M14 6 L14 16 M30 6 L30 16" stroke="#ffffff" stroke-width="0.9"/>
+              <line x1="15" y1="5" x2="29" y2="5" stroke="#ffffff" stroke-width="0.9"/>
+
+              <!-- Rejillas dinámicas de ventilador en el lomo -->
+              <circle cx="22" cy="27" r="3.2" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <line x1="19" y1="27" x2="25" y2="27" stroke="#64748b" stroke-width="0.8"/>
+              
+              <!-- Cuña quitanieves / deflector inferior -->
+              <polygon points="17,40 22,42 27,40" fill="#020617"/>
+            </svg>
+          </div>
+        `
+      },
+      {
+        // 2. CARRO ESPINA PORTACONTENEDOR TMY 500101 (ROJO TERRACOTA / DEFENSA 53')
+        type: 'wellcar',
+        name: 'Plataforma Espina TMY 500101 (53ft)',
+        offsetMeters: 4600,
+        renderSvg: () => `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.85));">
+            <!-- Chasis espina / well car: Rojo terracota óxido (#8b251e) -->
+            <rect x="12" y="3" width="14" height="32" rx="2" fill="#8b251e" stroke="#5c1813" stroke-width="1.2"/>
+            
+            <!-- Interior del foso deprimido para contenedor 53ft -->
+            <rect x="13.5" y="7" width="11" height="24" rx="1" fill="#45120e"/>
+            
+            <!-- Estructura de mamparas de extremo y trabas '53' -->
+            <rect x="11" y="4" width="16" height="2" fill="#b91c1c"/>
+            <rect x="11" y="32" width="16" height="2" fill="#b91c1c"/>
+            
+            <!-- Franjas reflectantes amarillas conspicuity en los largueros -->
+            <line x1="12" y1="11" x2="12" y2="13" stroke="#facc15" stroke-width="1.4"/>
+            <line x1="12" y1="25" x2="12" y2="27" stroke="#facc15" stroke-width="1.4"/>
+            <line x1="26" y1="11" x2="26" y2="13" stroke="#facc15" stroke-width="1.4"/>
+            <line x1="26" y1="25" x2="26" y2="27" stroke="#facc15" stroke-width="1.4"/>
+            
+            <!-- Contenedor intermodal estibado en color terracota/blanco con inscripción '53' -->
+            <rect x="14" y="9" width="10" height="20" rx="1" fill="#991b1b" stroke="#f87171" stroke-width="0.6"/>
+            <!-- Acanaladuras del contenedor -->
+            <line x1="14" y1="13" x2="24" y2="13" stroke="#7f1d1d" stroke-width="0.8"/>
+            <line x1="14" y1="17" x2="24" y2="17" stroke="#7f1d1d" stroke-width="0.8"/>
+            <line x1="14" y1="21" x2="24" y2="21" stroke="#7f1d1d" stroke-width="0.8"/>
+            <line x1="14" y1="25" x2="24" y2="25" stroke="#7f1d1d" stroke-width="0.8"/>
+            
+            <!-- Enganches estándar -->
+            <rect x="17.5" y="1" width="3" height="2" fill="#475569"/>
+            <rect x="17.5" y="35" width="3" height="2" fill="#475569"/>
+          </svg>
+        `
+      },
+      {
+        // 3. TOLVA CUBIERTA GRANELERA TMY 300130 TSÍIMIN K'ÁAK (BLANCA / GRIS CLARO)
+        type: 'hopper',
+        name: "Tolva TMY 300130 Tsíimin K'áak",
+        offsetMeters: 8900,
+        renderSvg: () => `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.85));">
+            <!-- Cuerpo blanco tiza / gris perla (#e5e8e8) -->
+            <rect x="11.5" y="3" width="15" height="32" rx="3.5" fill="#e5e8e8" stroke="#cbd5e1" stroke-width="1.4"/>
+            
+            <!-- Pasarela central del techo antideslizante -->
+            <rect x="17" y="5" width="4" height="28" fill="#94a3b8" rx="1"/>
+            
+            <!-- Escotillas redondas de llenado herméticas -->
+            <circle cx="19" cy="8" r="1.8" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+            <circle cx="19" cy="15" r="1.8" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+            <circle cx="19" cy="23" r="1.8" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+            <circle cx="19" cy="30" r="1.8" fill="#ffffff" stroke="#64748b" stroke-width="0.8"/>
+            
+            <!-- Costillas verticales estructurales del lomo exterior -->
+            <line x1="11.5" y1="12" x2="14" y2="12" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="24" y1="12" x2="26.5" y2="12" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="11.5" y1="20" x2="14" y2="20" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="24" y1="20" x2="26.5" y2="20" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="11.5" y1="27" x2="14" y2="27" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="24" y1="27" x2="26.5" y2="27" stroke="#94a3b8" stroke-width="1.2"/>
+            
+            <!-- Franjas reflectantes amarillas en las esquinas inferiores -->
+            <line x1="11.5" y1="33" x2="13.5" y2="33" stroke="#facc15" stroke-width="1.5"/>
+            <line x1="24.5" y1="33" x2="26.5" y2="33" stroke="#facc15" stroke-width="1.5"/>
+            
+            <!-- Enganches estándar -->
+            <rect x="17.5" y="1" width="3" height="2" fill="#475569"/>
+            <rect x="17.5" y="35" width="3" height="2" fill="#475569"/>
+          </svg>
+        `
+      },
+      {
+        // 4. GÓNDOLA ABIERTA BALASTERA TMY 200106 (NEGRO MATE CON GLIFO MAYA ORO)
+        type: 'gondola',
+        name: 'Góndola Balastera TMY 200106',
+        offsetMeters: 13200,
+        renderSvg: () => `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.85));">
+            <!-- Paredes exteriores en negro mate / carbón profundo (#1f2124) -->
+            <rect x="11.5" y="3" width="15" height="32" rx="1.5" fill="#18181b" stroke="#3f3f46" stroke-width="1.3"/>
+            
+            <!-- Carga de piedra balasto regional texturizada en el interior -->
+            <rect x="13" y="5" width="12" height="28" rx="1" fill="#27272a"/>
+            <circle cx="16" cy="8" r="1.3" fill="#a1a1aa"/>
+            <circle cx="21" cy="11" r="1.5" fill="#71717a"/>
+            <circle cx="15" cy="15" r="1.2" fill="#d4d4d8"/>
+            <circle cx="22" cy="18" r="1.4" fill="#a1a1aa"/>
+            <circle cx="16" cy="23" r="1.3" fill="#71717a"/>
+            <circle cx="20" cy="27" r="1.6" fill="#a1a1aa"/>
+            <circle cx="16" cy="30" r="1.2" fill="#d4d4d8"/>
+            
+            <!-- Glifo Maya dorado oficial en el lateral exterior -->
+            <rect x="10" y="8" width="1.8" height="3.5" rx="0.4" fill="#facc15"/>
+            <rect x="26.2" y="8" width="1.8" height="3.5" rx="0.4" fill="#facc15"/>
+            
+            <!-- Postes y costillas exteriores cuadradas -->
+            <line x1="10" y1="14" x2="11.5" y2="14" stroke="#71717a" stroke-width="1.2"/>
+            <line x1="26.5" y1="14" x2="28" y2="14" stroke="#71717a" stroke-width="1.2"/>
+            <line x1="10" y1="21" x2="11.5" y2="21" stroke="#71717a" stroke-width="1.2"/>
+            <line x1="26.5" y1="21" x2="28" y2="21" stroke="#71717a" stroke-width="1.2"/>
+            <line x1="10" y1="28" x2="11.5" y2="28" stroke="#71717a" stroke-width="1.2"/>
+            <line x1="26.5" y1="28" x2="28" y2="28" stroke="#71717a" stroke-width="1.2"/>
+            
+            <!-- Franjas reflectantes amarillas en las esquinas -->
+            <rect x="10" y="31" width="1.5" height="3" fill="#facc15"/>
+            <rect x="26.5" y="31" width="1.5" height="3" fill="#facc15"/>
+            
+            <!-- Enganches -->
+            <rect x="17.5" y="1" width="3" height="2" fill="#475569"/>
+            <rect x="17.5" y="35" width="3" height="2" fill="#475569"/>
+          </svg>
+        `
+      },
+      {
+        // 5. FURGÓN CERRADO TMY 400113 (MARRÓN ÓXIDO MINERAL / PUERTAS CORRUGADAS)
+        type: 'boxcar',
+        name: 'Furgón Cerrado TMY 40 01 13',
+        offsetMeters: 17500,
+        renderSvg: () => `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.85));">
+            <!-- Techo y cuerpo: Marrón óxido mineral (#6e2a22) -->
+            <rect x="11.5" y="3" width="15" height="32" rx="2" fill="#6e2a22" stroke="#481a14" stroke-width="1.3"/>
+            
+            <!-- Planchas del techo corrugadas -->
+            <line x1="12" y1="7" x2="26" y2="7" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="11" x2="26" y2="11" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="15" x2="26" y2="15" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="19" x2="26" y2="19" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="23" x2="26" y2="23" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="27" x2="26" y2="27" stroke="#8c372c" stroke-width="0.9"/>
+            <line x1="12" y1="31" x2="26" y2="31" stroke="#8c372c" stroke-width="0.9"/>
+            
+            <!-- Puertas dobles centrales deslizables con cerrojos -->
+            <rect x="11.5" y="14" width="15" height="10" fill="#581e18" stroke="#3b130e" stroke-width="0.8"/>
+            <line x1="19" y1="14" x2="19" y2="24" stroke="#ffffff" stroke-width="0.7"/>
+            <rect x="18" y="18" width="2" height="2" fill="#facc15"/>
+            
+            <!-- Franjas reflectantes amarillas en estribos -->
+            <line x1="11.5" y1="4" x2="11.5" y2="6" stroke="#facc15" stroke-width="1.5"/>
+            <line x1="26.5" y1="4" x2="26.5" y2="6" stroke="#facc15" stroke-width="1.5"/>
+            <line x1="11.5" y1="32" x2="11.5" y2="34" stroke="#facc15" stroke-width="1.5"/>
+            <line x1="26.5" y1="32" x2="26.5" y2="34" stroke="#facc15" stroke-width="1.5"/>
+            
+            <!-- Enganches -->
+            <rect x="17.5" y="1" width="3" height="2" fill="#475569"/>
+            <rect x="17.5" y="35" width="3" height="2" fill="#475569"/>
+          </svg>
+        `
+      },
+      {
+        // 6. CARRO TANQUE HIDROCARBUROS TMY 100255 (NEGRO BRILLANTE / COMBUSTIBLE DOT-111)
+        type: 'tanker',
+        name: 'Carro Tanque TMY 100255',
+        offsetMeters: 21800,
+        renderSvg: () => `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.85));">
+            <!-- Tanque cilíndrico curvado en negro brillante (#121315) -->
+            <rect x="12" y="3" width="14" height="32" rx="7" fill="#09090b" stroke="#27272a" stroke-width="1.5"/>
+            
+            <!-- Domo superior central y barandillas antideslizantes -->
+            <circle cx="19" cy="19" r="3.4" fill="#18181b" stroke="#facc15" stroke-width="1"/>
+            <circle cx="19" cy="19" r="1.6" fill="#09090b"/>
+            
+            <!-- Escalera lateral de acceso al domo -->
+            <line x1="10" y1="17" x2="12" y2="17" stroke="#a1a1aa" stroke-width="1"/>
+            <line x1="10" y1="19" x2="12" y2="19" stroke="#a1a1aa" stroke-width="1"/>
+            <line x1="10" y1="21" x2="12" y2="21" stroke="#a1a1aa" stroke-width="1"/>
+            
+            <!-- Franjas reflectantes amarillas verticales DOT-111 reglamentarias -->
+            <line x1="12" y1="10" x2="14" y2="10" stroke="#facc15" stroke-width="1.8"/>
+            <line x1="24" y1="10" x2="26" y2="10" stroke="#facc15" stroke-width="1.8"/>
+            <line x1="12" y1="28" x2="14" y2="28" stroke="#facc15" stroke-width="1.8"/>
+            <line x1="24" y1="28" x2="26" y2="28" stroke="#facc15" stroke-width="1.8"/>
+            
+            <!-- Diamante NFPA de advertencia para hidrocarburo inflamable -->
+            <polygon points="19,13 17.5,14.5 19,16 20.5,14.5" fill="#ef4444"/>
+            
+            <!-- Cabezales semiesféricos del tanque -->
+            <path d="M12 7 Q19 4 26 7" stroke="#3f3f46" stroke-width="1" fill="none"/>
+            <path d="M12 31 Q19 34 26 31" stroke="#3f3f46" stroke-width="1" fill="none"/>
+            
+            <!-- Enganches -->
+            <rect x="17.5" y="1" width="3" height="2" fill="#475569"/>
+            <rect x="17.5" y="35" width="3" height="2" fill="#475569"/>
+          </svg>
+        `
+      }
+    ];
+
+    // ============================================================
+    // 5. AJUSTE DE GEOMETRÍA A LA VÍA REAL (OpenStreetMap / Overpass)
+    //    Las coordenadas de arriba son una aproximación gruesa. Al abrir
+    //    el archivo se descarga el trazado ferroviario real, se construye
+    //    un grafo y cada tramo se enruta SOBRE las vías verdaderas.
+    //    El resultado se guarda en localStorage (carga instantánea después).
+    // ============================================================
+    const GeoRefiner = {
+      CACHE_KEY: 'ctc_osm_rail_v2',
+      CACHE_DAYS: 30,
+      BBOX: [16.9, -92.6, 21.6, -86.4], // sur, oeste, norte, este
+      ENDPOINTS: [
+        'https://overpass-api.de/api/interpreter',
+        'https://overpass.kumi.systems/api/interpreter',
+        'https://overpass.private.coffee/api/interpreter'
+      ],
+
+      hav(a, b) {
+        const R = 6371000, rad = Math.PI / 180;
+        const dLat = (b[0] - a[0]) * rad, dLng = (b[1] - a[1]) * rad;
+        const s = Math.sin(dLat / 2) ** 2 +
+          Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLng / 2) ** 2;
+        return 2 * R * Math.asin(Math.sqrt(s));
+      },
+
+      pathLength(coords) {
+        let t = 0;
+        for (let i = 0; i < coords.length - 1; i++) t += this.hav(coords[i], coords[i + 1]);
+        return t;
+      },
+
+      loadCache() {
+        try {
+          const raw = localStorage.getItem(this.CACHE_KEY);
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (Date.now() - obj.ts > this.CACHE_DAYS * 86400000) return null;
+          return obj;
+        } catch (e) { return null; }
+      },
+
+      saveCache(result) {
+        try {
+          localStorage.setItem(this.CACHE_KEY, JSON.stringify({ ts: Date.now(), ...result }));
+        } catch (e) { /* cuota llena o bloqueado: se ignora */ }
+      },
+
+      async fetchRail() {
+        const [s, w, n, e] = this.BBOX;
+        const query = `[out:json][timeout:90];(way["railway"~"^(rail|construction)$"](${s},${w},${n},${e}););out geom tags;`;
+        let lastErr = null;
+        for (const url of this.ENDPOINTS) {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 70000);
+          try {
+            const res = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: 'data=' + encodeURIComponent(query),
+              signal: ctrl.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const json = await res.json();
+            if (json && json.elements && json.elements.length) return json.elements;
+            throw new Error('Respuesta vacía');
+          } catch (err) {
+            clearTimeout(timer);
+            lastErr = err;
+          }
+        }
+        throw lastErr || new Error('Overpass no disponible');
+      },
+
+      // ---------- Grafo ferroviario ----------
+      buildGraph(ways) {
+        const g = { coords: new Map(), adj: new Map(), grid: new Map(), CELL: 0.02 };
+        const isMaya = t => /maya/i.test((t.name || '') + (t.operator || '') + (t.network || '') + (t.description || ''));
+        ways.forEach(wy => {
+          if (!wy.geometry || !wy.nodes || wy.geometry.length !== wy.nodes.length) return;
+          const t = wy.tags || {};
+          let f = 1;
+          if (t.railway === 'construction') f *= 1.3;
+          if (t.service) f *= 4;              // ramales/laderos: evitarlos si hay vía principal
+          if (isMaya(t)) f *= 0.6;            // preferir el trazado del Tren Maya
+          for (let i = 0; i < wy.nodes.length; i++) {
+            const id = wy.nodes[i];
+            const pt = [wy.geometry[i].lat, wy.geometry[i].lon];
+            g.coords.set(id, pt);
+            if (i > 0) {
+              const pid = wy.nodes[i - 1];
+              const d = this.hav(g.coords.get(pid), pt);
+              if (!g.adj.has(pid)) g.adj.set(pid, []);
+              if (!g.adj.has(id)) g.adj.set(id, []);
+              g.adj.get(pid).push({ to: id, w: d * f });
+              g.adj.get(id).push({ to: pid, w: d * f });
+            }
+          }
+        });
+        g.coords.forEach((pt, id) => {
+          const key = Math.floor(pt[0] / g.CELL) + ',' + Math.floor(pt[1] / g.CELL);
+          if (!g.grid.has(key)) g.grid.set(key, []);
+          g.grid.get(key).push(id);
+        });
+        return g;
+      },
+
+      nearest(g, pt, maxM) {
+        const r = Math.ceil(maxM / 2200) + 1;
+        const cy = Math.floor(pt[0] / g.CELL), cx = Math.floor(pt[1] / g.CELL);
+        let best = null, bestD = Infinity;
+        for (let dy = -r; dy <= r; dy++) {
+          for (let dx = -r; dx <= r; dx++) {
+            const list = g.grid.get((cy + dy) + ',' + (cx + dx));
+            if (!list) continue;
+            for (const id of list) {
+              if (!g.adj.has(id)) continue;
+              const d = this.hav(pt, g.coords.get(id));
+              if (d < bestD) { bestD = d; best = id; }
+            }
+          }
+        }
+        return bestD <= maxM ? { id: best, dist: bestD } : null;
+      },
+
+      route(g, from, to) {
+        if (from === to) return [from];
+        const dist = new Map([[from, 0]]);
+        const prev = new Map();
+        const heap = [[0, from]];
+        const push = item => {
+          heap.push(item);
+          let i = heap.length - 1;
+          while (i > 0) {
+            const p = (i - 1) >> 1;
+            if (heap[p][0] <= heap[i][0]) break;
+            [heap[p], heap[i]] = [heap[i], heap[p]];
+            i = p;
+          }
+        };
+        const pop = () => {
+          const top = heap[0], last = heap.pop();
+          if (heap.length) {
+            heap[0] = last;
+            let i = 0;
+            for (;;) {
+              let l = 2 * i + 1, r = l + 1, m = i;
+              if (l < heap.length && heap[l][0] < heap[m][0]) m = l;
+              if (r < heap.length && heap[r][0] < heap[m][0]) m = r;
+              if (m === i) break;
+              [heap[m], heap[i]] = [heap[i], heap[m]];
+              i = m;
+            }
+          }
+          return top;
+        };
+        while (heap.length) {
+          const [d, u] = pop();
+          if (u === to) break;
+          if (d > (dist.get(u) ?? Infinity)) continue;
+          for (const e of (g.adj.get(u) || [])) {
+            const nd = d + e.w;
+            if (nd < (dist.get(e.to) ?? Infinity)) {
+              dist.set(e.to, nd);
+              prev.set(e.to, u);
+              push([nd, e.to]);
+            }
+          }
+        }
+        if (!prev.has(to)) return null;
+        const path = [];
+        for (let c = to; c !== undefined; c = prev.get(c)) path.unshift(c);
+        return path;
+      },
+
+      // Elimina bucles/retrocesos creados por puntos intermedios mal ajustados
+      removeLoops(ids) {
+        const out = [], pos = new Map();
+        ids.forEach(id => {
+          if (pos.has(id)) {
+            const k = pos.get(id);
+            for (let i = out.length - 1; i > k; i--) pos.delete(out.pop());
+          } else {
+            pos.set(id, out.length);
+            out.push(id);
+          }
+        });
+        return out;
+      },
+
+      // Douglas-Peucker (tolerancia en metros) para aligerar la animación
+      simplify(pts, tolM) {
+        if (pts.length < 3) return pts;
+        const lat0 = pts[0][0] * Math.PI / 180;
+        const P = pts.map(p => [p[1] * 111320 * Math.cos(lat0), p[0] * 110540]);
+        const keep = new Uint8Array(pts.length);
+        keep[0] = keep[pts.length - 1] = 1;
+        const stack = [[0, pts.length - 1]];
+        while (stack.length) {
+          const [a, b] = stack.pop();
+          let maxD = 0, idx = -1;
+          const [ax, ay] = P[a], [bx, by] = P[b];
+          const dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy;
+          for (let i = a + 1; i < b; i++) {
+            let t = len2 ? ((P[i][0] - ax) * dx + (P[i][1] - ay) * dy) / len2 : 0;
+            t = Math.max(0, Math.min(1, t));
+            const d = Math.hypot(P[i][0] - (ax + t * dx), P[i][1] - (ay + t * dy));
+            if (d > maxD) { maxD = d; idx = i; }
+          }
+          if (maxD > tolM && idx > -1) {
+            keep[idx] = 1;
+            stack.push([a, idx], [idx, b]);
+          }
+        }
+        return pts.filter((_, i) => keep[i]);
+      },
+
+      compute(g) {
+        const SNAP_YARD = 15000, SNAP_VIA = 4000;
+        const yardNode = {};
+        const yards = {};
+        Object.values(OFFICIAL_YARDS).forEach(y => {
+          const n = this.nearest(g, y.latlng, SNAP_YARD);
+          if (n) { yardNode[y.id] = n.id; yards[y.id] = g.coords.get(n.id); }
+        });
+
+        const segments = {};
+        let ok = 0, total = 0;
+        Object.entries(RAIL_SEGMENTS).forEach(([key, coarse]) => {
+          total++;
+          const [A, B] = key.split('-');
+          if (!yardNode[A] || !yardNode[B]) return;
+          const chain = [yardNode[A]];
+          coarse.slice(1, -1).forEach(p => {
+            const n = this.nearest(g, p, SNAP_VIA);
+            if (n) chain.push(n.id);
+          });
+          chain.push(yardNode[B]);
+
+          let ids = [], failed = false;
+          for (let i = 0; i < chain.length - 1 && !failed; i++) {
+            const part = this.route(g, chain[i], chain[i + 1]);
+            if (!part) { failed = true; break; }
+            ids = ids.concat(ids.length ? part.slice(1) : part);
+          }
+          if (failed) return;
+          ids = this.removeLoops(ids);
+          const coords = ids.map(id => g.coords.get(id));
+          const ratio = this.pathLength(coords) / this.pathLength(coarse);
+          if (ratio < 0.7 || ratio > 1.8) return; // ruta sospechosa: se conserva la aproximada
+          segments[key] = this.simplify(coords, 4);
+          ok++;
+        });
+        return { segments, yards, ok, total };
+      }
+    };
+
+    // CONTROLADOR PRINCIPAL CTC
+    class CTCController {
+      constructor() {
+        this.map = null;
+        this.tileLayers = {};
+        this.currentTileLayer = null;
+
+        this.baseRailLayers = [];
+        this.activeGlowPolyline = null;
+        this.activeCorePolyline = null;
+        this.activeFlowPolyline = null;
+
+        this.yardMarkers = {};
+        this.currentSchedule = OFFICIAL_SCHEDULES[0];
+
+        // Convoy Articulado (Locomotora TMY 1009 + 5 Vagones oficiales)
+        this.consistMarkers = [];
+        this.activePathPoints = [];
+        this.pathCumulativeDist = [];
+        this.totalPathMeters = 0;
+        this.leadLocomotiveDistance = 0;
+        this.isPlaying = true;
+        this.speedMultiplier = 1;
+        this.lastTimestamp = 0;
+        this.animationFrameId = null;
+
+        this.init();
+      }
+
+      init() {
+        this.startClock();
+        this.initMap();
+        this.drawBaseTrackNetwork();
+        this.renderYardMarkers();
+        this.renderSchedulesUI();
+        this.renderYardsUI();
+        this.bindEvents();
+
+        // Cargar Cancún ➔ Chetumal por defecto
+        this.displayRoute(this.currentSchedule);
+        this.startTrainLoop();
+
+        // Ajustar el trazado a las vías reales (OSM)
+        this.refineGeometry();
+      }
+
+      setGeoStatus(text, cls) {
+        const el = document.getElementById('geo-status');
+        if (!el) return;
+        el.textContent = text;
+        el.className = cls;
+      }
+
+      applyRefined(result) {
+        Object.entries(result.segments).forEach(([key, coords]) => {
+          RAIL_SEGMENTS[key] = coords;
+        });
+        Object.entries(result.yards).forEach(([id, pt]) => {
+          if (OFFICIAL_YARDS[id]) {
+            OFFICIAL_YARDS[id].latlng = pt;
+            if (this.yardMarkers[id]) this.yardMarkers[id].setLatLng(pt);
+          }
+        });
+        this.drawBaseTrackNetwork();
+        this.displayRoute(this.currentSchedule, { keepView: true });
+        this.setGeoStatus(
+          `Vía real OSM (${result.ok}/${result.total} tramos)`,
+          result.ok === result.total ? 'text-emerald-400' : 'text-amber-300'
+        );
+      }
+
+      async refineGeometry() {
+        try {
+          const cached = GeoRefiner.loadCache();
+          if (cached && cached.ok > 0) {
+            this.applyRefined(cached);
+            return;
+          }
+          this.setGeoStatus('Descargando vías reales…', 'text-cyan-300 animate-pulse');
+          const ways = await GeoRefiner.fetchRail();
+          this.setGeoStatus('Ajustando trazado…', 'text-cyan-300 animate-pulse');
+          await new Promise(r => setTimeout(r, 30)); // deja pintar el estado
+          const graph = GeoRefiner.buildGraph(ways);
+          const result = GeoRefiner.compute(graph);
+          if (result.ok === 0) throw new Error('Sin tramos ajustables');
+          GeoRefiner.saveCache(result);
+          this.applyRefined(result);
+        } catch (err) {
+          console.warn('[CTC] No se pudo ajustar la vía a OSM:', err);
+          this.setGeoStatus('Vía: aproximada (sin conexión OSM)', 'text-amber-300');
+        }
+      }
+
+      startClock() {
+        const update = () => {
+          const now = new Date();
+          document.getElementById('clock-display').textContent = now.toTimeString().split(' ')[0];
+        };
+        update();
+        setInterval(update, 1000);
+      }
+
+      initMap() {
+        this.map = L.map('leaflet-map', {
+          center: [19.75, -89.2],
+          zoom: 7,
+          minZoom: 6,
+          maxZoom: 18,
+          zoomControl: true
+        });
+
+        // Capas satelitales Google y Esri
+        this.tileLayers.googleSat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+          maxZoom: 20,
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+          attribution: '&copy; Google Maps'
+        });
+
+        this.tileLayers.googleHyb = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+          maxZoom: 20,
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+          attribution: '&copy; Google Maps'
+        });
+
+        this.tileLayers.esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: '&copy; Esri'
+        });
+
+        this.currentTileLayer = this.tileLayers.googleSat;
+        this.currentTileLayer.addTo(this.map);
+      }
+
+      switchLayer(key) {
+        if (this.currentTileLayer) this.map.removeLayer(this.currentTileLayer);
+        if (this.tileLayers[key]) {
+          this.currentTileLayer = this.tileLayers[key];
+          this.currentTileLayer.addTo(this.map);
+        }
+      }
+
+      resetView() {
+        this.map.flyTo([19.75, -89.2], 7, { duration: 1 });
+      }
+
+      // Trazo continuo de toda la red troncal (1,554 km + ramal Progreso)
+      drawBaseTrackNetwork() {
+        this.baseRailLayers.forEach(l => this.map.removeLayer(l));
+        this.baseRailLayers = [];
+
+        Object.entries(RAIL_SEGMENTS).forEach(([key, coords]) => {
+          // Balasto / contraste sobre satélite
+          const outerLine = L.polyline(coords, {
+            color: '#050a12',
+            weight: 5,
+            opacity: 0.85,
+            lineCap: 'butt',
+            lineJoin: 'round',
+            smoothFactor: 0.5,
+            interactive: false
+          }).addTo(this.map);
+
+          // Cuerpo de la vía
+          const trackLine = L.polyline(coords, {
+            color: '#475569',
+            weight: 2.2,
+            opacity: 0.9,
+            lineCap: 'butt',
+            lineJoin: 'round',
+            smoothFactor: 0.5,
+            interactive: false
+          }).addTo(this.map);
+
+          // Durmientes (trazo discontinuo fino cruzando la vía)
+          const sleepers = L.polyline(coords, {
+            color: '#cbd5e1',
+            weight: 4,
+            opacity: 0.55,
+            dashArray: '1 5',
+            lineCap: 'butt',
+            lineJoin: 'round',
+            smoothFactor: 0.5,
+            interactive: false
+          }).addTo(this.map);
+
+          this.baseRailLayers.push(outerLine, trackLine, sleepers);
+        });
+
+        // Mantener la ruta activa y el convoy por encima de la red base
+        [this.activeGlowPolyline, this.activeCorePolyline, this.activeFlowPolyline].forEach(l => {
+          if (l) l.bringToFront();
+        });
+      }
+
+      // Marcadores de los 9 Patios Oficiales
+      renderYardMarkers() {
+        Object.values(OFFICIAL_YARDS).forEach(yard => {
+          const pinIcon = L.divIcon({
+            className: 'yard-pin-wrapper',
+            id: `pin-${yard.id}`,
+            html: `<div class="yard-pin-core" id="core-${yard.id}"></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          });
+
+          const marker = L.marker(yard.latlng, { icon: pinIcon }).addTo(this.map);
+
+          marker.bindTooltip(yard.tag, {
+            permanent: true,
+            direction: 'top',
+            offset: [0, -10],
+            className: `leaflet-tooltip-yard yard-label-${yard.id}`
+          });
+
+          marker.bindPopup(`
+            <div class="text-xs space-y-1.5 p-1 font-mono">
+              <div class="text-amber-400 font-extrabold text-sm border-b border-tactical-border pb-1">
+                ${yard.tag}
+              </div>
+              <div class="text-slate-200 font-sans font-semibold">${yard.fullName}</div>
+              <div class="text-[11px] text-cyan-300 font-sans">${yard.info}</div>
+              <button onclick="ctcApp.selectYardAsOrigin('${yard.id}')" class="mt-2 w-full py-1 bg-cyan-950 border border-cyan-400 text-cyan-300 rounded font-bold hover:bg-cyan-900 transition text-[10px]">
+                DEFINIR COMO ORIGEN EN RUTA LIBRE
+              </button>
+            </div>
+          `);
+
+          this.yardMarkers[yard.id] = marker;
+        });
+      }
+
+      selectYardAsOrigin(yardId) {
+        this.switchTab('custom');
+        document.getElementById('select-origin').value = yardId;
+        this.map.closePopup();
+      }
+
+      renderSchedulesUI() {
+        const container = document.getElementById('schedules-list');
+        container.innerHTML = "";
+
+        OFFICIAL_SCHEDULES.forEach(item => {
+          const isSelected = item.id === this.currentSchedule.id;
+          const card = document.createElement('div');
+          card.className = `p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${
+            isSelected
+              ? 'bg-cyan-950/60 border-cyan-400 text-white shadow-lg shadow-cyan-950/70 ring-1 ring-cyan-400/50'
+              : 'bg-tactical-card border-tactical-border hover:border-slate-600 text-slate-300'
+          }`;
+          card.onclick = () => this.selectSchedule(item.id);
+
+          card.innerHTML = `
+            <div class="flex items-center justify-between font-mono mb-1.5">
+              <span class="font-bold text-xs ${isSelected ? 'text-cyan-300' : 'text-slate-100'}">${item.name}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-tactical-panel border border-tactical-border text-cyan-400 font-bold">${item.id}</span>
+            </div>
+            <div class="text-[11px] text-slate-400 mb-2 truncate">${item.cargo}</div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1.5 border-t border-tactical-border/60">
+              <span class="flex items-center gap-1 text-amber-400 font-semibold"><i class="ph-fill ph-map-pin"></i> ${item.distance}</span>
+              <span class="flex items-center gap-1"><i class="ph-fill ph-clock"></i> ${item.time}</span>
+              <span class="flex items-center gap-1 text-emerald-400 font-semibold"><i class="ph-fill ph-package"></i> ${item.weight}</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      renderYardsUI() {
+        const container = document.getElementById('yards-cards-list');
+        container.innerHTML = "";
+
+        Object.values(OFFICIAL_YARDS).forEach(yard => {
+          const card = document.createElement('div');
+          card.className = "p-2.5 rounded-lg bg-tactical-panel border border-tactical-border hover:border-amber-400/60 cursor-pointer transition space-y-1";
+          card.onclick = () => {
+            this.map.flyTo(yard.latlng, 12, { duration: 1 });
+            this.yardMarkers[yard.id].openPopup();
+          };
+
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-400 text-[11px]">${yard.tag}</span>
+              <span class="text-[9px] text-slate-500 uppercase">${yard.id}</span>
+            </div>
+            <div class="text-[10px] text-slate-300">${yard.fullName}</div>
+            <div class="text-[9px] text-slate-500">${yard.info}</div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      selectSchedule(id) {
+        const found = OFFICIAL_SCHEDULES.find(s => s.id === id);
+        if (found) {
+          this.currentSchedule = found;
+          this.renderSchedulesUI();
+          this.displayRoute(found);
+        }
+      }
+
+      dijkstra(startNode, endNode) {
+        if (startNode === endNode) return [startNode];
+
+        const distances = {};
+        const previous = {};
+        const unvisited = new Set(Object.keys(GRAPH_ADJACENCY));
+
+        Object.keys(GRAPH_ADJACENCY).forEach(node => {
+          distances[node] = Infinity;
+          previous[node] = null;
+        });
+        distances[startNode] = 0;
+
+        while (unvisited.size > 0) {
+          let current = null;
+          unvisited.forEach(node => {
+            if (current === null || distances[node] < distances[current]) {
+              current = node;
+            }
+          });
+
+          if (current === endNode || distances[current] === Infinity) break;
+          unvisited.delete(current);
+
+          const neighbors = GRAPH_ADJACENCY[current];
+          for (let neighbor in neighbors) {
+            if (unvisited.has(neighbor)) {
+              const alt = distances[current] + neighbors[neighbor];
+              if (alt < distances[neighbor]) {
+                distances[neighbor] = alt;
+                previous[neighbor] = current;
+              }
+            }
+          }
+        }
+
+        const path = [];
+        let curr = endNode;
+        while (curr) {
+          path.unshift(curr);
+          curr = previous[curr];
+        }
+
+        return path[0] === startNode ? path : [];
+      }
+
+      buildRouteCoordinates(nodeList) {
+        let fullPath = [];
+        for (let i = 0; i < nodeList.length - 1; i++) {
+          const from = nodeList[i];
+          const to = nodeList[i + 1];
+
+          let segment = null;
+          if (RAIL_SEGMENTS[`${from}-${to}`]) {
+            segment = [...RAIL_SEGMENTS[`${from}-${to}`]];
+          } else if (RAIL_SEGMENTS[`${to}-${from}`]) {
+            segment = [...RAIL_SEGMENTS[`${to}-${from}`]].reverse();
+          }
+
+          if (segment) {
+            if (fullPath.length > 0) segment.shift();
+            fullPath = fullPath.concat(segment);
+          }
+        }
+        return fullPath;
+      }
+
+      displayRoute(route, opts = {}) {
+        const coords = this.buildRouteCoordinates(route.pathNodes);
+        if (coords.length === 0) return;
+
+        // Limpiar capas previas
+        if (this.activeGlowPolyline) this.map.removeLayer(this.activeGlowPolyline);
+        if (this.activeCorePolyline) this.map.removeLayer(this.activeCorePolyline);
+        if (this.activeFlowPolyline) this.map.removeLayer(this.activeFlowPolyline);
+
+        // 1. Resplandor base cian
+        this.activeGlowPolyline = L.polyline(coords, {
+          color: '#00f2ff',
+          weight: 9,
+          opacity: 0.55,
+          className: 'neon-track-glow',
+          lineCap: 'round',
+          lineJoin: 'round'
+        }).addTo(this.map);
+
+        // 2. Línea sólida central
+        this.activeCorePolyline = L.polyline(coords, {
+          color: '#00b4d8',
+          weight: 4,
+          opacity: 0.95,
+          lineCap: 'round',
+          lineJoin: 'round'
+        }).addTo(this.map);
+
+        // 3. Flujo continuo animado en la vía
+        this.activeFlowPolyline = L.polyline(coords, {
+          color: '#ffffff',
+          weight: 3.5,
+          opacity: 1,
+          className: 'animated-route-flow',
+          lineCap: 'round',
+          lineJoin: 'round'
+        }).addTo(this.map);
+
+        // Preparar convoy
+        this.setupTrainGeometry(coords);
+
+        // Resaltar los 9 patios involucrados
+        Object.keys(OFFICIAL_YARDS).forEach(yardId => {
+          const isPartOfRoute = route.pathNodes.includes(yardId);
+          const isEndpoint = yardId === route.pathNodes[0] || yardId === route.pathNodes[route.pathNodes.length - 1];
+
+          const coreEl = document.getElementById(`core-${yardId}`);
+          if (coreEl) {
+            if (isPartOfRoute) {
+              coreEl.parentElement.classList.add('is-active');
+            } else {
+              coreEl.parentElement.classList.remove('is-active');
+            }
+          }
+
+          const labelEls = document.querySelectorAll(`.yard-label-${yardId}`);
+          labelEls.forEach(el => {
+            if (isEndpoint) {
+              el.classList.add('is-active-endpoint');
+            } else {
+              el.classList.remove('is-active-endpoint');
+            }
+          });
+        });
+
+        // Encuadre suave del mapa (no se mueve la vista al refinar en segundo plano)
+        if (!opts.keepView) {
+          this.map.fitBounds(this.activeCorePolyline.getBounds(), { padding: [50, 50], maxZoom: 11 });
+        }
+
+        this.updateHUD(route);
+      }
+
+      setupTrainGeometry(coords) {
+        this.activePathPoints = coords.map(c => L.latLng(c[0], c[1]));
+        this.pathCumulativeDist = [0];
+        let total = 0;
+
+        for (let i = 0; i < this.activePathPoints.length - 1; i++) {
+          const dist = this.activePathPoints[i].distanceTo(this.activePathPoints[i + 1]);
+          total += dist;
+          this.pathCumulativeDist.push(total);
+        }
+
+        this.totalPathMeters = total;
+        this.leadLocomotiveDistance = 0;
+
+        this.initOrResetConsistMarkers();
+      }
+
+      initOrResetConsistMarkers() {
+        this.consistMarkers.forEach(m => this.map.removeLayer(m.marker));
+        this.consistMarkers = [];
+
+        CONSIST_CARS_CONFIG.forEach((carConfig, index) => {
+          const carIcon = L.divIcon({
+            className: 'train-consist-car',
+            html: `
+              <div id="car-wrapper-${index}" style="transform: rotate(0deg); transform-origin: center center; display: flex; align-items: center; justify-content: center;">
+                ${carConfig.renderSvg()}
+              </div>
+            `,
+            iconSize: [44, 44],
+            iconAnchor: [22, 22]
+          });
+
+          const marker = L.marker(this.activePathPoints[0], {
+            icon: carIcon,
+            zIndexOffset: 3000 - (index * 10)
+          }).addTo(this.map);
+
+          this.consistMarkers.push({
+            marker: marker,
+            config: carConfig
+          });
+        });
+      }
+
+      calculateBearing(latlng1, latlng2) {
+        const lat1 = latlng1.lat * Math.PI / 180;
+        const lat2 = latlng2.lat * Math.PI / 180;
+        const dLon = (latlng2.lng - latlng1.lng) * Math.PI / 180;
+
+        const y = Math.sin(dLon) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+        const brng = Math.atan2(y, x) * 180 / Math.PI;
+        return (brng + 360) % 360;
+      }
+
+      interpolatePosition(distanceMeters) {
+        let d = distanceMeters;
+        if (d < 0) {
+          d = (d % this.totalPathMeters) + this.totalPathMeters;
+        } else if (d > this.totalPathMeters) {
+          d = d % this.totalPathMeters;
+        }
+
+        if (d <= 0) {
+          const bearing = this.calculateBearing(this.activePathPoints[0], this.activePathPoints[1]);
+          return { latlng: this.activePathPoints[0], bearing };
+        }
+
+        if (d >= this.totalPathMeters) {
+          const lastIdx = this.activePathPoints.length - 1;
+          const bearing = this.calculateBearing(this.activePathPoints[lastIdx - 1], this.activePathPoints[lastIdx]);
+          return { latlng: this.activePathPoints[lastIdx], bearing };
+        }
+
+        // Búsqueda binaria del segmento (la vía real tiene miles de puntos)
+        let lo = 0, hi = this.pathCumulativeDist.length - 2;
+        while (lo < hi) {
+          const mid = (lo + hi + 1) >> 1;
+          if (this.pathCumulativeDist[mid] <= d) lo = mid; else hi = mid - 1;
+        }
+        const idx = lo;
+
+        const pA = this.activePathPoints[idx];
+        const pB = this.activePathPoints[idx + 1];
+        const segStartDist = this.pathCumulativeDist[idx];
+        const segEndDist = this.pathCumulativeDist[idx + 1];
+        const segLength = segEndDist - segStartDist;
+
+        const t = segLength > 0 ? (d - segStartDist) / segLength : 0;
+
+        const lat = pA.lat + (pB.lat - pA.lat) * t;
+        const lng = pA.lng + (pB.lng - pA.lng) * t;
+        const bearing = this.calculateBearing(pA, pB);
+
+        return { latlng: L.latLng(lat, lng), bearing };
+      }
+
+      startTrainLoop() {
+        const loop = (timestamp) => {
+          if (!this.lastTimestamp) this.lastTimestamp = timestamp;
+          const deltaTime = (timestamp - this.lastTimestamp) / 1000;
+          this.lastTimestamp = timestamp;
+
+          if (this.isPlaying && this.totalPathMeters > 0) {
+            const metersPerSecond = (this.totalPathMeters / 24) * this.speedMultiplier;
+            this.leadLocomotiveDistance += metersPerSecond * deltaTime;
+
+            if (this.leadLocomotiveDistance >= this.totalPathMeters) {
+              this.leadLocomotiveDistance = 0;
+            }
+
+            // Articulación independiente de cada vagón en tiempo real
+            this.consistMarkers.forEach((carItem, index) => {
+              const carDist = this.leadLocomotiveDistance - carItem.config.offsetMeters;
+              const { latlng, bearing } = this.interpolatePosition(carDist);
+
+              carItem.marker.setLatLng(latlng);
+              const wrapper = document.getElementById(`car-wrapper-${index}`);
+              if (wrapper) {
+                wrapper.style.transform = `rotate(${bearing}deg)`;
+              }
+            });
+
+            // Actualización de avance
+            const percent = Math.min(100, Math.round((this.leadLocomotiveDistance / this.totalPathMeters) * 100));
+            const kmTraveled = Math.round(this.leadLocomotiveDistance / 1000);
+            const totalKm = Math.round(this.totalPathMeters / 1000);
+
+            document.getElementById('panel-progress-percent').textContent = `${percent}%`;
+            document.getElementById('panel-progress-bar').style.width = `${percent}%`;
+            document.getElementById('float-progress-text').textContent = `${percent}% (${kmTraveled} / ${totalKm} km)`;
+          }
+
+          this.animationFrameId = requestAnimationFrame(loop);
+        };
+
+        this.animationFrameId = requestAnimationFrame(loop);
+      }
+
+      togglePlayPause() {
+        this.isPlaying = !this.isPlaying;
+        const icon = document.getElementById('play-pause-icon');
+        const label = document.getElementById('play-pause-label');
+
+        if (this.isPlaying) {
+          icon.className = "ph-bold ph-pause";
+          label.textContent = "Pausar";
+        } else {
+          icon.className = "ph-bold ph-play";
+          label.textContent = "Reanudar";
+        }
+      }
+
+      setSimulationSpeed(multiplier) {
+        this.speedMultiplier = multiplier;
+        [1, 2, 3].forEach(n => {
+          const btn = document.getElementById(`spd-btn-${n}`);
+          btn.className = "px-2 py-0.5 rounded bg-tactical-card text-slate-300 hover:text-white border border-tactical-border font-bold text-[11px]";
+        });
+
+        const activeId = multiplier === 1 ? 'spd-btn-1' : (multiplier === 2.5 ? 'spd-btn-2' : 'spd-btn-3');
+        document.getElementById(activeId).className = "px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400 font-bold text-[11px]";
+
+        const speedDisplay = multiplier === 1 ? '65 km/h' : (multiplier === 2.5 ? '110 km/h' : '160 km/h');
+        document.getElementById('header-train-speed').textContent = speedDisplay;
+      }
+
+      updateHUD(route) {
+        document.getElementById('panel-train-code').textContent = route.id;
+        document.getElementById('panel-dist').textContent = route.distance;
+        document.getElementById('panel-time').textContent = route.time;
+        document.getElementById('panel-weight').textContent = route.weight;
+
+        const intermediateNodes = route.pathNodes.slice(1, -1);
+        const intermediateText = intermediateNodes.length > 0 
+          ? intermediateNodes.map(k => OFFICIAL_YARDS[k].tag).join(", ")
+          : "Vía directa sin patios de maniobra";
+        document.getElementById('panel-path-nodes').textContent = intermediateText;
+
+        document.getElementById('float-route-name').textContent = `${route.origin} ➔ ${route.dest}`;
+        document.getElementById('float-route-corridor').textContent = route.cargo;
+        document.getElementById('badge-train-type').textContent = route.typeBadge || "CARGA";
+      }
+
+      dispatchCustomRoute() {
+        const origin = document.getElementById('select-origin').value;
+        const dest = document.getElementById('select-dest').value;
+        const cargo = document.getElementById('select-cargo').value;
+
+        if (origin === dest) {
+          document.getElementById('float-route-corridor').textContent = "AVISO CTC: El patio de origen y destino deben ser distintos.";
+          return;
+        }
+
+        const pathNodes = this.dijkstra(origin, dest);
+        if (pathNodes.length < 2) return;
+
+        let totalKm = 0;
+        for (let i = 0; i < pathNodes.length - 1; i++) {
+          totalKm += GRAPH_ADJACENCY[pathNodes[i]][pathNodes[i + 1]];
+        }
+
+        const originYard = OFFICIAL_YARDS[origin];
+        const destYard = OFFICIAL_YARDS[dest];
+
+        const customRoute = {
+          id: `C-${Math.floor(700 + Math.random() * 299)}`,
+          name: `${originYard.tag} ➔ ${destYard.tag}`,
+          cargo: cargo,
+          typeBadge: "DESPACHO",
+          origin: originYard.tag,
+          dest: destYard.tag,
+          originKey: origin,
+          destKey: dest,
+          distance: `${totalKm} km`,
+          time: `${Math.floor(totalKm / 75)} h ${Math.round((totalKm % 75) * 0.8)} min`,
+          cars: "36 Vagones",
+          weight: "3,060 Ton",
+          pathNodes: pathNodes
+        };
+
+        this.currentSchedule = customRoute;
+        OFFICIAL_SCHEDULES.unshift(customRoute);
+        this.renderSchedulesUI();
+        this.displayRoute(customRoute);
+        this.switchTab('schedules');
+      }
+
+      switchTab(tabKey) {
+        ['schedules', 'custom', 'yards'].forEach(t => {
+          const btn = document.getElementById(`tab-btn-${t}`);
+          const content = document.getElementById(`tab-content-${t}`);
+          if (t === tabKey) {
+            btn.className = "flex-1 py-3 px-2 text-center border-b-2 border-cyan-400 text-cyan-300 font-bold bg-tactical-panel flex items-center justify-center gap-1.5";
+            content.classList.remove('hidden');
+          } else {
+            btn.className = "flex-1 py-3 px-2 text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5";
+            content.classList.add('hidden');
+          }
+        });
+      }
+
+      bindEvents() {
+        const sidePanel = document.getElementById('side-panel');
+        document.getElementById('toggle-panel-btn').onclick = () => {
+          sidePanel.classList.toggle('translate-x-full');
+        };
+        document.getElementById('close-panel-btn').onclick = () => {
+          sidePanel.classList.add('translate-x-full');
+        };
+      }
+    }
+
+    let ctcApp;
+    window.onload = function() {
+      if (typeof L === 'undefined') {
+        document.getElementById('leaflet-map').innerHTML =
+          '<div style="padding:24px;font-family:monospace;color:#fbbf24">No se pudo cargar Leaflet (CDN bloqueado o sin conexión). Abre el archivo en el navegador con internet.</div>';
+        return;
+      }
+      ctcApp = new CTCController();
+    };
+  </script>
+</body>
+</html>

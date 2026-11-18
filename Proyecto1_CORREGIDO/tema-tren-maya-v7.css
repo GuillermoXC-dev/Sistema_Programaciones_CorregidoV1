@@ -1,0 +1,268 @@
+/* ==========================================================================
+  TREN MAYA DE CARGA / V7 - EDICION FOTOGRAFICA
+  Capa de presentación: sin modificaciones de datos, funciones o formularios.
+  Imágenes de origen suministradas por el usuario y recursos ya existentes.
+  ========================================================================== */
+:root { --tm7-marina:#06364b; --tm7-petroleo:#084f68; --tm7-dorado:#f5d084; }
+body.tm-v6 {
+  background:linear-gradient(155deg,rgba(2,47,66,.96),rgba(6,94,112,.97) 53%,rgba(4,49,69,.99)),url('img/tema_v7/fondo-principal.webp') center center/cover fixed !important;
+  color:#f5fbfd !important;
+}
+body.tm-v6 .dashboard-header, body.tm-v6 .encabezado,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-header,
+body.tm-v6:not(.tm-page-dashboard) .encabezado {
+  background-image:linear-gradient(90deg,rgba(1,23,38,.99) 0%,rgba(1,31,46,.98) 19%,rgba(1,34,52,.91) 35%,rgba(2,37,52,.67) 52%,rgba(2,36,48,.08) 78%),url('img/tema_v7/fondo-portada-limpio.webp') !important;
+  background-color:#083649 !important;
+  background-repeat:no-repeat !important;
+  background-size:cover !important;
+  background-position:center 49% !important;
+  border:1px solid rgba(237,195,116,.65) !important;
+  border-bottom:3px solid #e6b761 !important;
+  box-shadow:0 14px 26px rgba(0,20,32,.24) !important;
+}
+body.tm-v6.tm-page-dashboard .dashboard-header { height:325px !important;padding:42px 35px 48px !important; }
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-header,.encabezado){min-height:247px !important;padding:22px 24px !important;}
+/* Readable, prominent real emblems, still live HTML rather than text baked into image. */
+body.tm-v6 .tm-logo-marco,
+body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco {
+  width:112px !important;min-width:112px !important;height:138px !important;padding:2px !important;flex:0 0 112px !important;
+  display:flex !important;justify-content:center !important;align-items:center !important;
+  border:0 !important;box-shadow:none !important;background:rgba(0,20,34,.12) !important;
+}
+body.tm-v6 .tm-logo-marco img,
+body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco img {
+  width:auto !important;height:132px !important;max-height:132px !important;max-width:108px !important;
+  object-fit:contain !important;filter:drop-shadow(0 3px 9px rgba(0,0,0,.65)) !important;
+}
+body.tm-v6 .dashboard-header>div:first-child { gap:19px !important;align-items:center !important; }
+body.tm-v6 .tm-titular h1 { font-size:clamp(27px,2.9vw,43px) !important;text-shadow:0 2px 9px rgba(0,13,28,.75);}
+body.tm-v6 .tm-v6-title-2{color:var(--tm7-dorado) !important;}
+body.tm-v6 .tm-ante-titulo,body.tm-v6 .tm-subtitulo{text-shadow:0 2px 7px #001e2a;}
+body.tm-v6 .tm-v5-strapline{background:rgba(49, 3, 3, 0.45);padding:4px 11px;border-radius:30px;max-width:75%}
+/* Larger, truly distinct railway vector navigation icons. */
+body.tm-v6 .menu-dashboard {background:linear-gradient(105deg,#399dcf,#187f99 60%,#024b70) !important;border:1px solid rgba(247,201,128,.72) !important;border-radius:12px !important;}
+body.tm-v6 .menu-dashboard button {font-size:clamp(11px,.8vw,13px) !important;gap:8px !important;letter-spacing:.1px !important;}
+body.tm-v6 .menu-dashboard button img,body.tm-v6 .menu-dashboard button .tm-ico-nav,
+body.tm-v6 .pestana .tm-ico-nav {width:28px !important;height:28px !important;object-fit:contain !important;filter:none !important;flex-shrink:0;}
+body.tm-v6 .menu-dashboard .menu-activo {background:linear-gradient(135deg,#f8dc9a,#d7a556) !important;color:#07354e !important;}
+body.tm-v6 .menu-dashboard .menu-activo .tm-ico-nav,
+body.tm-v6 .menu-dashboard button.activo .tm-ico-nav {filter:brightness(0) saturate(100%) invert(14%) sepia(18%) saturate(2115%) hue-rotate(155deg) !important;}
+body.tm-v6 :is(.tm-v5-card-icon,.tm-v5-kpi) img {image-rendering:auto;}
+body.tm-v6 .tm-v5-card-icon img{width:34px !important;height:34px !important;object-fit:contain !important;}
+/* Photo cards use three individual large images; no visibly enlarged miniature thumbnail. */
+body.tm-v6 .tm-v5-access::before {background-image:var(--tm7-access-photo) !important;background-size:cover !important;background-position:center !important;opacity:1 !important;}
+body.tm-v6 .tm-v5-access-ops {--tm7-access-photo:url('img/tema_v7/card-operaciones.webp');}
+body.tm-v6 .tm-v5-access-patio {--tm7-access-photo:url('img/tema_v7/card-patio.webp');}
+body.tm-v6 .tm-v5-access-material {--tm7-access-photo:url('img/tema_v7/card-material.webp');}
+body.tm-v6 .tm-v5-access-ops,body.tm-v6 .tm-v5-access-patio,body.tm-v6 .tm-v5-access-material {
+ background-image:linear-gradient(0deg,rgba(0,31,46,.77),rgba(0,42,53,.08)),var(--tm7-access-photo) !important;
+ background-size:cover !important;background-position:center !important;
+}
+body.tm-v6 .tm-v5-access {height:240px !important;border:1px solid rgba(238,203,132,.75) !important;}
+body.tm-v6 .tm-v5-access::after {background:linear-gradient(0deg,rgba(0,24,39,.94),rgba(0,34,47,.4) 45%,transparent 82%) !important;}
+body.tm-v6 .tm-v5-operations-panel{background-image:linear-gradient(110deg,rgba(2,61,77,.9),rgba(4,82,102,.89)),url('img/tema_v7/card-resumen.webp') !important;background-size:cover !important;}
+body.tm-v6 .tm-v5-kpi:nth-child(1)::before{background-image:url('img/tema_v7/card-operaciones.webp') !important;}
+body.tm-v6 .tm-v5-kpi:nth-child(2)::before{background-image:url('img/tema_v7/card-salidas.webp') !important;}
+body.tm-v6 .tm-v5-kpi:nth-child(3)::before{background-image:url('img/tema_v7/card-patio.webp') !important;}
+body.tm-v6 .tm-v5-kpi:nth-child(4)::before{background-image:url('img/tema_v7/card-material.webp') !important;}
+/* Calendar, arrivals, departure, incident, fuel, cost and chart backgrounds are independent. */
+body.tm-v6.tm-page-dashboard #seccionCalendario{--tm7-card-photo:url('img/tema_v7/card-calendario.webp');}
+body.tm-v6.tm-page-dashboard .dashboard-grid>.dashboard-card:nth-child(2){--tm7-card-photo:url('img/tema_v7/card-salidas.webp');}
+body.tm-v6.tm-page-dashboard #seccionRecepciones{--tm7-card-photo:url('img/tema_v7/card-recepciones.webp');}
+body.tm-v6.tm-page-dashboard #seccionIncidencias{--tm7-card-photo:url('img/tema_v7/card-incidencias.webp');}
+body.tm-v6.tm-page-dashboard #seccionCombustible{--tm7-card-photo:url('img/tema_v7/card-combustible.webp');}
+body.tm-v6.tm-page-dashboard #seccionCostos{--tm7-card-photo:url('img/tema_v7/card-costos.webp');}
+body.tm-v6.tm-page-dashboard #seccionCostoTotal{--tm7-card-photo:url('img/tema_v7/card-costo-total.webp');}
+body.tm-v6.tm-page-dashboard .graficas-dashboard>*:nth-child(3n+1){--tm7-card-photo:url('img/tema_v7/card-graficas.webp');}
+body.tm-v6.tm-page-dashboard .graficas-dashboard>*:nth-child(3n+2){--tm7-card-photo:url('img/tema_v7/card-control.webp');}
+body.tm-v6.tm-page-dashboard .graficas-dashboard>*:nth-child(3n){--tm7-card-photo:url('img/tema_v7/card-costos.webp');}
+body.tm-v6.tm-page-dashboard :is(.dashboard-card,.graficas-dashboard>*) {position:relative !important;overflow:hidden;isolation:isolate;}
+body.tm-v6.tm-page-dashboard :is(.dashboard-card,.graficas-dashboard>*)::before {
+ content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+ background-image:var(--tm7-card-photo, url('img/tema_v7/card-resumen.webp')) !important;
+ background-size:cover;background-position:center;opacity:.13;
+}
+body.tm-v6.tm-page-dashboard :is(.dashboard-card,.graficas-dashboard>*)>*{position:relative;z-index:1;}
+body.tm-v6.tm-page-dashboard :is(.dashboard-card,.graficas-dashboard>*) {background-color:linear-gradient(105deg, #082c79, #187f99 60%, #399dcf) !important;border:1px solid rgba(232,192,111,.8) !important;box-shadow:0 5px 18px rgba(0,31,51,.14) !important;}
+body.tm-v6.tm-page-dashboard .dashboard-card h2 {display:flex;gap:16px;align-items:center;color:#fbfcfc !important;}
+body.tm-v6 .tm7-heading-icon {display:inline-block;width:26px;height:26px;flex:0 0 26px;vertical-align:middle;padding:3px;border-radius:6px;background:#0b455d;object-fit:contain;}
+body.tm-v6 .indicador-icono img{width:28px;height:28px;display:block;padding:3px;background:#0b455d;border-radius:7px;}
+/* Form views: distinct railway imagery under light translucent sheets to protect contrast and inputs. */
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion){
+ --tm7-card-photo:url('img/tema_v7/card-servicio.webp'); background-color:rgba(251,253,253,.97) !important;
+ background-image:linear-gradient(rgba(255,255,255,.96),rgba(248,251,251,.92)) !important;
+}
+body.tm-v6.tm-page-index :is(.tarjeta,.panel,.locomotoras-card,.formulario-seccion){--tm7-card-photo:url('img/tema_v7/card-operaciones.webp')}
+body.tm-v6.tm-page-servicio-patio :is(.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion){--tm7-card-photo:url('img/Locomotora.png')}
+body.tm-v6.tm-page-distribucion_personal :is(.tarjeta,.panel,.dashboard-card){--tm7-card-photo:url('img/tema_v7/card-personal.webp')}
+body.tm-v6.tm-page-incidencias :is(.tarjeta,.panel,.dashboard-card){--tm7-card-photo:url('img/tema_v7/card-incidencias.webp')}
+body.tm-v6.tm-page-combustible :is(.tarjeta,.panel,.dashboard-card){--tm7-card-photo:url('img/tema_v7/card-combustible.webp')}
+body.tm-v6.tm-page-costos :is(.tarjeta,.panel,.dashboard-card){--tm7-card-photo:url('img/tema_v7/card-costos.webp')}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion)::before{
+ content:'' !important;background-image:var(--tm7-card-photo) !important;background-size:cover !important;
+ background-position:center !important;opacity:.12 !important;filter:none !important;
+}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion) > *{position:relative;z-index:1}
+body.tm-v6 :is(input,select,textarea) {background-color:rgba(255,255,255,.95);}
+body.tm-v6 .tm-v5-footer,body.tm-v6 .tm-footer-v4 {background-image:linear-gradient(90deg,#06344c,#055870,#06344c) !important;color:#f4d291 !important;}
+@media(max-width:900px){
+ body.tm-v6.tm-page-dashboard .dashboard-header{height:300px !important;padding:25px 20px 46px !important;}
+ body.tm-v6 .tm-logo-marco, body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco{width:86px !important;min-width:86px !important;flex-basis:86px !important;height:112px !important;}
+ body.tm-v6 .tm-logo-marco img,body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco img {height:108px !important;max-height:108px !important;}
+}
+@media(max-width:650px){
+ body.tm-v6.tm-page-dashboard .dashboard-header{height:290px !important;padding:16px 11px 45px !important;background-position:67% center !important;}
+ body.tm-v6 .dashboard-header,body.tm-v6 .encabezado {background-image:linear-gradient(90deg,rgba(1,23,38,.98) 0%,rgba(1,31,46,.89) 47%,rgba(2,37,52,.30) 100%),url('img/tema_v7/fondo-portada-limpio.webp') !important;}
+ body.tm-v6.tm-page-dashboard .dashboard-header>div:first-child {gap:9px !important;align-items:center !important;}
+ body.tm-v6 .tm-logo-marco,body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco{width:61px !important;min-width:61px !important;flex:0 0 61px !important;height:84px !important;margin:0 !important;}
+ body.tm-v6 .tm-logo-marco img,body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco img{height:81px !important;max-height:81px !important;max-width:60px !important;}
+ body.tm-v6 .dashboard-header .tm-titular {min-width:0 !important;max-width:calc(100% - 70px) !important;}
+ body.tm-v6 .tm-titular h1{font-size:clamp(18px,5vw,26px) !important;}
+ body.tm-v6 .menu-dashboard button img,body.tm-v6 .menu-dashboard button .tm-ico-nav{width:23px !important;height:23px !important;}
+ body.tm-v6 .tm-v5-access{height:210px !important;}
+ body.tm-v6 .tm-v5-strapline {display:none !important;}
+}
+
+
+/* === V7.1 ajustes solicitados: fondos visibles e iconos de Recepción/Patio/Salidas === */
+body.tm-v6 .tm7-section-title{display:flex;align-items:center;gap:10px;color:#0d3b53 !important;}
+body.tm-v6 .tm7-section-title .tm7-heading-icon{width:30px;height:30px;flex:0 0 30px;}
+body.tm-v6.tm-page-dashboard #seccionCalendario .calendario-real,
+body.tm-v6.tm-page-dashboard #proximasSalidas,
+body.tm-v6.tm-page-dashboard #seccionRecepciones .indicadores,
+body.tm-v6.tm-page-dashboard #seccionCombustible .estadisticas,
+body.tm-v6.tm-page-dashboard #seccionCostoTotal .estadisticas,
+body.tm-v6.tm-page-dashboard .graficas-dashboard section:first-child .grafica-contenedor{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(228,186,96,.45);
+  border-radius:14px;
+  background-color:rgba(255,255,255,.58);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.24);
+}
+body.tm-v6.tm-page-dashboard #seccionCalendario .calendario-real::before,
+body.tm-v6.tm-page-dashboard #proximasSalidas::before,
+body.tm-v6.tm-page-dashboard #seccionRecepciones .indicadores::before,
+body.tm-v6.tm-page-dashboard #seccionCombustible .estadisticas::before,
+body.tm-v6.tm-page-dashboard #seccionCostoTotal .estadisticas::before,
+body.tm-v6.tm-page-dashboard .graficas-dashboard section:first-child .grafica-contenedor::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-size:cover;background-position:center;opacity:.17;
+}
+body.tm-v6.tm-page-dashboard #seccionCalendario .calendario-real > *,
+body.tm-v6.tm-page-dashboard #proximasSalidas > *,
+body.tm-v6.tm-page-dashboard #seccionRecepciones .indicadores > *,
+body.tm-v6.tm-page-dashboard #seccionCombustible .estadisticas > *,
+body.tm-v6.tm-page-dashboard #seccionCostoTotal .estadisticas > *,
+body.tm-v6.tm-page-dashboard .graficas-dashboard section:first-child .grafica-contenedor > *{position:relative;z-index:1;}
+body.tm-v6.tm-page-dashboard #seccionCalendario .calendario-real::before{background-image:url('img/tema_v7/card-calendario.webp');opacity:.20;}
+body.tm-v6.tm-page-dashboard #proximasSalidas::before{background-image:url('img/tema_v7/card-salidas.webp');opacity:.18;}
+body.tm-v6.tm-page-dashboard #seccionRecepciones .indicadores::before{background-image:url('img/tema_v7/card-recepciones.webp');opacity:.17;}
+body.tm-v6.tm-page-dashboard #seccionCombustible .estadisticas::before{background-image:url('img/tema_v7/card-combustible.webp');opacity:.17;}
+body.tm-v6.tm-page-dashboard #seccionCostoTotal .estadisticas::before{background-image:url('img/tema_v7/card-costo-total.webp');opacity:.17;}
+body.tm-v6.tm-page-dashboard .graficas-dashboard section:first-child .grafica-contenedor::before{background-image:url('img/tema_v7/card-control.webp');opacity:.16;}
+body.tm-v6.tm-page-dashboard #proximasSalidas,
+body.tm-v6.tm-page-dashboard #seccionRecepciones .indicadores,
+body.tm-v6.tm-page-dashboard #seccionCombustible .estadisticas,
+body.tm-v6.tm-page-dashboard #seccionCostoTotal .estadisticas{padding:14px;border-radius:14px;}
+body.tm-v6.tm-page-dashboard #proximasSalidas .sin-datos{background:rgba(255,255,255,.48);padding:16px;border-radius:12px;}
+body.tm-v6.tm-page-dashboard .graficas-dashboard section:first-child .grafica-contenedor{min-height:325px;padding:10px;}
+body.tm-v6.tm-page-servicio-patio #seccionRecepcion .panel:first-child,
+body.tm-v6.tm-page-servicio-patio #seccionServicioPatio .panel:first-child,
+body.tm-v6.tm-page-servicio-patio #seccionSalidas .panel:first-child{
+  position:relative;overflow:hidden;
+}
+body.tm-v6.tm-page-servicio-patio #seccionRecepcion .panel:first-child::before,
+body.tm-v6.tm-page-servicio-patio #seccionServicioPatio .panel:first-child::before,
+body.tm-v6.tm-page-servicio-patio #seccionSalidas .panel:first-child::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-size:cover;background-position:center;opacity:.10;
+}
+body.tm-v6.tm-page-servicio-patio #seccionRecepcion .panel:first-child::before{background-image:url('img/tema_v7/card-recepciones.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionServicioPatio .panel:first-child::before{background-image:url('img/tema_v7/card-servicio.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionSalidas .panel:first-child::before{background-image:url('img/tema_v7/card-salidas.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionRecepcion .panel:first-child > *,
+body.tm-v6.tm-page-servicio-patio #seccionServicioPatio .panel:first-child > *,
+body.tm-v6.tm-page-servicio-patio #seccionSalidas .panel:first-child > *{position:relative;z-index:1;}
+
+
+/* V10: retirado el elemento de locomotora superpuesto en la esquina; permanece la portada del atardecer. */
+
+/* === V9 refinado visual: portada limpia sin locomotora y tablas premium === */
+body.tm-v6 .dashboard-header,body.tm-v6 .encabezado{
+  backdrop-filter:saturate(115%);
+}
+body.tm-v6 .card-header h2,
+body.tm-v6 .dashboard-card > h2,
+body.tm-v6 .tarjeta > h2,
+body.tm-v6 .panel > h2{
+  letter-spacing:.2px;
+}
+body.tm-v6 .tabla-contenedor{
+  position:relative;overflow:hidden;border-radius:16px;
+  border:1px solid rgba(227,185,92,.55);
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(246,250,251,.88));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.24),0 7px 18px rgba(0,25,44,.08);
+}
+body.tm-v6 .tabla-contenedor::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.12;background-size:cover;background-position:center;
+  background-image:var(--tm7-table-photo, url('img/tema_v7/card-control.webp'));
+}
+body.tm-v6 .tabla-contenedor > *{position:relative;z-index:1;}
+body.tm-v6 .tabla-contenedor table{background:transparent !important;}
+body.tm-v6 .tabla-contenedor thead th{
+  background:linear-gradient(135deg,#063a53,#0b5a72) !important;
+  color:#f7e0a6 !important;
+  border-bottom:2px solid rgba(237,199,113,.75) !important;
+  font-weight:700;
+  text-transform:none;
+}
+body.tm-v6 .tabla-contenedor tbody td{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(1px);}
+body.tm-v6 .tabla-contenedor tbody tr:nth-child(even) td{background:rgba(244,249,250,.82) !important;}
+body.tm-v6 .tabla-contenedor tbody tr:hover td{background:rgba(230,242,246,.88) !important;}
+body.tm-v6.tm-page-servicio-patio #seccionProgramaciones .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-operaciones.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionSalidas .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-salidas.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionRecepcion .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-recepciones.webp');}
+body.tm-v6.tm-page-servicio-patio #seccionServicioPatio .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-servicio.webp');}
+body.tm-v6.tm-page-combustible .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-combustible.webp');}
+body.tm-v6.tm-page-costos .tabla-contenedor{--tm7-table-photo:url('img/tema_v7/card-costos.webp');}
+body.tm-v6.tm-page-dashboard #seccionCalendario .dashboard-card,
+body.tm-v6.tm-page-dashboard #seccionCostoTotal,
+body.tm-v6.tm-page-dashboard #seccionRecepciones,
+body.tm-v6.tm-page-dashboard #seccionCombustible{box-shadow:0 8px 22px rgba(0,25,44,.16) !important;}
+body.tm-v6 .tm7-chip-title{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(7,58,80,.10),rgba(240,200,120,.12));
+  border:1px solid rgba(227,185,92,.28);
+}
+
+/* V10 — Retirar exclusivamente las fotografías no deseadas señaladas por el usuario.
+   Se mantiene el fondo independiente de cada sección mediante ::before. */
+body.tm-v6.tm-page-dashboard .dashboard-card {
+  background-image: none !important;
+}
+/* Eliminar de las tarjetas las fotografías heredadas del tema V4;
+   se conservan los fondos tenues definidos por sección del tema V7. */
+body.tm-v6.tm-page-dashboard .graficas-dashboard > * {
+  background-image: none !important;
+}
+
+
+/* === V14 nitidez del encabezado principal === */
+body.tm-v6 .dashboard-header,
+body.tm-v6 .encabezado,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-header,
+body.tm-v6:not(.tm-page-dashboard) .encabezado{
+  background-image:linear-gradient(90deg,rgba(1,23,38,.86) 0%,rgba(1,31,46,.70) 34%,rgba(2,37,52,.28) 62%,rgba(2,36,48,.06) 100%),url('img/tema_v7/fondo-portada-nitido.webp') !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  background-position:center 44% !important;
+}
+body.tm-v6.tm-page-dashboard .dashboard-header{
+  background-position:center 42% !important;
+}
+
+/* === V17 banner más nítido y menos pixelado === */
+body.tm-v6 .dashboard-header,
+body.tm-v6 .encabezado{
+  image-rendering:auto;
+}

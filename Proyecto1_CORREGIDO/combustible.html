@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<title>Sistema de Programaciones · CONTROL DE COMBUSTIBLE</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css">
+
+
+
+
+
+<link rel="stylesheet" href="tema-tren-maya-v4.css">
+<link rel="stylesheet" href="tema-tren-maya-v5.css">
+<link rel="stylesheet" href="tema-tren-maya-v6.css">
+<link rel="stylesheet" href="tema-tren-maya-v7.css">
+
+
+
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-combustible">
+
+   
+        <!-- ENCABEZADO -->
+        <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">CONTROL DE COMBUSTIBLE</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+        <!-- MENÚ -->
+        <nav class="menu-dashboard">
+            <button onclick="window.location.href='dashboard.html'" type="button"> Inicio</button>
+            <button onclick="window.location.href='servicio-patio.html'" type="button"> Operaciones</button>
+            <button onclick="window.location.href='servicio-patio.html'" type="button"> Material Rodante</button>
+            <button onclick="window.location.href='distribucion_personal.html'" type="button">Personal</button>
+            <button onclick="window.location.href='incidencias.html'" type="button"> Incidencias</button>
+            <button onclick="window.location.href='combustible.html'" type="button"> Control de Combustible</button>
+            <button onclick="window.location.href='costos.html'" type="button"> Costos</button>
+        </nav>
+
+        <!-- CONTENIDO -->
+        <main class="dashboard-grid">
+
+            <!-- FORMULARIO -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2>⛽ Control de combustible</h2>
+                </div>
+
+                <div class="formulario">
+                    <label>Programación</label>
+                    <select id="programacion_id">
+                        <option value="">Selecciona una programación</option>
+                    </select>
+
+                    <label>Fecha</label>
+                    <input type="date" id="fecha">
+
+                    <label>Tren</label>
+                    <input type="text" id="tren" placeholder="Ej. Tren 001">
+
+                    <label>Litros utilizados</label>
+                    <input type="number" id="litros" min="0" step="0.01" placeholder="Ej. 500">
+
+                    <label>Precio por litro</label>
+                    <input type="number" id="precio_litro" min="0" step="0.01" placeholder="Ej. 25.50">
+
+                    <label>Observaciones</label>
+                    <textarea id="observaciones" placeholder="Observaciones..."></textarea>
+
+                    <div class="botones">
+                        <button id="btnGuardarCombustible">💾 GUARDAR</button>
+                        <button id="btnLimpiarCombustible">LIMPIAR</button>
+                    </div>
+
+                    <div id="mensajeCombustible"></div>
+                </div>
+            </section>
+
+            <!-- TABLA -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2>📋 Registros de combustible</h2>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button id="btn-imprimir" class="btn btn-danger btn-sm">📄 PDF</button>
+                        <button onclick="exportarTablaAExcel('tabla-registros', 'combustible.xlsx')">📥 Exportar a Excel</button>
+                        <button id="btnActualizarCombustible">🔄 Actualizar</button>
+                    </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table id="tabla-registros">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Locomotora</th>
+                                <th>Litros</th>
+                                <th>Precio/L</th>
+                                <th>Costo total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCombustible">
+                        </tbody>
+                    </table></div>
+                </div>
+
+                <div id="mensajeTabla"></div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- SCRIPTS DE BASE DE DATOS Y LÓGICA -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="permisos.js"></script>
+    <script src="temayin.js"></script>
+    <script src="combustible.js"></script>
+    <script src="generador-pdf.js"></script>
+
+    <!-- SCRIPTS DE PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="generador-pdf.js"></script>
+
+    <!-- SCRIPT DE SEGURIDAD PARA QUITAR LA PANTALLA DE CARGA -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const pantalla = document.getElementById('pantallaCarga');
+                if (pantalla) {
+                    pantalla.style.opacity = '0';
+                    pantalla.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => pantalla.remove(), 500);
+                }
+            }, 800);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="alertas-realtime.js"></script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

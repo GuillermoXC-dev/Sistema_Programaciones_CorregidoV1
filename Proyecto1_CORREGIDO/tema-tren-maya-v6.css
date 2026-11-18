@@ -1,0 +1,280 @@
+/* =========================================================================
+   TEMA TREN MAYA CARGA V6 – diseño basado en imagen de referencia suministrada
+   Esta hoja es exclusivamente visual: no redefine campos, IDs ni lógica CRUD.
+   Cargar DESPUÉS de estilos.css, tema-tren-maya-v4.css y tema-tren-maya-v5.css.
+   ========================================================================= */
+:root{--tm6-ocean:#045a70;--tm6-turquesa:#007b91;--tm6-laguna:#06889d;--tm6-dorado:#f3c779;--tm6-dorado-oscuro:#bb8c3b;--tm6-ink:#042c3a;--tm6-white:#eaf6f8}
+body.tm-v6{background:
+  radial-gradient(ellipse at 6% 22%,rgba(12,158,164,.36),transparent 44%),
+  radial-gradient(ellipse at 98% 75%,rgba(14,167,177,.24),transparent 45%),
+  linear-gradient(180deg,#075768 0%,#0b91a2 58%,#023d53 100%) !important;
+  background-attachment:fixed !important;color:#eaf7fa;min-height:100vh}
+body.tm-v6 .dashboard{width:min(1632px,calc(100% - 44px)) !important;margin:0 auto 20px !important}
+/* Seamless sunset-and-locomotive hero, covering the pre-rendered lettering with a solid color veil:
+   actual title, emblems, date and navigation remain editable HTML. */
+body.tm-v6 .dashboard-header,body.tm-v6 .encabezado{
+ background:linear-gradient(90deg,#002b37 0%,rgba(1,44,54,.99) 23%,rgba(0,43,55,.985) 41%,rgba(0,43,55,.5) 52%,rgba(0,45,56,.01) 68%),url('img/tema_v6/portada-referencia.webp') center center/cover no-repeat !important;
+ border:0 !important;border-radius:0 !important;border-bottom:3px solid rgba(236,186,87,.75) !important;
+ box-shadow:0 3px 15px rgba(0,24,37,.12) !important}
+body.tm-v6.tm-page-dashboard .dashboard-header{height:262px !important;padding:30px 32px 45px !important}
+body.tm-v6 .dashboard-header::after,body.tm-v6 .encabezado::after{display:none !important}
+body.tm-v6 .tm-logo-marco{width:76px !important;height:103px !important;padding:8px !important;background:transparent !important;border:0 !important;box-shadow:none !important}
+body.tm-v6 .tm-logo-marco img{height:auto !important;max-height:102px !important;filter:drop-shadow(0 1px 2px rgba(0,0,0,.32))}
+body.tm-v6 .dashboard-header>div:first-child{gap:20px !important}
+body.tm-v6 .tm-ante-titulo{font-size:12px !important;letter-spacing:1.75px !important;color:#fff1dc !important}
+body.tm-v6 .tm-titular h1{font-family:Georgia,serif;font-size:clamp(27px,3vw,48px) !important;letter-spacing:-.5px !important;line-height:1.06 !important;margin:14px 0 10px !important;color:#fff !important;text-shadow:1px 2px 4px #012b37 !important}
+/* Gold second line as in the provided visual. */
+body.tm-v6 .tm-titular h1{background:linear-gradient(to bottom,#fff 0 52%,#f9d799 53% 100%);background-clip:text;-webkit-background-clip:text;color:transparent !important}
+body.tm-v6 .tm-titular p{font-size:13px !important;letter-spacing:1px;color:#fff5e8 !important}
+body.tm-v6 .fecha-dashboard{border:1px solid var(--tm6-dorado) !important;background:#013343 !important;border-radius:24px !important;z-index:3 !important}
+body.tm-v6 .tm-v5-strapline{bottom:18px;left:29px;letter-spacing:2px}
+/* Active page navigation aligned to bright turquoise, small golden railway pictograms. */
+body.tm-v6 .menu-dashboard{
+ background:linear-gradient(180deg,#007b90,#00546d) !important;border:1px solid #ebbc65 !important;
+ box-shadow:0 4px 7px rgba(0,30,47,.17) !important;min-height:57px !important;
+ border-radius:9px !important;padding:4px 5px !important;margin:6px 0 11px !important;gap:0 !important}
+body.tm-v6 .menu-dashboard button{color:#fff !important;min-height:47px !important;font-weight:700;font-size:12px !important;gap:10px !important;border-radius:6px !important}
+body.tm-v6 .menu-dashboard button:hover:not(.activo){background:rgba(255,255,255,.12) !important}
+body.tm-v6 .menu-dashboard button.activo,body.tm-v6 .menu-dashboard button.active,body.tm-v6 .menu-dashboard button[aria-current="page"]{
+ background:linear-gradient(100deg,#f7d791,#f3bc61) !important;color:#073246 !important;box-shadow:0 1px 4px rgba(0,0,0,.18) !important}
+body.tm-v6 .menu-dashboard button img,body.tm-v6 .menu-dashboard button .tm-ico-nav{width:25px !important;height:25px !important;object-fit:contain !important;filter:none !important}
+body.tm-v6 .menu-dashboard button.activo img,body.tm-v6 .menu-dashboard button.active img{filter:brightness(0) saturate(100%) invert(19%) sepia(28%) saturate(1648%) hue-rotate(158deg) brightness(95%) !important}
+/* Main three action cards with different photography, smooth lower overlays, warm frames. */
+body.tm-v6 .tm-v5-access-grid{gap:12px !important}
+body.tm-v6 .tm-v5-access{height:230px !important;border-radius:9px !important;border:1px solid rgba(213,237,241,.75) !important;
+ box-shadow:0 3px 9px rgba(0,32,45,.19) !important;padding:23px !important;
+ background-position:center center !important}
+body.tm-v6 .tm-v5-access::after{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(0deg,rgba(0,42,63,.90) 0%,rgba(0,59,74,.38) 42%,rgba(0,0,0,0) 80%);pointer-events:none;border-radius:inherit}
+body.tm-v6 .tm-v5-access>*{z-index:2 !important}
+body.tm-v6 .tm-v5-access-ops{background-image:url('img/tema_v7/card-operaciones.webp') !important}
+body.tm-v6 .tm-v5-access-patio{background-image:url('img/tema_v5/patio.webp') !important}
+body.tm-v6 .tm-v5-access-material{background-image:url('img/tema_v5/material.webp') !important}
+body.tm-v6 .tm-v5-card-icon{width:54px;height:54px;background:rgba(0,39,51,.9) !important;border:2px solid var(--tm6-dorado) !important;box-shadow:0 2px 5px rgba(0,0,0,.16) !important}
+body.tm-v6 .tm-v5-card-icon img{filter:none !important}
+body.tm-v6 .tm-v5-card-copy h2{font:700 clamp(20px,2vw,29px)/1.08 Georgia,serif !important;color:#fff !important}
+body.tm-v6 .tm-v5-card-copy h3{font:700 clamp(17px,1.6vw,23px)/1.12 Georgia,serif !important;color:#ffd38c !important}
+body.tm-v6 .tm-v5-card-copy p{font-size:13px !important;letter-spacing:.2px;color:#e4f2f6 !important}
+body.tm-v6 .tm-v5-go{border:2px solid #f4cb83 !important;border-radius:50% !important;color:#ffd894 !important;background:rgba(0,41,52,.82) !important;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+body.tm-v6 .tm-v5-access:hover{transform:translateY(-3px) !important;box-shadow:0 12px 22px rgba(0,27,40,.29) !important}
+/* Statistics panel: lagoon blues rather than near-black; table header and alternating rows. */
+body.tm-v6 .tm-v5-data-layout{grid-template-columns:minmax(0,1fr) 305px;gap:17px !important;margin-top:12px !important}
+body.tm-v6 .tm-v5-operations-panel{background:linear-gradient(140deg,rgba(6,111,131,.9),rgba(0,76,104,.92)) !important;
+ border:1px solid rgba(189,227,229,.51) !important;border-radius:11px !important;padding:10px 12px 9px !important;
+ box-shadow:0 2px 6px rgba(0,33,52,.13) !important}
+body.tm-v6 .tm-v5-toolbar{min-height:43px !important}
+body.tm-v6 .tm-v5-toolbar h2{font-family:Georgia,serif !important;font-size:23px !important;color:#fff !important}
+body.tm-v6 .tm-v5-toolbar h2 img{filter:none !important}
+body.tm-v6 .tm-v5-search{background:rgba(0,59,80,.68) !important;border:1px solid #54adbb !important}
+body.tm-v6 .tm-v5-report{background:rgba(0,78,90,.62) !important;border:1px solid var(--tm6-dorado) !important;color:#ffe0a5 !important}
+body.tm-v6 .tm-v5-table th{background:linear-gradient(180deg,#2094a8,#086d86) !important;color:#fff !important}
+body.tm-v6 .tm-v5-table td{background:rgba(2,92,113,.5) !important;border-bottom:1px solid rgba(142,204,216,.17) !important}
+body.tm-v6 .tm-v5-table tbody tr:nth-child(even) td{background:rgba(2,72,94,.54) !important}
+body.tm-v6 .tm-v5-table tbody tr:hover td{background:#136f87 !important}
+body.tm-v6 .tm-v5-kpis{gap:7px !important}
+body.tm-v6 .tm-v5-kpi{background:linear-gradient(115deg,#178fa4,#075f77) !important;border:1px solid rgba(170,217,220,.57) !important;border-radius:8px !important;min-height:65px !important}
+body.tm-v6 .tm-v5-kpi[aria-pressed="true"],body.tm-v6 .tm-v5-kpi:hover{background:linear-gradient(115deg,#239fb1,#076b83) !important;border-color:#f2c678 !important}
+body.tm-v6 .tm-v5-kpi img{height:42px !important;width:48px !important;filter:none !important;background:rgba(2,83,104,.45) !important;border:1px solid rgba(255,255,255,.10) !important}
+body.tm-v6 .tm-v5-kpi strong{font-size:22px !important}
+body.tm-v6 .tm-v5-kpi b{color:#f9d28a !important}
+/* Watermark is an actual optimized, decorative asset, not an overlay obscuring the data. */
+body.tm-v6 .tm-v5-footer{min-height:94px;margin:13px 0 0 !important;padding:20px 0 15px !important;
+ background:linear-gradient(90deg,transparent 33%,rgba(0,65,76,.95) 43%,rgba(0,65,76,.95) 57%,transparent 69%),url('img/tema_v6/marca-agua-inferior.webp') center bottom/100% 100% no-repeat !important}
+body.tm-v6 .tm-v5-footer strong{font-size:14px !important;color:#f5ce85 !important;letter-spacing:5px}
+body.tm-v6 .tm-v5-footer small{color:#e4bf76 !important}
+body.tm-v6 .tm-v5-note{font-size:10px;color:#bde1e6 !important;margin:0 0 4px !important}
+body.tm-v6 .tm-marca-separadora{display:none !important}
+/* Secondary screens: warm-gold card frames with an unobtrusive cultural + rail watermark. */
+body.tm-v6:not(.tm-page-dashboard) .dashboard,body.tm-v6:not(.tm-page-dashboard) .contenedor{width:min(1568px,calc(100% - 32px)) !important;max-width:none !important}
+body.tm-v6:not(.tm-page-dashboard) .dashboard-header,body.tm-v6:not(.tm-page-dashboard) .encabezado{min-height:194px !important;border-radius:12px !important;margin-top:16px !important}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.formulario-seccion){
+ border:1px solid rgba(204,166,91,.8) !important;border-radius:12px !important;
+ background-image:url('img/tema_v6/filigrana.png') !important;background-repeat:no-repeat !important;
+ background-position:top right !important;background-size:400px auto !important;
+ box-shadow:0 6px 16px rgba(0,40,55,.12) !important}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.formulario-seccion) > *{position:relative}
+body.tm-v6 .tm-footer-v4{background:linear-gradient(90deg,rgba(0,59,76,.09),rgba(3,69,79,.37),rgba(0,59,76,.09)),url('img/Locomotora.png') center bottom/cover no-repeat !important;
+ border-top:1px solid rgba(230,179,92,.6) !important;color:#fff2d6 !important;min-height:104px !important}
+/* Protect original editable forms and tool UI */
+body.tm-v6 :is(input,textarea,select){max-width:100%}
+body.tm-v6 a:focus-visible,body.tm-v6 button:focus-visible,body.tm-v6 input:focus-visible,body.tm-v6 select:focus-visible{outline:3px solid #ffe3aa !important;outline-offset:2px}
+@media(max-width:1100px){body.tm-v6 .tm-v5-data-layout{grid-template-columns:minmax(0,1fr) 240px}body.tm-v6 .tm-v5-access{height:220px !important}body.tm-v6 .tm-v5-kpi{gap:8px}}
+@media(max-width:1000px){body.tm-v6 .tm-v5-data-layout{grid-template-columns:1fr}body.tm-v6 .tm-v5-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}body.tm-v6 .tm-v5-access-grid{grid-template-columns:repeat(2,1fr)}body.tm-v6 .tm-v5-access:last-child{grid-column:span 2}}
+@media(max-width:650px){body.tm-v6 .dashboard{width:calc(100% - 18px) !important}body.tm-v6.tm-page-dashboard .dashboard-header{height:286px !important;padding:18px 14px 48px !important}body.tm-v6 .tm-logo-marco{width:48px !important;height:68px !important}body.tm-v6 .tm-v5-strapline{font-size:8px !important;letter-spacing:.4px !important;left:14px !important;bottom:16px !important}body.tm-v6 .tm-titular h1{font-size:clamp(22px,5vw,30px) !important}body.tm-v6 .tm-v5-access-grid{grid-template-columns:1fr}body.tm-v6 .tm-v5-access:last-child{grid-column:auto}body.tm-v6 .tm-v5-access{height:205px !important}body.tm-v6 .tm-v5-kpis{grid-template-columns:repeat(2,1fr)}body.tm-v6 .tm-v5-footer{min-height:80px;background-size:auto 100% !important}body.tm-v6 .tm-v5-footer strong{font-size:11px !important;letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){body.tm-v6 .tm-v5-access:hover{transform:none !important}}
+
+/* Ajustes finales de la maquetación visual */
+body.tm-v6 .dashboard-header,body.tm-v6 .encabezado{
+  background-image:linear-gradient(90deg,#002e3b 0%,#002e3b 44%,rgba(0,46,59,.97) 49%,rgba(0,46,59,.4) 59%,transparent 71%),url('img/Plataforma.png') !important;
+}
+body.tm-v6 .tm-titular h1{color:#fff !important;-webkit-text-fill-color:initial !important;background:none !important;background-clip:border-box !important;-webkit-background-clip:border-box !important;}
+body.tm-v6 .tm-v6-title-1{display:block;color:#fff !important}
+body.tm-v6 .tm-v6-title-2{display:block;color:#f4c779 !important}
+body.tm-v6.tm-page-dashboard .fecha-dashboard{top:14px !important;right:17px !important;width:205px !important;min-height:42px !important;padding:9px 16px !important;display:flex !important;align-items:center;justify-content:center;z-index:5;background:#003645 !important}
+body.tm-v6 .tm-v5-footer{
+ background:linear-gradient(90deg,transparent 28%,#075968 37%,#075968 63%,transparent 72%),url('img/tema_v6/marca-agua-inferior.webp') center bottom/100% 100% no-repeat !important;
+}
+body.tm-v6.tm-page-dashboard .dashboard-header .tm-titular{z-index:4;position:relative}
+@media(max-width:650px){
+ body.tm-v6.tm-page-dashboard .dashboard-header>div:first-child{display:flex !important;flex-direction:row !important;align-items:flex-start !important;justify-content:flex-start !important;gap:7px !important;width:100% !important;margin:0 !important}
+ body.tm-v6.tm-page-dashboard .dashboard-header .tm-logo-marco{position:relative !important;flex:0 0 37px !important;width:37px !important;height:55px !important;margin:0 !important}
+ body.tm-v6.tm-page-dashboard .dashboard-header .tm-titular{position:relative !important;display:block !important;flex:1 1 auto !important;min-width:0 !important;max-width:calc(100% - 43px) !important;text-align:left !important;align-items:initial !important;margin:0 !important}
+ body.tm-v6.tm-page-dashboard .dashboard-header .tm-ante-titulo{text-align:left !important;font-size:9px !important;letter-spacing:.5px !important;white-space:normal !important}
+ body.tm-v6.tm-page-dashboard .dashboard-header .tm-titular h1{text-align:left !important;display:block !important;font-size:21px !important;line-height:1.15 !important;margin:9px 0 5px !important}
+ body.tm-v6.tm-page-dashboard .dashboard-header .tm-titular p{text-align:left !important;font-size:10px !important;max-width:260px !important}
+ body.tm-v6.tm-page-dashboard .fecha-dashboard{top:auto !important;bottom:18px !important;right:12px !important;width:auto !important;min-height:0 !important;min-width:0 !important;padding:6px 11px !important}
+ body.tm-v6 .tm-v5-footer{background-size:auto 90% !important}
+}
+
+/* ========================
+   V6.1 – Fondos únicos en cuadros y paneles
+   ======================== */
+body.tm-v6 .tm-v5-access-ops{
+  background-image:
+    linear-gradient(0deg,rgba(0,35,47,.78),rgba(0,49,65,.24)),
+    url('img/tema_v6/cuadro-operaciones.webp') !important;
+}
+body.tm-v6 .tm-v5-access-patio{
+  background-image:
+    linear-gradient(0deg,rgba(0,35,47,.78),rgba(0,49,65,.24)),
+    url('img/tema_v6/cuadro-patio.webp') !important;
+}
+body.tm-v6 .tm-v5-access-material{
+  background-image:
+    linear-gradient(0deg,rgba(0,35,47,.78),rgba(0,49,65,.24)),
+    url('img/tema_v6/cuadro-material.webp') !important;
+}
+
+body.tm-v6 .tm-v5-operations-panel{
+  background-image:
+    linear-gradient(140deg,rgba(6,111,131,.90),rgba(0,76,104,.92)),
+    url('img/tema_v6/cuadro-ruta.webp') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-blend-mode:normal,soft-light !important;
+}
+
+body.tm-v6 .tm-v5-kpi{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+body.tm-v6 .tm-v5-kpi::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  opacity:.20;
+  background-size:cover;
+  background-position:center;
+  filter:saturate(.95) contrast(1.02);
+  pointer-events:none;
+}
+body.tm-v6 .tm-v5-kpi > *{position:relative;z-index:1}
+body.tm-v6 .tm-v5-kpi:nth-child(1)::before{background-image:url('img/tema_v6/cuadro-locomotora.webp')}
+body.tm-v6 .tm-v5-kpi:nth-child(2)::before{background-image:url('img/tema_v6/cuadro-operaciones.webp')}
+body.tm-v6 .tm-v5-kpi:nth-child(3)::before{background-image:url('img/tema_v6/cuadro-patio.webp')}
+body.tm-v6 .tm-v5-kpi:nth-child(4)::before{background-image:url('img/tema_v6/cuadro-material.webp')}
+
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion){
+  position:relative !important;
+  overflow:hidden;
+  isolation:isolate;
+  background-color:rgba(255,255,255,.92) !important;
+  background-repeat:no-repeat !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion)::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  opacity:.18;
+  background-size:cover;
+  background-position:center;
+  pointer-events:none;
+}
+body.tm-v6:not(.tm-page-dashboard) :is(.dashboard-card,.tarjeta,.panel,.locomotoras-card,.recepcion-card,.resumen-card,.formulario-seccion) > *{
+  position:relative;
+  z-index:1;
+}
+body.tm-v6:not(.tm-page-dashboard) .panel:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-card:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .tarjeta:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .locomotoras-card:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .recepcion-card:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .resumen-card:nth-of-type(5n+1)::before,
+body.tm-v6:not(.tm-page-dashboard) .formulario-seccion:nth-of-type(5n+1)::before{background-image:url('img/tema_v6/suave-1.webp')}
+body.tm-v6:not(.tm-page-dashboard) .panel:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-card:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .tarjeta:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .locomotoras-card:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .recepcion-card:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .resumen-card:nth-of-type(5n+2)::before,
+body.tm-v6:not(.tm-page-dashboard) .formulario-seccion:nth-of-type(5n+2)::before{background-image:url('img/tema_v6/suave-2.webp')}
+body.tm-v6:not(.tm-page-dashboard) .panel:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-card:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .tarjeta:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .locomotoras-card:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .recepcion-card:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .resumen-card:nth-of-type(5n+3)::before,
+body.tm-v6:not(.tm-page-dashboard) .formulario-seccion:nth-of-type(5n+3)::before{background-image:url('img/tema_v6/suave-3.webp')}
+body.tm-v6:not(.tm-page-dashboard) .panel:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-card:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .tarjeta:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .locomotoras-card:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .recepcion-card:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .resumen-card:nth-of-type(5n+4)::before,
+body.tm-v6:not(.tm-page-dashboard) .formulario-seccion:nth-of-type(5n+4)::before{background-image:url('img/tema_v6/suave-4.webp')}
+body.tm-v6:not(.tm-page-dashboard) .panel:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .dashboard-card:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .tarjeta:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .locomotoras-card:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .recepcion-card:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .resumen-card:nth-of-type(5n)::before,
+body.tm-v6:not(.tm-page-dashboard) .formulario-seccion:nth-of-type(5n)::before{background-image:url('img/tema_v6/suave-5.webp')}
+
+/* =========================================================================
+   V6.2 – Imágenes Independientes para los Contadores de Material Rodante
+   ========================================================================= */
+body.tm-v6 .resumen-card#card_locomotoras,
+body.tm-v6 .resumen-card:nth-child(1) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/Locomotora.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.tm-v6 .resumen-card#card_gondolas,
+body.tm-v6 .resumen-card:nth-child(2) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/Gondola.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.tm-v6 .resumen-card#card_furgones,
+body.tm-v6 .resumen-card:nth-child(3) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/Furgon.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.tm-v6 .resumen-card#card_carro_tanque,
+body.tm-v6 .resumen-card:nth-child(4) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/carrotanque.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.tm-v6 .resumen-card#card_tolvas,
+body.tm-v6 .resumen-card:nth-child(5) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/Tolva.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.tm-v6 .resumen-card#card_plataformas,
+body.tm-v6 .resumen-card:nth-child(6) {
+  background: linear-gradient(0deg, rgba(0,35,47,.75), rgba(0,49,65,.3)), url('img/Plataforma.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}

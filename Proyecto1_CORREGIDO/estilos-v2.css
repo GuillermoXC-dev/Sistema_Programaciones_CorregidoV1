@@ -1,0 +1,7892 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #008489;
+    color: #1F2937;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+
+/* ENCABEZADO */
+
+.encabezado {
+    background: Black;
+    padding: 25px 30px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+    margin-bottom: 20px;
+}
+
+.encabezado h1 {
+    margin: 0;
+}
+
+.encabezado p {
+    margin: 6px 0 0;
+    color: #666;
+}
+
+
+/* BOTÓN NUEVA */
+
+#btnNueva {
+    background: #1f6feb;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#btnNueva:hover {
+    background: #1558b0;
+}
+
+
+/* PANEL */
+
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+}
+
+
+/* BUSCADOR */
+
+.barra-busqueda {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.barra-busqueda input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+#buscar {
+    flex: 1;
+}
+
+#btnActualizar {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* TABLA */
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #1f2937;
+    color: white;
+    padding: 13px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f5f7fa;
+}
+
+
+/* ESTATUS */
+
+.estatus {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* FORMULARIO */
+
+.formulario-seccion {
+    display: none;
+    background: white;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+}
+
+.formulario-seccion h2 {
+    margin-top: 0;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.formulario label {
+    font-weight: bold;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.formulario textarea {
+    height: 90px;
+    resize: vertical;
+}
+
+.formulario label:nth-of-type(9),
+.formulario textarea {
+    grid-column: span 2;
+}
+
+
+/* BOTONES */
+
+.botones {
+    grid-column: span 2;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.botones button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#btnGuardar {
+    background: #198754;
+    color: white;
+}
+
+#btnLimpiar {
+    background: #ddd;
+}
+
+#btnCancelar {
+    background: #dc3545;
+    color: white;
+}
+
+
+/* MENSAJE */
+
+#mensaje {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+
+    .encabezado {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .barra-busqueda {
+        flex-direction: column;
+    }
+
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario label:nth-of-type(9),
+    .formulario textarea,
+    .botones {
+        grid-column: span 1;
+    }
+
+}
+
+
+
+/* BOTONES DE ACCIONES */
+
+.btn-editar,
+.btn-eliminar {
+    border: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.btn-editar {
+    background: #ffc107;
+}
+
+.btn-eliminar {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-editar:hover,
+.btn-eliminar:hover {
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+/* ==========================================
+   DASHBOARD PROFESIONAL
+   ========================================== */
+
+.dashboard {
+    width: 95%;
+    max-width: 1500px;
+    margin: 25px auto;
+}
+
+
+/* ENCABEZADO */
+
+.dashboard-header {
+    background: #48A3A7;
+    padding: 25px 30px;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+
+    margin-bottom: 15px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: white;
+}
+
+.dashboard-header p {
+    margin: 8px 0 0;
+    color: #E8F1EC;
+}
+
+.dashboard-header {
+    display: block !important; /* Rompe el flexbox original */
+    position: relative !important;
+    padding: 10px 14px !important;
+    height: 150px !important; /* Un poco más de altura */
+    max-height: 150px !important;
+  }
+
+  .fecha-dashboard {
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 12px !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    border: none !important;
+    background: rgba(4, 28, 77, 0.9) !important;
+    border-radius: 6px !important;
+    z-index: 50 !important;
+  }
+  
+  /* Reducimos el área del título para que no intente ocupar toda la caja */
+  .dashboard-header > div:first-child {
+     max-width: 75% !important; 
+  }
+
+  /* Reduce un poco más el texto de la fecha */
+  .fecha-dashboard strong {
+    font-size: 8px !important;
+  }
+
+
+/* MENÚ */
+
+.menu-dashboard {
+    background: #1f2937;
+
+    padding: 8px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    gap: 5px;
+
+    margin-bottom: 20px;
+
+    overflow-x: auto;
+}
+
+.menu-dashboard button {
+    background: transparent;
+
+    color: white;
+
+    border: none;
+
+    padding: 11px 17px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.menu-dashboard button:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+.menu-dashboard .menu-activo {
+    background: #1f6feb;
+}
+
+
+/* INDICADORES */
+
+.indicadores {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.tarjeta {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.tarjeta-icono {
+    font-size: 28px;
+}
+
+.tarjeta span {
+    display: block;
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.tarjeta strong {
+    display: block;
+
+    font-size: 28px;
+}
+
+
+/* GRID PRINCIPAL */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* TARJETAS */
+
+.dashboard-card {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.card-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.card-header h2 {
+    margin: 0;
+
+    font-size: 19px;
+}
+
+.card-header button {
+    border: none;
+
+    background: #eee;
+
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+
+/* PRÓXIMAS SALIDAS */
+
+.salida {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 5px;
+
+    border-bottom:
+        1px solid #eee;
+}
+
+.salida:last-child {
+    border-bottom: none;
+}
+
+.salida strong {
+    display: block;
+
+    font-size: 15px;
+}
+
+.salida span {
+    display: block;
+
+    color: #777;
+
+    margin-top: 4px;
+
+    font-size: 14px;
+}
+
+.hora-salida {
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.sin-datos {
+    color: #777;
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+.estadisticas div {
+    background: #f5f7fa;
+
+    padding: 18px;
+
+    border-radius: 8px;
+}
+
+.estadisticas span {
+    display: block;
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.estadisticas strong {
+    font-size: 25px;
+}
+
+
+/* CALENDARIO */
+
+.calendario-card {
+    min-height: 250px;
+}
+
+.calendario {
+    min-height: 170px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #f5f7fa;
+
+    border-radius: 8px;
+
+    color: #000;
+}
+
+
+/* COSTOS */
+
+.costos-card {
+    grid-column: span 2;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+    .indicadores {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .dashboard-header {
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 15px;
+    }
+
+    .indicadores {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .costos-card {
+        grid-column: span 1;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   CALENDARIO PROFESIONAL
+   ========================================== */
+
+.calendario-real {
+    width: 100%;
+}
+
+.calendario-controles {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.calendario-controles h3 {
+    margin: 0;
+
+    font-size: 18px;
+
+    text-transform: capitalize;
+}
+
+.calendario-controles button {
+    border: none;
+
+    background: #1f2937;
+
+    color: white;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.calendario-controles button:hover {
+    background: #1f6feb;
+}
+
+
+/* DÍAS DE LA SEMANA */
+
+.dias-semana {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+
+    margin-bottom: 5px;
+}
+
+.dias-semana div {
+    text-align: center;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #666;
+
+    padding: 5px;
+}
+
+
+/* CUADRÍCULA */
+
+.dias-calendario {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+}
+
+
+/* DÍA */
+
+.dia {
+    min-height: 55px;
+
+    background: #f5f7fa;
+
+    border-radius: 6px;
+
+    padding: 7px;
+
+    cursor: pointer;
+
+    border: 1px solid transparent;
+}
+
+.dia:hover {
+    border-color: #1f6feb;
+}
+
+.numero-dia {
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+.calendario-vacio {
+    background: transparent;
+
+    cursor: default;
+}
+
+.dia-con-programacion {
+    background: #eaf2ff;
+}
+
+.indicador-programaciones {
+    margin-top: 7px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+/* DETALLE */
+
+.detalle-dia {
+    margin-top: 15px;
+
+    border-top: 1px solid #ddd;
+
+    padding-top: 12px;
+}
+
+.detalle-dia h3 {
+    margin: 0 0 10px;
+
+    font-size: 15px;
+
+    text-transform: capitalize;
+}
+
+.detalle-dia p {
+    color: #777;
+
+    margin: 0;
+}
+
+.detalle-programacion {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 80px 100px;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    background: #f5f7fa;
+
+    border-radius: 6px;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+}
+
+.detalle-programacion strong {
+    color: #222;
+}
+
+.detalle-programacion span {
+    color: #666;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .detalle-programacion {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+
+
+
+
+/* ==========================================
+   GRÁFICAS DEL DASHBOARD
+   ========================================== */
+
+.graficas-dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.graficas-dashboard .panel {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.grafica-contenedor {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 900px) {
+
+    .graficas-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+
+
+
+/* ==========================================
+   FILTROS DEL DASHBOARD
+   ========================================== */
+
+.filtros-dashboard {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.filtro-titulo {
+    font-size: 15px;
+    color: #333;
+}
+
+.filtro-opciones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filtro-opciones button {
+    border: 1px solid #d1d5db;
+    background: #f8fafc;
+    color: #374151;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.filtro-opciones button:hover {
+    background: #eaf2ff;
+    border-color: #1f6feb;
+}
+
+.filtro-opciones button.filtro-activo {
+    background: #1f6feb;
+    color: white;
+    border-color: #1f6feb;
+}
+
+
+/* ==========================================
+   PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .filtros-dashboard {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filtro-opciones {
+        width: 100%;
+    }
+
+    .filtro-opciones button {
+        flex: 1;
+    }
+
+}
+
+
+
+
+
+
+
+/* =============================== */
+/* DASHBOARD */
+/* =============================== */
+
+.dashboard-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(180px, 1fr)
+    );
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.tarjeta-dashboard {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    border-left: 5px solid #167d5a;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-dashboard h3 {
+    font-size: 15px;
+    margin: 0 0 15px;
+    color: #555;
+}
+
+.tarjeta-dashboard p {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    color: #167d5a;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   TARJETAS FINANCIERAS DEL DASHBOARD
+   ========================================== */
+
+.dashboard-grid {
+    display: grid;
+    gap: 20px;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+/* Tarjetas de estadísticas */
+
+.dashboard-card {
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.10);
+}
+
+/* Encabezado de tarjeta */
+
+.dashboard-card .card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.dashboard-card .card-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Estadísticas */
+
+.dashboard-card .estadisticas {
+    display: flex;
+    gap: 25px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-card .estadisticas > div {
+    flex: 1;
+    min-width: 140px;
+}
+
+.dashboard-card .estadisticas span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 7px;
+}
+
+.dashboard-card .estadisticas strong {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+
+/* ==========================================
+   COLORES SEGÚN TARJETA
+   ========================================== */
+
+/* Incidencias */
+
+#seccionIncidencias {
+    border-left: 5px solid #f59e0b;
+}
+
+#seccionIncidencias .card-header h2 {
+    color: #b45309;
+}
+
+
+/* Combustible */
+
+#seccionCombustible {
+    border-left: 5px solid #16a34a;
+}
+
+#seccionCombustible .card-header h2 {
+    color: #15803d;
+}
+
+
+/* Costo de demora */
+
+#seccionCostos {
+    border-left: 5px solid #dc2626;
+}
+
+#seccionCostos .card-header h2 {
+    color: #b91c1c;
+}
+
+
+/* Costo total */
+
+#seccionCostoTotal {
+    border-left: 5px solid #2563eb;
+}
+
+#seccionCostoTotal .card-header h2 {
+    color: #1d4ed8;
+}
+
+#costoTotalGeneral {
+    font-size: 30px;
+}
+
+
+/* ==========================================
+   ADAPTACIÓN PARA PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .dashboard-card .estadisticas {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   ENCABEZADO PROFESIONAL DEL DASHBOARD
+   ========================================== */
+
+.dashboard-header {
+    padding: 25px 30px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    margin-top: 6px;
+    margin-bottom: 0;
+    opacity: 0.8;
+}
+
+
+/* ==========================================
+   MENÚ DEL DASHBOARD
+   ========================================== */
+
+.menu-dashboard {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 8px;
+    margin-bottom: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.menu-dashboard button {
+    border: none;
+    background: transparent;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.menu-dashboard button:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.menu-dashboard button.menu-activo {
+    background: #1e3a5f;
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   FILTROS
+   ========================================== */
+
+.filtro-opciones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filtro-opciones button {
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.filtro-opciones button:hover {
+    background: #f8fafc;
+}
+
+.filtro-opciones button.filtro-activo {
+    background: #1e3a5f;
+    color: #ffffff;
+    border-color: #1e3a5f;
+}
+
+
+/* ==========================================
+   INDICADORES PRINCIPALES
+   ========================================== */
+
+.indicadores-dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.indicador {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.indicador:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.10);
+}
+
+.indicador span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.indicador strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+
+/* ==========================================
+   ESTATUS
+   ========================================== */
+
+#totalProgramadas {
+    color: #2563eb;
+}
+
+#totalCurso {
+    color: #f59e0b;
+}
+
+#totalFinalizadas {
+    color: #16a34a;
+}
+
+#totalCanceladas {
+    color: #dc2626;
+}
+
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 1100px) {
+
+    .indicadores-dashboard {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .indicadores-dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .menu-dashboard {
+        flex-direction: column;
+    }
+
+    .menu-dashboard button {
+        width: 100%;
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .indicadores-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   CALENDARIO PROFESIONAL
+   ========================================== */
+
+#seccionCalendario {
+    overflow: hidden;
+}
+
+#seccionCalendario .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mesAnterior,
+#mesSiguiente {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    border-radius: 8px;
+    padding: 8px 13px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+#mesAnterior:hover,
+#mesSiguiente:hover {
+    background: #1e3a5f;
+    color: #ffffff;
+}
+
+#mesAnio {
+    color: #000000 !important;
+    font-weight: 800 !important;
+}
+
+/* ==========================================
+   DÍAS DEL CALENDARIO
+   ========================================== */
+
+#diasCalendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 15px;
+}
+
+.dia-calendario {
+    min-height: 75px;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dia-calendario:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+
+.dia-calendario.hoy {
+    border: 2px solid #2563eb;
+}
+
+.dia-calendario.seleccionado {
+    background: #eff6ff;
+    border-color: #2563eb;
+}
+
+.dia-numero {
+    font-weight: 700;
+    color: #334155;
+}
+
+.dia-programaciones {
+    margin-top: 7px;
+    font-size: 12px;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   DETALLE DEL DÍA
+   ========================================== */
+
+#detalleDia {
+    margin: 0 15px 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+
+/* ==========================================
+   PRÓXIMAS SALIDAS
+   ========================================== */
+
+#proximasSalidas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.salida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.salida:hover {
+    background: #f8fafc;
+    transform: translateX(2px);
+}
+
+.salida strong {
+    display: block;
+    color: #1e293b;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.salida span {
+    display: block;
+    color: #475569;
+    font-size: 13px;
+}
+
+.salida small {
+    display: inline-block;
+    margin-right: 12px;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.hora-salida {
+    min-width: 80px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e3a5f;
+}
+
+
+/* ==========================================
+   MENSAJE SIN DATOS
+   ========================================== */
+
+.sin-datos {
+    padding: 25px;
+    text-align: center;
+    color: #64748b;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   CALENDARIO EN PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    #diasCalendario {
+        gap: 3px;
+        padding: 8px;
+    }
+
+    .dia-calendario {
+        min-height: 55px;
+        padding: 5px;
+    }
+
+    .salida {
+        align-items: flex-start;
+    }
+
+    .hora-salida {
+        min-width: 65px;
+        font-size: 16px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   ESPACIADO ENTRE TARJETAS FINANCIERAS
+   ========================================== */
+
+#seccionIncidencias,
+#seccionCombustible,
+#seccionCostos,
+#seccionCostoTotal {
+    margin-bottom: 20px;
+}
+
+/* Separación específica entre costo de demora
+   y costo total */
+
+#seccionCostos {
+    margin-bottom: 20px;
+}
+
+#seccionCostoTotal {
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   GRÁFICAS DEL DASHBOARD
+   ========================================== */
+
+.dashboard-graficas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.dashboard-graficas .dashboard-card {
+    min-height: 380px;
+}
+
+.dashboard-graficas .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-graficas canvas {
+    width: 100% !important;
+    max-height: 300px;
+    margin: 10px auto 20px;
+}
+
+
+/* ==========================================
+   CONTENEDOR DE GRÁFICAS
+   ========================================== */
+
+.grafica-contenedor {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    padding: 10px 20px 20px;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 900px) {
+
+    .dashboard-graficas {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .dashboard-graficas .dashboard-card {
+        min-height: 320px;
+    }
+
+    .grafica-contenedor {
+        height: 250px;
+        padding: 5px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   DISEÑO FINAL DE GRÁFICAS
+   ========================================== */
+
+.graficas-dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.graficas-dashboard .panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.graficas-dashboard .panel h2 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #1e293b;
+}
+
+.graficas-dashboard .grafica-contenedor {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.graficas-dashboard canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* ==========================================
+   PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 900px) {
+
+    .graficas-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   DESTACAR COSTO TOTAL
+   ========================================== */
+
+#seccionCostoTotal {
+    border-left: 5px solid #1d4ed8;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f8fafc 100%
+    );
+}
+
+#seccionCostoTotal .card-header {
+    background: #eff6ff;
+    border-bottom: 1px solid #dbeafe;
+}
+
+#seccionCostoTotal .card-header h2 {
+    color: #1d4ed8;
+}
+
+#seccionCostoTotal .estadisticas {
+    align-items: center;
+}
+
+#seccionCostoTotal .estadisticas > div:last-child {
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+#seccionCostoTotal .estadisticas > div:last-child span {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+#seccionCostoTotal #costoTotalGeneral {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1d4ed8;
+}
+
+
+
+
+
+
+
+
+/* ==========================================
+   INDICADORES DE ESTATUS CON COLORES
+   ========================================== */
+
+#totalProgramadas,
+#totalCurso,
+#totalFinalizadas,
+#totalCanceladas {
+    display: inline-block;
+    margin-top: 3px;
+}
+
+
+/* Programadas */
+
+#totalProgramadas {
+    color: #2563eb;
+}
+
+
+/* En curso */
+
+#totalCurso {
+    color: #d97706;
+}
+
+
+/* Finalizadas */
+
+#totalFinalizadas {
+    color: #16a34a;
+}
+
+
+/* Canceladas */
+
+#totalCanceladas {
+    color: #dc2626;
+}
+
+
+
+
+
+
+
+/* ==========================================
+   IDENTIFICACIÓN VISUAL DE ESTATUS
+   ========================================== */
+
+.indicador {
+    position: relative;
+    overflow: hidden;
+}
+
+.indicador::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+}
+
+
+/* Programadas */
+
+.indicador:has(#totalProgramadas)::before {
+    background: #2563eb;
+}
+
+
+/* En curso */
+
+.indicador:has(#totalCurso)::before {
+    background: #d97706;
+}
+
+
+/* Finalizadas */
+
+.indicador:has(#totalFinalizadas)::before {
+    background: #16a34a;
+}
+
+
+/* Canceladas */
+
+.indicador:has(#totalCanceladas)::before {
+    background: #dc2626;
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   COLORES DE LOS INDICADORES DE ESTATUS
+   ========================================== */
+
+/* Programadas 🔵 */
+
+#totalProgramadas {
+    color: #2563eb;
+}
+
+#totalProgramadas::before {
+    background: #2563eb;
+}
+
+
+/* En curso 🟠 */
+
+#totalCurso {
+    color: #f59e0b;
+}
+
+#totalCurso::before {
+    background: #f59e0b;
+}
+
+
+/* Finalizadas 🟢 */
+
+#totalFinalizadas {
+    color: #16a34a;
+}
+
+#totalFinalizadas::before {
+    background: #16a34a;
+}
+
+
+/* Canceladas 🔴 */
+
+#totalCanceladas {
+    color: #dc2626;
+}
+
+#totalCanceladas::before {
+    background: #dc2626;
+}
+
+
+
+
+
+
+/* ==========================================
+   PRÓXIMAS SALIDAS - DISEÑO PROFESIONAL
+   ========================================== */
+
+#proximasSalidas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* Tarjeta de cada salida */
+
+#proximasSalidas .salida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 16px 18px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+
+    transition: all 0.2s ease;
+}
+
+
+/* Efecto al pasar el mouse */
+
+#proximasSalidas .salida:hover {
+    transform: translateX(3px);
+    border-color: #cbd5e1;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Información del tren */
+
+#proximasSalidas .salida > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+/* Número de tren */
+
+#proximasSalidas .salida strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+
+/* Ruta */
+
+#proximasSalidas .salida span {
+    font-size: 14px;
+    color: #475569;
+}
+
+
+/* Fecha */
+
+#proximasSalidas .salida small {
+    font-size: 12px;
+    color: #64748b;
+}
+
+
+/* Hora */
+
+#proximasSalidas .hora-salida {
+    min-width: 95px;
+    padding: 10px 14px;
+
+    text-align: center;
+
+    background: #f1f5f9;
+    border-radius: 10px;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    color: #1e3a5f;
+}
+
+
+/* ==========================================
+   ESTATUS DE LA SALIDA
+   ========================================== */
+
+#proximasSalidas .salida small:last-child {
+    font-weight: 700;
+}
+
+
+
+
+
+
+/* ==========================================
+   PANTALLAS PEQUEÑAS
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    #proximasSalidas .salida {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    #proximasSalidas .hora-salida {
+        min-width: 75px;
+        font-size: 16px;
+    }
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================
+   COLORES DE PRÓXIMAS SALIDAS
+   ========================================== */
+
+/* 🔵 Programado */
+
+#proximasSalidas .salida.estatus-programado {
+    border-left: 5px solid #2563eb;
+}
+
+#proximasSalidas .salida.estatus-programado .hora-salida {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* 🟠 En curso */
+
+#proximasSalidas .salida.estatus-en-curso {
+    border-left: 5px solid #f59e0b;
+}
+
+#proximasSalidas .salida.estatus-en-curso .hora-salida {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+
+/* 🟢 Finalizado */
+
+#proximasSalidas .salida.estatus-finalizado {
+    border-left: 5px solid #16a34a;
+}
+
+#proximasSalidas .salida.estatus-finalizado .hora-salida {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+
+/* 🔴 Cancelado */
+
+#proximasSalidas .salida.estatus-cancelado {
+    border-left: 5px solid #dc2626;
+}
+
+#proximasSalidas .salida.estatus-cancelado .hora-salida {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   BORDE LATERAL SEGÚN ESTATUS
+   ========================================== */
+
+/* 🔵 PROGRAMADO */
+#proximasSalidas .salida.estatus-programado {
+    border-left: 6px solid #2563eb;
+}
+
+/* 🟠 EN CURSO */
+#proximasSalidas .salida.estatus-en-curso {
+    border-left: 6px solid #f59e0b;
+}
+
+/* 🟢 FINALIZADO */
+#proximasSalidas .salida.estatus-finalizado {
+    border-left: 6px solid #16a34a;
+}
+
+/* 🔴 CANCELADO */
+#proximasSalidas .salida.estatus-cancelado {
+    border-left: 6px solid #dc2626;
+}
+
+
+/* ==========================================
+   BOTONES PRINCIPALES - INICIO / NUEVA
+   ========================================== */
+
+#btnDashboard,
+#btnNueva {
+    width: 180px;
+    height: 44px;
+    padding: 0 16px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #1e293b;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Efecto al pasar el mouse */
+#btnDashboard:hover,
+#btnNueva:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transform: translateY(-1px);
+}
+
+/* Efecto al presionar */
+#btnDashboard:active,
+#btnNueva:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+
+
+/* ==========================================
+   ALINEACIÓN BOTONES INICIO / NUEVA
+   ========================================== */
+
+#btnDashboard,
+#btnNueva {
+    width: 180px !important;
+    height: 44px !important;
+
+    min-height: 44px !important;
+    max-height: 44px !important;
+
+    padding: 0 16px !important;
+    margin: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    vertical-align: middle !important;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+}
+
+
+
+
+/* ==========================================
+   CONTENEDOR BOTONES PRINCIPALES
+   ========================================== */
+
+.acciones-principales {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+
+/* ==========================================================
+   SELECT DE RECEPCIÓN
+   ========================================================== */
+
+#programacion_recepcion {
+    display: block !important;
+    width: 100% !important;
+    min-height: 45px;
+    padding: 10px !important;
+    background-color: white !important;
+    color: #222 !important;
+    border: 1px solid #999 !important;
+    border-radius: 6px;
+    font-size: 15px;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+
+
+
+
+
+/* ==========================================
+   LOGO DEL SISTEMA
+   ========================================== */
+
+.marca-sistema {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    display:block;
+}
+
+.marca-sistema h1 {
+    margin: 0;
+}
+
+.marca-sistema p {
+    margin: 5px 0 0;
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   DISEÑO INSTITUCIONAL - TREN MAYA
+   ========================================================= */
+
+/* COLORES GENERALES */
+
+:root {
+    --verde-oscuro: #009929;
+    --verde: #167D5A;
+    --verde-claro: #E8F2ED;
+    --dorado: #B08D2C;
+    --dorado-claro: #F5EED8;
+
+    --fondo: #F3F6F4;
+    --blanco: #FFFFFF;
+    --texto: #26332D;
+    --texto-secundario: #64736B;
+    --borde: #D8E1DC;
+}
+
+
+/* =========================================================
+   CUERPO
+   ========================================================= */
+
+body {
+    background-color: var(--fondo);
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* =========================================================
+   ENCABEZADO DE INICIO
+   DEGRADADO VERDE + LOGO DECORATIVO
+   ========================================================= */
+
+.encabezado {
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #167D5A 0%,
+        #1C8966 48%,
+        #2A9A75 100%
+    );
+
+    color: #FFFFFF;
+
+    padding: 18px 25px;
+
+    border-radius: 14px;
+
+    border-bottom: 4px solid #B08D2C;
+
+    box-shadow:
+        0 5px 18px rgba(18, 60, 42, 0.20);
+}
+
+
+/* =========================================================
+   CÍRCULO DECORATIVO CON LOGO
+   ========================================================= */
+
+.encabezado::after {
+    content: "";
+
+    position: absolute;
+
+    width: 210px;
+    height: 210px;
+
+    top: -75px;
+    right: -50px;
+
+    border-radius: 50%;
+
+    background-color: rgba(255, 255, 255, 0.10);
+
+    background-image: url("./img/logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 105px 105px;
+
+    border: 2px solid rgba(176, 141, 44, 0.65);
+
+    box-shadow:
+        inset 0 0 0 14px rgba(255, 255, 255, 0.04);
+
+    opacity: 0.95;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CONTENIDO DEL ENCABEZADO
+   ========================================================= */
+
+.encabezado > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   BOTONES PRINCIPALES
+   ========================================================= */
+
+#btnDashboard,
+#btnNueva {
+    width: 180px !important;
+    height: 44px !important;
+
+    border-radius: 9px;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s ease;
+}
+
+
+/* INICIO */
+
+#btnDashboard {
+    background: white;
+    color: black;
+    border: 2px solid #d6b55999;
+}
+
+
+#btnDashboard:hover {
+    background: rgba(247, 244, 220, 0.332);
+    border-color: rgb(255, 255, 255);
+    transform: translateY(-1px);
+}
+
+
+/* NUEVA PROGRAMACIÓN */
+
+#btnNueva {
+    background: var(--dorado);
+    color: white;
+    border: 1px solid var(--dorado);
+}
+
+
+#btnNueva:hover {
+    background: #967722;
+    border-color: #967722;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PANELES
+   ========================================================= */
+
+.panel,
+.formulario-seccion,
+.dashboard-card,
+.filtros-dashboard,
+.tarjeta,
+.indicador,
+.tarjeta-dashboard {
+    background: var(--blanco);
+    border-color: var(--borde);
+}
+
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+.panel h2,
+.formulario-seccion h2,
+.dashboard-card h2 {
+    color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   TABLAS
+   ========================================================= */
+
+th {
+    background: #1e4a7a;
+    color: white;
+}
+
+td {
+    color: var(--texto);
+    border-bottom: 1px solid var(--borde);
+}
+
+tr:hover {
+    background: #d6dade93;
+}
+
+
+/* =========================================================
+   CAMPOS DE FORMULARIO
+   ========================================================= */
+
+.formulario input,
+.formulario select,
+.formulario textarea,
+.barra-busqueda input {
+    background: white;
+    color: var(--texto);
+    border: 1px solid #C9D5CE;
+}
+
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus,
+.barra-busqueda input:focus {
+    outline: none;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(22,125,90,0.12);
+}
+
+
+/* =========================================================
+   BOTÓN GUARDAR
+   ========================================================= */
+
+#btnGuardar {
+    background: var(--verde);
+    color: white;
+}
+
+
+#btnGuardar:hover {
+    background: #116448;
+}
+
+
+/* =========================================================
+   BOTÓN ACTUALIZAR
+   ========================================================= */
+
+#btnActualizar {
+    background: var(--verde-claro);
+    color: #ffffff;
+    border: 2px solid #967722;
+}
+
+
+#btnActualizar:hover {
+    background: #DCEBE3;
+}
+
+
+/* =========================================================
+   BOTÓN EDITAR
+   ========================================================= */
+
+.btn-editar {
+    background: var(--dorado);
+    color: white;
+}
+
+
+.btn-editar:hover {
+    background: #967722;
+}
+
+/* =========================================================
+   DASHBOARD
+   ENCABEZADO TREN MAYA
+========================================================= */
+
+.dashboard-header {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #167D5A 0%,
+        #208E69 55%,
+        #2FA27C 100%
+    ) !important;
+
+    border-bottom: 3px solid #B08D2C !important;
+
+    color: #FFFFFF !important;
+
+    box-shadow:
+        0 5px 18px rgba(18,60,42,.20) !important;
+}
+
+
+/* =========================================================
+   CÍRCULO DECORATIVO CON LOGO
+========================================================= */
+
+.dashboard-header::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 210px !important;
+    height: 210px !important;
+
+    top: -63px !important;
+    right: -45px !important;
+
+    border-radius: 50% !important;
+
+    background-color: rgba(255,255,255,.10) !important;
+
+    background-image: url("./img/LOGO_TREN_MAYA_.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 95px 95px !important;
+
+    border: 3px solid rgba(176,141,44,.75) !important;
+
+    box-shadow:
+        inset 0 0 0 12px rgba(255,255,255,.04),
+        0 0 25px rgba(0,0,0,.08) !important;
+
+    pointer-events: none !important;
+
+    z-index: 1 !important;
+}
+
+
+/* =========================================================
+   TEXTO DEL DASHBOARD
+========================================================= */
+
+.dashboard-header h1 {
+    position: relative !important;
+    z-index: 3 !important;
+
+    color: #FFFFFF !important;
+}
+
+.dashboard-header p {
+    position: relative !important;
+    z-index: 3 !important;
+
+    color: #EAF4EF !important;
+}
+
+/* =========================================================
+   MENÚ DASHBOARD
+   ========================================================= */
+
+.menu-dashboard {
+    background: white;
+    border: 1px solid var(--borde);
+}
+
+
+.menu-dashboard button {
+    color: #46574E;
+}
+
+
+.menu-dashboard button:hover {
+    background: var(--verde-claro);
+    color: var(--verde-oscuro);
+}
+
+
+.menu-dashboard button.menu-activo {
+    background: var(--verde);
+    color: white;
+}
+
+
+/* =========================================================
+   FILTROS DASHBOARD
+   ========================================================= */
+
+.filtro-opciones button.filtro-activo {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: white;
+}
+
+
+.filtro-opciones button:hover {
+    background: var(--verde-claro);
+    border-color: var(--verde);
+}
+
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.indicador {
+    border-top: 1px solid var(--borde);
+}
+
+
+.indicador span {
+    color: var(--texto-secundario);
+}
+
+
+.indicador strong {
+    color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   CALENDARIO
+   ========================================================= */
+
+#mesAnterior,
+#mesSiguiente {
+    color: var(--verde-oscuro);
+    border-color: #C9D8D0;
+}
+
+
+#mesAnterior:hover,
+#mesSiguiente:hover {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: white;
+}
+
+
+#mesAnio {
+    color: var(--verde-oscuro);
+}
+
+
+.dia-calendario {
+    border-color: var(--borde);
+}
+
+
+.dia-calendario:hover {
+    background: var(--verde-claro);
+    border-color: var(--verde);
+}
+
+
+.dia-calendario.hoy {
+    border-color: var(--dorado);
+}
+
+
+.dia-calendario.seleccionado {
+    background: var(--verde-claro);
+    border-color: var(--verde);
+}
+
+
+.dia-programaciones {
+    color: var(--verde);
+}
+
+
+/* =========================================================
+   PRÓXIMAS SALIDAS
+   ========================================================= */
+
+#proximasSalidas .salida {
+    border-color: var(--borde);
+}
+
+
+#proximasSalidas .salida:hover {
+    background: var(--verde-claro);
+    border-color: #BFD3C8;
+}
+
+
+#proximasSalidas .salida strong {
+    color: var(--verde-oscuro);
+}
+
+
+#proximasSalidas .hora-salida {
+    color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   TARJETAS FINANCIERAS
+   ========================================================= */
+
+#seccionIncidencias {
+    border-left-color: var(--dorado);
+}
+
+
+#seccionIncidencias .card-header h2 {
+    color: #8A6D1D;
+}
+
+
+#seccionCombustible {
+    border-left-color: var(--verde);
+}
+
+
+#seccionCombustible .card-header h2 {
+    color: var(--verde);
+}
+
+
+/* =========================================================
+   COSTO TOTAL
+   ========================================================= */
+
+#seccionCostoTotal {
+    border-left-color: var(--dorado);
+
+    background: linear-gradient(
+        135deg,
+        #FFFFFF 0%,
+        #F9F6EB 100%
+    );
+}
+
+
+#seccionCostoTotal .card-header {
+    background: var(--dorado-claro);
+    border-bottom-color: #E5D9B6;
+}
+
+
+#seccionCostoTotal .card-header h2 {
+    color: #80651C;
+}
+
+
+#seccionCostoTotal #costoTotalGeneral {
+    color: #80651C;
+}
+
+
+/* =========================================================
+   RECEPCIÓN
+   ========================================================= */
+
+#programacion_recepcion {
+    border-color: #C9D5CE !important;
+    color: var(--texto) !important;
+    background: white !important;
+}
+
+
+#programacion_recepcion:focus {
+    border-color: var(--verde) !important;
+    box-shadow: 0 0 0 3px rgba(22,125,90,0.12);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .encabezado {
+        padding: 18px;
+    }
+
+    .marca-sistema {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        width: 85px !important;
+        height: 85px !important;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================== */
+/* INCIDENCIAS */
+/* ========================================== */
+
+#seccionIncidencias {
+    width: 100%;
+}
+
+
+/* ENCABEZADO DEL MÓDULO */
+
+#seccionIncidencias h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+
+/* DESCRIPCIÓN DEL MÓDULO */
+
+#seccionIncidencias .panel > p {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #6B7280;
+}
+
+
+/* FORMULARIO DE INCIDENCIAS */
+
+#seccionIncidencias .formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 22px;
+}
+
+
+/* ETIQUETAS */
+
+#seccionIncidencias .formulario label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: -8px;
+}
+
+
+/* CAMPOS */
+
+#seccionIncidencias .formulario input,
+#seccionIncidencias .formulario select,
+#seccionIncidencias .formulario textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #D1D5DB;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #FFFFFF;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+/* EFECTO AL SELECCIONAR */
+
+#seccionIncidencias .formulario input:focus,
+#seccionIncidencias .formulario select:focus,
+#seccionIncidencias .formulario textarea:focus {
+    outline: none;
+    border-color: #008489;
+    box-shadow: 0 0 0 3px rgba(0, 132, 137, 0.12);
+}
+
+
+/* TEXTAREAS */
+
+#seccionIncidencias .formulario textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+/* DESCRIPCIÓN Y OBSERVACIONES A TODO EL ANCHO */
+
+#descripcion_incidencia,
+#observaciones_incidencia {
+    grid-column: 1 / -1;
+}
+
+
+/* SUS ETIQUETAS TAMBIÉN A TODO EL ANCHO */
+
+#descripcion_incidencia + label,
+#observaciones_incidencia + label {
+    grid-column: 1 / -1;
+}
+
+
+/* BOTONES */
+
+#seccionIncidencias .botones {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+
+/* TABLA */
+
+#seccionIncidencias .tabla-contenedor {
+    overflow-x: auto;
+    width: 100%;
+}
+
+
+#seccionIncidencias table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+}
+
+
+/* ENCABEZADOS DE TABLA */
+
+#seccionIncidencias table th {
+    white-space: nowrap;
+}
+
+
+/* CELDAS */
+
+#seccionIncidencias table td {
+    vertical-align: middle;
+}
+
+
+/* DESCRIPCIÓN Y OBSERVACIONES */
+
+#seccionIncidencias table td:nth-child(4),
+#seccionIncidencias table td:nth-child(8) {
+    min-width: 180px;
+    max-width: 300px;
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* BOTONES DE ACCIÓN */
+
+#seccionIncidencias table button {
+    margin: 2px;
+    white-space: nowrap;
+}
+
+
+/* MENSAJE */
+
+#mensajeIncidencia {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+
+/* ========================================== */
+/* DISEÑO RESPONSIVO */
+/* ========================================== */
+
+@media (max-width: 800px) {
+
+    #seccionIncidencias .formulario {
+        grid-template-columns: 1fr;
+    }
+
+
+    #seccionIncidencias .formulario label,
+    #seccionIncidencias .formulario input,
+    #seccionIncidencias .formulario select,
+    #seccionIncidencias .formulario textarea,
+    #seccionIncidencias .botones {
+        grid-column: 1;
+    }
+
+
+    #seccionIncidencias .botones {
+        flex-direction: column;
+    }
+
+
+    #seccionIncidencias .botones button {
+        width: 100%;
+    }
+
+}
+
+
+
+
+
+
+/* ==========================================
+   DISTRIBUCIÓN DE INCIDENCIAS
+   FORMULARIO IZQUIERDA / REGISTROS DERECHA
+   ========================================== */
+
+.incidencias-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.incidencias-layout > section:first-child {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.incidencias-layout > section:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* En pantallas pequeñas */
+@media (max-width: 900px) {
+
+    .incidencias-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .incidencias-layout > section:first-child,
+    .incidencias-layout > section:nth-child(2) {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+
+
+
+
+/* ==========================================
+   PÁGINA DE INCIDENCIAS
+   ========================================== */
+
+.incidencias-layout {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.8fr) minmax(500px, 1.8fr);
+    gap: 25px;
+    align-items: start;
+}
+
+/* FORMULARIO */
+.incidencias-layout > section:first-child {
+    min-width: 0;
+}
+
+.incidencias-layout .formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.incidencias-layout .formulario label {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.incidencias-layout .formulario input,
+.incidencias-layout .formulario select,
+.incidencias-layout .formulario textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.incidencias-layout .formulario textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* SELECT DE PROGRAMACIÓN */
+#programacion_id {
+    width: 100%;
+    min-height: 40px;
+}
+
+/* TABLA DE INCIDENCIAS */
+.incidencias-layout > section:nth-child(2) {
+    min-width: 0;
+}
+
+.incidencias-layout .tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.incidencias-layout table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+/* PANTALLAS PEQUEÑAS */
+@media (max-width: 1000px) {
+
+    .incidencias-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .incidencias-layout > section:first-child,
+    .incidencias-layout > section:nth-child(2) {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+
+
+
+
+
+/* =========================================================
+   FORMULARIO DE OPERACIONES
+   DISEÑO PROFESIONAL TREN MAYA
+   ========================================================= */
+
+#formularioSeccion {
+    background: #FFFFFF;
+    border: 1px solid #D8E1DC;
+    border-radius: 14px;
+    padding: 30px 35px;
+    box-shadow: 0 4px 15px rgba(18, 60, 42, 0.08);
+}
+
+
+/* TÍTULO */
+
+#formularioSeccion h2 {
+    margin: 0 0 28px 0;
+    padding-bottom: 15px;
+
+    color: #123C2A;
+
+    font-size: 21px;
+    font-weight: 700;
+
+    border-bottom: 2px solid #B08D2C;
+}
+
+
+/* CONTENEDOR DEL FORMULARIO */
+
+#formularioSeccion .formulario {
+    display: grid;
+
+    grid-template-columns: 250px minmax(400px, 750px);
+
+    column-gap: 30px;
+    row-gap: 17px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+#formularioSeccion .formulario label {
+    grid-column: 1;
+
+    margin: 0;
+
+    color: #26332D;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+#formularioSeccion .formulario input,
+#formularioSeccion .formulario select,
+#formularioSeccion .formulario textarea {
+
+    grid-column: 2;
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 10px 13px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #C9D5CE;
+    border-radius: 7px;
+
+    color: #26332D;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* PLACEHOLDER */
+
+#formularioSeccion .formulario input::placeholder,
+#formularioSeccion .formulario textarea::placeholder {
+    color: #9AA8A0;
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+#formularioSeccion .formulario select {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   EFECTO AL SELECCIONAR
+   ========================================================= */
+
+#formularioSeccion .formulario input:focus,
+#formularioSeccion .formulario select:focus,
+#formularioSeccion .formulario textarea:focus {
+
+    border-color: #167D5A;
+
+    background: #FCFEFD;
+
+    box-shadow: 0 0 0 3px rgba(22, 125, 90, 0.10);
+}
+
+
+/* =========================================================
+   TEXTAREAS
+   ========================================================= */
+
+#formularioSeccion .formulario textarea {
+
+    min-height: 90px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+#formularioSeccion .formulario .botones {
+
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 12px;
+    padding-top: 20px;
+
+    border-top: 1px solid #E1E8E4;
+}
+
+
+/* =========================================================
+   BOTÓN GUARDAR
+   ========================================================= */
+
+#formularioSeccion #btnGuardar {
+
+    background: #167D5A;
+    color: #FFFFFF;
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 11px 24px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+#formularioSeccion #btnGuardar:hover {
+    background: #123C2A;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTONES SECUNDARIOS
+   ========================================================= */
+
+#formularioSeccion #btnLimpiar,
+#formularioSeccion #btnCancelar {
+
+    background: #FFFFFF;
+
+    color: #123C2A;
+
+    border: 1px solid #B08D2C;
+
+    border-radius: 7px;
+
+    padding: 11px 22px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+#formularioSeccion #btnLimpiar:hover,
+#formularioSeccion #btnCancelar:hover {
+
+    background: #F5EED8;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    #formularioSeccion {
+        padding: 25px 20px;
+    }
+
+    #formularioSeccion .formulario {
+
+        grid-template-columns: 180px 1fr;
+
+        column-gap: 20px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    #formularioSeccion .formulario {
+
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+    }
+
+    #formularioSeccion .formulario label {
+
+        grid-column: 1;
+
+        text-align: left;
+
+        margin-top: 8px;
+    }
+
+    #formularioSeccion .formulario input,
+    #formularioSeccion .formulario select,
+    #formularioSeccion .formulario textarea {
+
+        grid-column: 1;
+    }
+
+    #formularioSeccion .formulario .botones {
+
+        grid-column: 1;
+
+        justify-content: stretch;
+    }
+}
+
+
+#formularioSeccion .formulario {
+    display: grid;
+
+    grid-template-columns: 250px minmax(400px, 750px);
+
+    column-gap: 25px;
+    row-gap: 17px;
+
+    align-items: center;
+
+    justify-content: start;
+
+    margin: 0;
+}
+
+
+/* ETIQUETAS */
+
+#formularioSeccion .formulario label {
+    grid-column: 1;
+
+    margin: 0;
+
+    color: #26332D;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* CAMPOS */
+
+#formularioSeccion .formulario input,
+#formularioSeccion .formulario select,
+#formularioSeccion .formulario textarea {
+    grid-column: 2;
+
+    width: 100%;
+    min-height: 42px;
+
+    padding: 10px 13px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #C9D5CE;
+    border-radius: 7px;
+
+    color: #26332D;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+/* AL SELECCIONAR */
+
+#formularioSeccion .formulario input:focus,
+#formularioSeccion .formulario select:focus,
+#formularioSeccion .formulario textarea:focus {
+    border-color: #167D5A;
+
+    background: #FCFEFD;
+
+    box-shadow: 0 0 0 3px rgba(22, 125, 90, 0.10);
+}
+
+
+/* TEXTAREA */
+
+#formularioSeccion .formulario textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+
+/* BOTONES */
+
+#formularioSeccion .formulario .botones {
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    margin-top: 12px;
+    padding-top: 20px;
+
+    border-top: 1px solid #E1E8E4;
+}
+
+
+
+
+#formularioSeccion #btnCancelar {
+    background: #B42318;
+    color: #FFFFFF;
+
+    border: 1px solid #B42318;
+    border-radius: 7px;
+
+    padding: 11px 22px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+#formularioSeccion #btnCancelar:hover {
+    background: #8F1D14;
+    border-color: #8F1D14;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PANTALLA DE CARGA - SISTEMA DE OPERACIONES (CORREGIDO)
+   ========================================================= */
+
+#pantallaCarga {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding-bottom: 70px !important;
+
+    background-color: #000000 !important;
+    background-image: url("./img/fondo_carga_.png") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#pantallaCarga.oculta {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.carga-contenido {
+    width: 90% !important;
+    max-width: 850px !important;
+    text-align: center !important;
+    background: rgba(0, 0, 0, 0.65) !important;
+    padding: 20px 25px 25px !important;
+    border-radius: 16px !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(176, 141, 44, 0.4) !important;
+}
+
+.carga-titulo {
+    color: #ffffff !important;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.carga-subtitulo {
+    margin-top: 5px;
+    color: #dfb23e !important;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.carga-mensaje {
+    margin-top: 25px;
+    color: #d1d5db !important;
+    font-size: 14px;
+}
+
+/* Espacio de la vía */
+.via-tren {
+    position: relative !important;
+    width: 100% !important;
+    height: 140px !important;
+    margin-top: 10px !important;
+    overflow: hidden !important;
+    display: block !important;
+}
+
+/* El convoy ferroviario visible, grande y con animación activa */
+.tren {
+    position: absolute !important;
+    left: -800px !important;
+    bottom: 0px !important;
+    width: 800px !important;
+    max-width: none !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    z-index: 10 !important;
+    animation: movimientoTren 3.5s linear infinite !important;
+}
+
+.tren img {
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    display: block !important;
+    margin-bottom: -4px !important;
+}
+
+@keyframes movimientoTren {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(100vw + 1400px));
+    }
+}
+
+/* Riel superior azul */
+.linea-carga {
+    width: 100% !important;
+    height: 4px !important;
+    margin-top: 0px !important;
+    background: #38bdf8 !important;
+    border-radius: 10px !important;
+    position: relative !important;
+    display: block !important;
+}
+
+/* Riel inferior dorado */
+.linea-carga::after {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 2px !important;
+    position: absolute !important;
+    top: 5px !important;
+    background: #b08d2c !important;
+    border-radius: 10px !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .carga-titulo {
+        font-size: 21px;
+    }
+
+    .carga-subtitulo {
+        font-size: 14px;
+    }
+
+    .via-tren {
+        height: 80px !important;
+    }
+
+    .tren {
+        width: 500px !important;
+        left: -500px !important;
+    }
+
+}
+
+
+
+
+/* =========================================================
+   PANTALLA SIN CONEXIÓN
+   ========================================================= */
+
+#pantallaSinConexion {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #F3F6F4;
+
+    text-align: center;
+}
+
+
+/* CONTENIDO */
+
+.descarrilado-contenido {
+    width: 90%;
+    max-width: 650px;
+}
+
+
+/* TÍTULO */
+
+.descarrilado-titulo {
+    color: #B42318;
+
+    font-size: 28px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* TREN */
+
+.tren-descarrilado {
+    margin-top: 30px;
+
+    font-size: 85px;
+
+    transform: rotate(-12deg);
+
+    animation: trenCaido 1.5s ease-in-out infinite alternate;
+}
+
+
+/* ANIMACIÓN DEL TREN */
+
+@keyframes trenCaido {
+
+    from {
+        transform: rotate(-10deg) translateY(0);
+    }
+
+    to {
+        transform: rotate(-15deg) translateY(8px);
+    }
+
+}
+
+
+/* VÍA */
+
+.descarrilado-linea {
+    width: 280px;
+    height: 5px;
+
+    margin: 5px auto 25px;
+
+    background: #123C2A;
+
+    transform: rotate(-4deg);
+}
+
+
+/* MENSAJE */
+
+.descarrilado-mensaje {
+    color: #26332D;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+
+/* DETALLE */
+
+.descarrilado-detalle {
+    margin-top: 8px;
+
+    color: #64736B;
+
+    font-size: 14px;
+}
+
+
+/* BOTÓN */
+
+#btnReintentarConexion {
+    margin-top: 25px;
+
+    padding: 11px 25px;
+
+    background: #167D5A;
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+#btnReintentarConexion:hover {
+    background: #123C2A;
+}
+
+
+
+
+/* ==========================================
+   DISTRIBUCIÓN DEL PERSONAL
+   ========================================== */
+
+#seccionDistribucionPersonal {
+    background: #FFFFFF;
+    border: 1px solid #D8E1DC;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 5px 18px rgba(18, 60, 42, 0.10);
+}
+
+#seccionDistribucionPersonal h2 {
+    margin: 0;
+    color: #123C2A;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 3px solid #B08D2C;
+    padding-bottom: 12px;
+}
+
+
+/* FORMULARIO */
+
+.formulario-distribucion {
+    display: grid;
+    grid-template-columns: 250px minmax(400px, 750px);
+    column-gap: 25px;
+    row-gap: 17px;
+    align-items: center;
+    justify-content: start;
+    margin: 0;
+}
+
+
+.formulario-distribucion label {
+    grid-column: 1;
+    color: #26332D;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+
+.formulario-distribucion input,
+.formulario-distribucion select {
+    grid-column: 2;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 13px;
+    background: #FFFFFF;
+    border: 1px solid #C9D5CE;
+    border-radius: 7px;
+    color: #26332D;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+
+.formulario-distribucion input:focus,
+.formulario-distribucion select:focus {
+    border-color: #167D5A;
+    background: #FCFEFD;
+    box-shadow: 0 0 0 3px rgba(22, 125, 90, 0.10);
+}
+
+
+/* BOTONES */
+
+.botones-distribucion {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #E1E8E4;
+}
+
+
+#btnGuardarDistribucion {
+    background: #167D5A;
+    color: #FFFFFF;
+    border: 1px solid #167D5A;
+    border-radius: 7px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+#btnGuardarDistribucion:hover {
+    background: #123C2A;
+}
+
+
+#btnLimpiarDistribucion {
+    background: #64736B;
+    color: #FFFFFF;
+    border: 1px solid #64736B;
+    border-radius: 7px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+#btnCancelarDistribucion {
+    background: #B42318;
+    color: #FFFFFF;
+    border: 1px solid #B42318;
+    border-radius: 7px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+#btnCancelarDistribucion:hover {
+    background: #8F1D14;
+}
+
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 800px) {
+
+    .formulario-distribucion {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario-distribucion label,
+    .formulario-distribucion input,
+    .formulario-distribucion select {
+        grid-column: 1;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   RECEPCIÓN — ESTILO PROFESIONAL FERROVIARIO
+============================================================ */
+
+#seccionRecepcion {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 10px 0 35px;
+}
+
+/* Encabezado de la sección */
+#seccionRecepcion .titulo-seccion {
+    background: linear-gradient(135deg, #202020 0%, #303030 100%);
+    color: #ffffff;
+    padding: 22px 28px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-left: 6px solid #008489;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+#seccionRecepcion .titulo-seccion h2 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+#seccionRecepcion .titulo-seccion p {
+    margin: 6px 0 0;
+    color: #d8d8d8;
+    font-size: 14px;
+}
+
+/* Tarjetas */
+.recepcion-card {
+    background: #ffffff;
+    border: 1px solid #e1e5e8;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Título de cada tarjeta */
+.recepcion-card-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f4f6f7;
+    border-bottom: 1px solid #e1e5e8;
+    padding: 14px 20px;
+    color: #222222;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.recepcion-card-titulo .icono {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #008489;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Contenido de tarjeta */
+.recepcion-card-contenido {
+    padding: 20px 24px;
+}
+
+/* ============================================================
+   FILAS — ETIQUETA IZQUIERDA / CAMPO DERECHA
+============================================================ */
+
+.recepcion-form-row {
+    display: grid;
+    grid-template-columns: 270px minmax(250px, 1fr);
+    align-items: center;
+    gap: 20px;
+    min-height: 52px;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.recepcion-form-row:last-child {
+    border-bottom: none;
+}
+
+.recepcion-form-row label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    text-align: left;
+}
+
+.recepcion-form-row label .obligatorio {
+    color: #c62828;
+    margin-left: 3px;
+}
+
+/* Campos */
+.recepcion-form-row input,
+.recepcion-form-row select,
+.recepcion-form-row textarea {
+    width: 100%;
+    max-width: 650px;
+    border: 1px solid #cfd5d9;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.recepcion-form-row input,
+.recepcion-form-row select {
+    height: 40px;
+}
+
+.recepcion-form-row textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+/* Focus */
+.recepcion-form-row input:focus,
+.recepcion-form-row select:focus,
+.recepcion-form-row textarea:focus {
+    border-color: #008489;
+    box-shadow: 0 0 0 3px rgba(0, 132, 137, 0.12);
+}
+
+/* Campos automáticos */
+.recepcion-form-row input[readonly] {
+    background: #f1f3f4;
+    color: #4b5563;
+    cursor: not-allowed;
+    border-color: #d9dddf;
+}
+
+/* ============================================================
+   COMBUSTIBLE
+============================================================ */
+
+.recepcion-combustible-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 35px;
+}
+
+.recepcion-combustible-grid .recepcion-form-row {
+    grid-template-columns: 220px minmax(120px, 1fr);
+}
+
+.recepcion-promedio {
+    background: #eef8f8 !important;
+    border-color: #008489 !important;
+    font-weight: 700;
+    color: #00686c !important;
+}
+
+/* ============================================================
+   INCIDENCIAS
+============================================================ */
+
+.recepcion-incidencia {
+    display: grid;
+    grid-template-columns: 270px minmax(250px, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 14px 0;
+}
+
+.recepcion-incidencia label {
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.recepcion-incidencia textarea {
+    width: 100%;
+    min-height: 105px;
+    border: 1px solid #cfd5d9;
+    border-radius: 7px;
+    padding: 10px 12px;
+    background: #ffffff;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+
+
+/* ==========================================
+   MENÚ PRINCIPAL
+========================================== */
+
+.menu-principal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   SUBMENÚ DE OPERACIONES
+========================================== */
+
+.sub-menu-operaciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+    padding: 8px;
+    background: #f3f4f6;
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   PESTAÑAS PRINCIPALES
+========================================== */
+
+.menu-principal .pestana {
+    min-width: 150px;
+}
+
+
+/* ==========================================
+   SUBPESTAÑAS
+========================================== */
+
+.sub-menu-operaciones .pestana {
+    min-width: 140px;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .menu-principal,
+    .sub-menu-operaciones {
+        flex-direction: column;
+    }
+
+    .menu-principal .pestana,
+    .sub-menu-operaciones .pestana {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+
+
+/* ============================================================
+   🛤️ SERVICIO DE PATIO
+   DISEÑO INSTITUCIONAL — SISTEMA DE OPERACIONES
+   TREN MAYA
+============================================================ */
+
+#seccionServicioPatio {
+    width: 100%;
+    background: #f3f6f4;
+    color: #26332d;
+}
+
+/* ============================================================
+   CONTENEDOR GENERAL
+============================================================ */
+
+#seccionServicioPatio .contenedor-seccion {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   ENCABEZADO PRINCIPAL
+============================================================ */
+
+#seccionServicioPatio .encabezado-seccion {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    min-height: 105px;
+    padding: 24px 30px;
+
+    margin-bottom: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123c2a 0%,
+            #174a3b 55%,
+            #21634e 100%
+        );
+
+    border-radius: 14px;
+
+    border-bottom: 4px solid #b08d2c;
+
+    box-shadow:
+        0 6px 18px rgba(18, 60, 42, 0.16);
+
+    overflow: hidden;
+}
+
+/* Línea decorativa */
+#seccionServicioPatio .encabezado-seccion::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 6px;
+
+    background: #b08d2c;
+}
+
+
+/* TÍTULO */
+
+#seccionServicioPatio .encabezado-seccion h2 {
+    position: relative;
+
+    margin: 0 0 6px 0;
+
+    color: #ffffff;
+
+    font-size: 26px;
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+}
+
+/* DESCRIPCIÓN */
+
+#seccionServicioPatio .encabezado-seccion p {
+    position: relative;
+
+    margin: 0;
+
+    color: #d9e8e0;
+
+    font-size: 14px;
+}
+
+/* ============================================================
+   BOTÓN LLENAR HOJA
+============================================================ */
+
+#seccionServicioPatio #btnNuevaServicioPatio {
+    position: relative;
+    z-index: 2;
+
+    min-width: 155px;
+
+    padding: 12px 22px;
+
+    background: #b08d2c !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #b08d2c !important;
+
+    border-radius: 9px !important;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.18);
+
+    transition:
+        all 0.2s ease;
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio:hover {
+    background: #967722 !important;
+
+    border-color: #967722 !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio:active {
+    transform: translateY(0);
+}
+
+/* ============================================================
+   MENSAJES
+============================================================ */
+
+#seccionServicioPatio #contenedorMensajeServicioPatio {
+    min-height: 20px;
+
+    margin: 8px 2px 15px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ============================================================
+   TARJETAS GENERALES
+============================================================ */
+
+#seccionServicioPatio .tarjeta {
+    position: relative;
+
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #d8e1dc;
+
+    border-radius: 13px;
+
+    padding: 23px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(18, 60, 42, 0.07);
+
+    overflow: hidden;
+}
+
+/* Línea superior */
+
+#seccionServicioPatio .tarjeta::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #123c2a,
+            #167d5a,
+            #b08d2c
+        );
+}
+
+/* ============================================================
+   TÍTULOS DE TARJETAS
+============================================================ */
+
+#seccionServicioPatio .tarjeta h3 {
+    margin: 0 0 20px;
+
+    padding: 0 0 12px;
+
+    color: #123c2a;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    border-bottom: 1px solid #d8e1dc;
+}
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+#seccionServicioPatio .form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px 24px;
+}
+
+/* ============================================================
+   CAMPOS
+============================================================ */
+
+#seccionServicioPatio .campo {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+#seccionServicioPatio .campo label {
+    margin-bottom: 7px;
+
+    color: #26332d;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ============================================================
+   CAMPOS DE ENTRADA
+============================================================ */
+
+#seccionServicioPatio .campo input,
+#seccionServicioPatio .campo select,
+#seccionServicioPatio .campo textarea {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 10px 13px;
+
+    background: #ffffff;
+
+    color: #26332d;
+
+    border: 1px solid #c9d5ce;
+
+    border-radius: 7px;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+/* ============================================================
+   PLACEHOLDER
+============================================================ */
+
+#seccionServicioPatio .campo input::placeholder,
+#seccionServicioPatio .campo textarea::placeholder {
+    color: #9aa8a0;
+}
+
+/* ============================================================
+   FOCUS
+============================================================ */
+
+#seccionServicioPatio .campo input:focus,
+#seccionServicioPatio .campo select:focus,
+#seccionServicioPatio .campo textarea:focus {
+
+    border-color: #167d5a;
+
+    background: #fcfefd;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 125, 90, 0.11);
+}
+
+/* ============================================================
+   SELECT
+============================================================ */
+
+#seccionServicioPatio .campo select {
+    cursor: pointer;
+}
+
+/* ============================================================
+   TEXTAREA
+============================================================ */
+
+#seccionServicioPatio .campo textarea {
+    min-height: 95px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+/* ============================================================
+   CAMPO COMPLETO
+============================================================ */
+
+#seccionServicioPatio .campo-completo {
+    grid-column: 1 / -1;
+}
+
+/* ============================================================
+   BOTONES DEL FORMULARIO
+============================================================ */
+
+#seccionServicioPatio .acciones-formulario {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e1e8e4;
+}
+
+/* ============================================================
+   GUARDAR
+============================================================ */
+
+#seccionServicioPatio .acciones-formulario .btn-primary {
+
+    min-width: 155px;
+
+    padding: 11px 22px;
+
+    background: #167d5a !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #167d5a !important;
+
+    border-radius: 8px !important;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+#seccionServicioPatio .acciones-formulario .btn-primary:hover {
+
+    background: #123c2a !important;
+
+    border-color: #123c2a !important;
+
+    transform: translateY(-1px);
+}
+
+/* ============================================================
+   LIMPIAR
+============================================================ */
+
+#seccionServicioPatio .acciones-formulario .btn-secondary {
+
+    min-width: 120px;
+
+    padding: 11px 20px;
+
+    background: #f3f6f4 !important;
+
+    color: #37483f !important;
+
+    border: 1px solid #c9d5ce !important;
+
+    border-radius: 8px !important;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+#seccionServicioPatio .acciones-formulario .btn-secondary:hover {
+
+    background: #e5ece8 !important;
+
+    border-color: #aebdb4 !important;
+}
+
+/* ============================================================
+   RESUMEN
+============================================================ */
+
+#seccionServicioPatio .resumen-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+/* ============================================================
+   TARJETAS DE RESUMEN
+============================================================ */
+
+#seccionServicioPatio .resumen-card {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 88px;
+
+    padding: 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #d8e1dc;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(18, 60, 42, 0.06);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#seccionServicioPatio .resumen-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 14px rgba(18, 60, 42, 0.10);
+}
+
+/* Línea lateral */
+
+#seccionServicioPatio .resumen-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: #167d5a;
+}
+
+/* ICONO */
+
+#seccionServicioPatio .resumen-icono {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    background: #e8f2ed;
+
+    border: 1px solid #d3e5db;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+/* TEXTO */
+
+#seccionServicioPatio .resumen-card span:not(.resumen-icono) {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #64736b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+/* VALOR */
+
+#seccionServicioPatio .resumen-card strong {
+
+    display: block;
+
+    color: #123c2a;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+/* ============================================================
+   COLORES INDIVIDUALES DEL RESUMEN
+============================================================ */
+
+#seccionServicioPatio .resumen-card:nth-child(1)::before {
+    background: #167d5a;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(2)::before {
+    background: #b08d2c;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(3)::before {
+    background: #64736b;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(4)::before {
+    background: #2563eb;
+}
+
+/* ============================================================
+   ENCABEZADO DE TABLA
+============================================================ */
+
+#seccionServicioPatio .encabezado-tabla {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 15px;
+}
+
+#seccionServicioPatio .encabezado-tabla h3 {
+
+    margin: 0;
+
+    padding: 0;
+
+    border: none;
+
+    color: #123c2a;
+}
+
+/* ============================================================
+   FILTROS DE TABLA
+============================================================ */
+
+#seccionServicioPatio .filtros-tabla {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+#seccionServicioPatio .filtros-tabla input,
+#seccionServicioPatio .filtros-tabla select {
+
+    height: 40px;
+
+    min-width: 190px;
+
+    padding: 8px 12px;
+
+    background: #ffffff;
+
+    color: #26332d;
+
+    border: 1px solid #c9d5ce;
+
+    border-radius: 7px;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+}
+
+#seccionServicioPatio .filtros-tabla input:focus,
+#seccionServicioPatio .filtros-tabla select:focus {
+
+    border-color: #167d5a;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 125, 90, 0.10);
+}
+
+/* ============================================================
+   CONTENEDOR DE TABLA
+============================================================ */
+
+#seccionServicioPatio .tabla-contenedor {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #d8e1dc;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+/* ============================================================
+   TABLA
+============================================================ */
+
+#seccionServicioPatio #tablaServiciosPatio {
+
+    width: 100%;
+
+    min-width: 1250px;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    background: #ffffff;
+}
+
+/* ============================================================
+   ENCABEZADO TABLA
+============================================================ */
+
+#seccionServicioPatio #tablaServiciosPatio thead th {
+
+    padding: 13px 11px;
+
+    background: #123c2a;
+
+    color: #ffffff;
+
+    border-bottom: 3px solid #b08d2c;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+/* ============================================================
+   CELDAS
+============================================================ */
+
+#seccionServicioPatio #tablaServiciosPatio tbody td {
+
+    padding: 12px 11px;
+
+    color: #37483f;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #e5ebe7;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+/* ============================================================
+   FILAS
+============================================================ */
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr {
+
+    transition:
+        background 0.15s ease;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:hover {
+
+    background: #f0f6f3;
+}
+
+/* Última fila */
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+/* ============================================================
+   ESTADOS
+============================================================ */
+
+#seccionServicioPatio .estado-realizado {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 85px;
+
+    padding: 5px 10px;
+
+    background: #e1f3e9;
+
+    color: #17623f;
+
+    border: 1px solid #bfe3ce;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+#seccionServicioPatio .estado-proceso {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 85px;
+
+    padding: 5px 10px;
+
+    background: #e4f1f4;
+
+    color: #17616c;
+
+    border: 1px solid #c4dfe4;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+#seccionServicioPatio .estado-pendiente {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 85px;
+
+    padding: 5px 10px;
+
+    background: #f8edcf;
+
+    color: #80651c;
+
+    border: 1px solid #ead9a7;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+#seccionServicioPatio .estado-cancelado {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 85px;
+
+    padding: 5px 10px;
+
+    background: #f8dddd;
+
+    color: #8a2929;
+
+    border: 1px solid #edbcbc;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 1100px) {
+
+    #seccionServicioPatio .resumen-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+
+    #seccionServicioPatio .encabezado-seccion {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+        padding: 22px;
+    }
+
+    #seccionServicioPatio .encabezado-seccion::after {
+
+        display: none;
+    }
+
+    #seccionServicioPatio #btnNuevaServicioPatio {
+
+        width: 100%;
+    }
+
+    #seccionServicioPatio .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    #seccionServicioPatio .campo-completo {
+
+        grid-column: auto;
+    }
+
+    #seccionServicioPatio .acciones-formulario {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+    #seccionServicioPatio .acciones-formulario button {
+
+        width: 100%;
+    }
+
+    #seccionServicioPatio .encabezado-tabla {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    #seccionServicioPatio .filtros-tabla {
+
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    #seccionServicioPatio .filtros-tabla input,
+    #seccionServicioPatio .filtros-tabla select {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+}
+
+@media (max-width: 550px) {
+
+    #seccionServicioPatio .tarjeta {
+
+        padding: 17px;
+    }
+
+    #seccionServicioPatio .resumen-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    #seccionServicioPatio .encabezado-seccion h2 {
+
+        font-size: 22px;
+    }
+}
+
+/* ============================================================
+   SERVICIO DE PATIO — DISEÑO INSTITUCIONAL TREN MAYA
+   BLOQUE FINAL — MAYOR PRIORIDAD
+============================================================ */
+
+#seccionServicioPatio {
+    width: 100% !important;
+    background: #f3f6f4 !important;
+    padding: 0 !important;
+    color: #26332d !important;
+}
+
+/* CONTENEDOR PRINCIPAL */
+#seccionServicioPatio .contenedor-seccion {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ============================================================
+   ENCABEZADO
+============================================================ */
+
+#seccionServicioPatio .encabezado-seccion {
+    position: relative !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    min-height: 105px !important;
+    padding: 24px 30px !important;
+    margin: 0 0 22px 0 !important;
+
+    background: linear-gradient(
+        135deg,
+        #123c2a 0%,
+        #18563f 55%,
+        #237256 100%
+    ) !important;
+
+    border: none !important;
+    border-bottom: 5px solid #b08d2c !important;
+    border-radius: 0 0 14px 14px !important;
+
+    box-shadow: 0 7px 20px rgba(18,60,42,.18) !important;
+    color: #ffffff !important;
+
+    overflow: hidden !important;
+}
+
+#seccionServicioPatio .encabezado-seccion::after {
+    content: "" !important;
+    position: absolute !important;
+    right: -60px !important;
+    top: -90px !important;
+
+    width: 260px !important;
+    height: 260px !important;
+
+    border: 35px solid rgba(176,141,44,.14) !important;
+    border-radius: 50% !important;
+}
+
+#seccionServicioPatio .encabezado-seccion h2 {
+    position: relative !important;
+    z-index: 2 !important;
+
+    margin: 0 0 7px 0 !important;
+    color: #ffffff !important;
+
+    font-size: 27px !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px !important;
+}
+
+#seccionServicioPatio .encabezado-seccion p {
+    position: relative !important;
+    z-index: 2 !important;
+
+    margin: 0 !important;
+    color: rgba(255,255,255,.82) !important;
+
+    font-size: 14px !important;
+}
+
+/* BOTÓN LLENAR HOJA */
+#seccionServicioPatio #btnNuevaServicioPatio {
+    position: relative !important;
+    z-index: 5 !important;
+
+    min-width: 155px !important;
+    padding: 12px 20px !important;
+
+    background: #b08d2c !important;
+    color: #ffffff !important;
+
+    border: 1px solid #d0ae4e !important;
+    border-radius: 8px !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,.18) !important;
+
+    cursor: pointer !important;
+    transition: all .2s ease !important;
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio:hover {
+    background: #96751f !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ============================================================
+   MENSAJES
+============================================================ */
+
+#seccionServicioPatio #contenedorMensajeServicioPatio {
+    margin: 0 0 15px 0 !important;
+    padding: 0 5px !important;
+}
+
+/* ============================================================
+   TARJETAS
+============================================================ */
+
+#seccionServicioPatio .tarjeta {
+    position: relative !important;
+
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    margin: 0 0 20px 0 !important;
+    padding: 22px 24px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #d8e1dc !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 3px 12px rgba(18,60,42,.08) !important;
+
+    overflow: hidden !important;
+}
+
+#seccionServicioPatio .tarjeta::before {
+    content: "" !important;
+
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    background: linear-gradient(
+        90deg,
+        #123c2a,
+        #167d5a,
+        #b08d2c
+    ) !important;
+}
+
+#seccionServicioPatio .tarjeta h3 {
+    margin: 0 0 18px 0 !important;
+
+    color: #123c2a !important;
+
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+#seccionServicioPatio #contenedorFormularioServicioPatio {
+    background: #ffffff !important;
+}
+
+#seccionServicioPatio #formServicioPatio {
+    width: 100% !important;
+}
+
+#seccionServicioPatio .form-grid {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 18px 22px !important;
+
+    width: 100% !important;
+}
+
+#seccionServicioPatio .campo {
+    width: 100% !important;
+}
+
+#seccionServicioPatio .campo label {
+    display: block !important;
+
+    margin-bottom: 7px !important;
+
+    color: #34463d !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .campo input,
+#seccionServicioPatio .campo select,
+#seccionServicioPatio .campo textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    min-height: 42px !important;
+
+    padding: 10px 12px !important;
+
+    background: #ffffff !important;
+
+    color: #26332d !important;
+
+    border: 1px solid #cbd7d0 !important;
+    border-radius: 7px !important;
+
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 14px !important;
+
+    outline: none !important;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease !important;
+}
+
+#seccionServicioPatio .campo textarea {
+    min-height: 105px !important;
+    resize: vertical !important;
+}
+
+#seccionServicioPatio .campo input:focus,
+#seccionServicioPatio .campo select:focus,
+#seccionServicioPatio .campo textarea:focus {
+    border-color: #167d5a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22,125,90,.12) !important;
+}
+
+#seccionServicioPatio .campo-completo {
+    grid-column: 1 / -1 !important;
+}
+
+/* ============================================================
+   BOTONES DEL FORMULARIO
+============================================================ */
+
+#seccionServicioPatio .acciones-formulario {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+
+    margin-top: 22px !important;
+    padding-top: 18px !important;
+
+    border-top: 1px solid #e1e8e4 !important;
+}
+
+#seccionServicioPatio .acciones-formulario .btn {
+    min-width: 135px !important;
+
+    padding: 11px 18px !important;
+
+    border-radius: 7px !important;
+
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   RESUMEN
+============================================================ */
+
+#seccionServicioPatio .resumen-grid {
+    display: grid !important;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 15px !important;
+
+    width: 100% !important;
+}
+
+#seccionServicioPatio .resumen-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 13px !important;
+
+    min-height: 82px !important;
+
+    padding: 15px 17px !important;
+
+    background: #f8faf9 !important;
+
+    border: 1px solid #dce5df !important;
+    border-left: 5px solid #167d5a !important;
+    border-radius: 9px !important;
+
+    box-sizing: border-box !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(2) {
+    border-left-color: #b08d2c !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(3) {
+    border-left-color: #64736b !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(4) {
+    border-left-color: #123c2a !important;
+}
+
+#seccionServicioPatio .resumen-icono {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    flex: 0 0 42px !important;
+
+    background: #e8f2ed !important;
+
+    border-radius: 8px !important;
+
+    font-size: 20px !important;
+}
+
+#seccionServicioPatio .resumen-card > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+#seccionServicioPatio .resumen-card span:not(.resumen-icono) {
+    color: #64736b !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+#seccionServicioPatio .resumen-card strong {
+    color: #123c2a !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   ENCABEZADO DE TABLA
+============================================================ */
+
+#seccionServicioPatio .encabezado-tabla {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+
+    margin-bottom: 17px !important;
+}
+
+#seccionServicioPatio .encabezado-tabla h3 {
+    margin: 0 !important;
+}
+
+#seccionServicioPatio .filtros-tabla {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+}
+
+#seccionServicioPatio .filtros-tabla input,
+#seccionServicioPatio .filtros-tabla select {
+    height: 40px !important;
+
+    padding: 8px 11px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #cbd7d0 !important;
+    border-radius: 7px !important;
+
+    color: #26332d !important;
+
+    font-size: 13px !important;
+}
+
+/* ============================================================
+   TABLA
+============================================================ */
+
+#seccionServicioPatio .tabla-contenedor {
+    width: 100% !important;
+
+    overflow-x: auto !important;
+
+    border: 1px solid #d8e1dc !important;
+    border-radius: 9px !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio {
+    width: 100% !important;
+
+    min-width: 1250px !important;
+
+    border-collapse: collapse !important;
+
+    background: #ffffff !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio thead th {
+    padding: 13px 12px !important;
+
+    background: #123c2a !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+    border-bottom: 3px solid #b08d2c !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    text-align: left !important;
+
+    white-space: nowrap !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody td {
+    padding: 12px !important;
+
+    background: #ffffff !important;
+
+    color: #34463d !important;
+
+    border-bottom: 1px solid #e4ebe7 !important;
+
+    font-size: 13px !important;
+
+    vertical-align: middle !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:hover td {
+    background: #f2f7f4 !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ============================================================
+   ESTADOS
+============================================================ */
+
+#seccionServicioPatio .estado-pendiente {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #f5eed8 !important;
+    color: #80651b !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-proceso,
+#seccionServicioPatio .estado-en-curso {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #e8f2ed !important;
+    color: #167d5a !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-finalizado,
+#seccionServicioPatio .estado-realizado {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #dfeee7 !important;
+    color: #123c2a !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-cancelado {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #f8e4e2 !important;
+    color: #a63d32 !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   ACCIONES DE TABLA
+============================================================ */
+
+#seccionServicioPatio .acciones-tabla {
+    display: flex !important;
+    gap: 6px !important;
+    align-items: center !important;
+}
+
+#seccionServicioPatio .acciones-tabla button {
+    border: none !important;
+    border-radius: 6px !important;
+
+    padding: 7px 9px !important;
+
+    cursor: pointer !important;
+
+    font-size: 12px !important;
+}
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 1100px) {
+
+    #seccionServicioPatio .resumen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    #seccionServicioPatio .encabezado-seccion {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 18px !important;
+    }
+
+    #seccionServicioPatio #btnNuevaServicioPatio {
+        width: 100% !important;
+    }
+
+    #seccionServicioPatio .form-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #seccionServicioPatio .campo-completo {
+        grid-column: auto !important;
+    }
+
+    #seccionServicioPatio .resumen-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #seccionServicioPatio .encabezado-tabla {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    #seccionServicioPatio .filtros-tabla {
+        flex-direction: column !important;
+    }
+
+    #seccionServicioPatio .filtros-tabla input,
+    #seccionServicioPatio .filtros-tabla select {
+        width: 100% !important;
+    }
+
+}
+
+
+/* ============================================================
+   ENCABEZADO SERVICIO DE PATIO
+   ESTILO NEGRO + BORDE DORADO
+============================================================ */
+
+#seccionServicioPatio .encabezado-seccion {
+    background: #000000 !important;
+    border: 2px solid #B08D2C !important;
+    border-bottom: 4px solid #B08D2C !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20) !important;
+    color: #ffffff !important;
+}
+
+/* TÍTULO */
+#seccionServicioPatio .encabezado-seccion h2 {
+    color: #ffffff !important;
+}
+
+/* DESCRIPCIÓN */
+#seccionServicioPatio .encabezado-seccion p {
+    color: #d6d6d6 !important;
+}
+
+/* BOTÓN */
+#seccionServicioPatio #btnNuevaServicioPatio {
+    background: #B08D2C !important;
+    border: 1px solid #d1b04c !important;
+    color: #ffffff !important;
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio:hover {
+    background: #96751f !important;
+}
+
+
+/* ==========================================================
+   SERVICIO DE PATIO
+   BOTÓN ENTRE ENCABEZADO Y RESUMEN
+========================================================== */
+
+#seccionServicioPatio {
+    position: relative !important;
+}
+
+/* El encabezado conserva su diseño */
+#seccionServicioPatio .encabezado-seccion {
+    position: relative !important;
+    overflow: visible !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+/* El botón sale visualmente del encabezado */
+#seccionServicioPatio #btnNuevaServicioPatio {
+    position: absolute !important;
+
+    top: 125px !important;
+    right: 0 !important;
+
+    z-index: 50 !important;
+
+    background: #B08D2C !important;
+    border: 1px solid #D1B04C !important;
+    color: #FFFFFF !important;
+
+    border-radius: 7px !important;
+    padding: 11px 20px !important;
+
+    font-weight: 700 !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,.15) !important;
+}
+
+/* Deja espacio para que el botón no se meta al resumen */
+#seccionServicioPatio .encabezado-seccion + #contenedorMensajeServicioPatio {
+    min-height: 70px !important;
+    margin-bottom: 0 !important;
+}
+
+
+
+#seccionServicioPatio .encabezado-seccion {
+    background: #000000 !important;
+    border: 2px solid #B08D2C !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+}
+
+#seccionServicioPatio .encabezado-seccion h2 {
+    color: #FFFFFF !important;
+}
+
+#seccionServicioPatio .encabezado-seccion p {
+    color: #D6D6D6 !important;
+}
+
+
+
+
+
+/* ============================================================
+   SERVICIO DE PATIO
+   DISEÑO INSTITUCIONAL - TREN MAYA
+============================================================ */
+
+#seccionServicioPatio {
+    width: 100% !important;
+    background: #F3F6F4 !important;
+    color: #26332D !important;
+}
+
+/* ============================================================
+   CONTENEDOR
+============================================================ */
+
+#seccionServicioPatio .contenedor-seccion {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   ENCABEZADO PRINCIPAL
+============================================================ */
+
+#seccionServicioPatio .encabezado-seccion {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    min-height: 105px !important;
+
+    margin: 20px 0 0 0 !important;
+    padding: 24px 30px !important;
+
+    background: #000000 !important;
+
+    border: 2px solid #B08D2C !important;
+    border-radius: 11px !important;
+
+    box-shadow:
+        0 5px 16px rgba(0,0,0,.18),
+        inset 0 -4px 0 #123C2A !important;
+
+    overflow: hidden !important;
+}
+
+#seccionServicioPatio .encabezado-seccion::before {
+    content: "" !important;
+
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 7px !important;
+    height: 100% !important;
+
+    background: #B08D2C !important;
+}
+
+#seccionServicioPatio .encabezado-seccion::after {
+    content: "" !important;
+
+    position: absolute !important;
+    right: -80px !important;
+    top: -100px !important;
+
+    width: 240px !important;
+    height: 240px !important;
+
+    border: 25px solid rgba(176,141,44,.10) !important;
+    border-radius: 50% !important;
+}
+
+#seccionServicioPatio .encabezado-seccion h2 {
+    position: relative !important;
+    z-index: 2 !important;
+
+    margin: 0 0 8px 0 !important;
+
+    color: #FFFFFF !important;
+
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    letter-spacing: .2px !important;
+}
+
+#seccionServicioPatio .encabezado-seccion p {
+    position: relative !important;
+    z-index: 2 !important;
+
+    margin: 0 !important;
+
+    color: #D5D5D5 !important;
+
+    font-size: 14px !important;
+}
+
+/* ============================================================
+   BOTÓN LLENAR HOJA
+   ESTÁ ENTRE EL ENCABEZADO Y EL RESUMEN
+============================================================ */
+
+#seccionServicioPatio .encabezado-seccion + div {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+
+    margin: 12px 0 20px 0 !important;
+
+    min-height: 44px !important;
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio {
+    background: #B08D2C !important;
+    color: #FFFFFF !important;
+
+    border: 1px solid #D1B04C !important;
+    border-radius: 7px !important;
+
+    padding: 11px 20px !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,.16) !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease !important;
+}
+
+#seccionServicioPatio #btnNuevaServicioPatio:hover {
+    background: #96751F !important;
+    transform: translateY(-1px) !important;
+
+    box-shadow: 0 5px 12px rgba(0,0,0,.20) !important;
+}
+
+/* ============================================================
+   MENSAJE
+============================================================ */
+
+#seccionServicioPatio #contenedorMensajeServicioPatio {
+    margin: 0 0 15px 0 !important;
+    padding: 0 4px !important;
+
+    font-size: 14px !important;
+}
+
+/* ============================================================
+   TARJETAS GENERALES
+============================================================ */
+
+#seccionServicioPatio .tarjeta {
+    position: relative !important;
+
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    margin: 0 0 20px 0 !important;
+    padding: 24px !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D6E0DA !important;
+    border-radius: 11px !important;
+
+    box-shadow:
+        0 3px 12px rgba(18,60,42,.07) !important;
+
+    overflow: hidden !important;
+}
+
+#seccionServicioPatio .tarjeta::before {
+    content: "" !important;
+
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: 4px !important;
+
+    background: linear-gradient(
+        90deg,
+        #123C2A 0%,
+        #167D5A 60%,
+        #B08D2C 100%
+    ) !important;
+}
+
+#seccionServicioPatio .tarjeta h3 {
+    margin: 0 0 20px 0 !important;
+
+    color: #123C2A !important;
+
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+#seccionServicioPatio #contenedorFormularioServicioPatio {
+    background: #FFFFFF !important;
+}
+
+#seccionServicioPatio .form-grid {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 18px 22px !important;
+
+    width: 100% !important;
+}
+
+#seccionServicioPatio .campo {
+    min-width: 0 !important;
+}
+
+#seccionServicioPatio .campo label {
+    display: block !important;
+
+    margin-bottom: 7px !important;
+
+    color: #34463D !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .campo input,
+#seccionServicioPatio .campo select,
+#seccionServicioPatio .campo textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    background: #FBFCFB !important;
+
+    color: #26332D !important;
+
+    border: 1px solid #C9D5CE !important;
+    border-radius: 7px !important;
+
+    padding: 10px 12px !important;
+
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 14px !important;
+
+    outline: none !important;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease !important;
+}
+
+#seccionServicioPatio .campo input,
+#seccionServicioPatio .campo select {
+    min-height: 42px !important;
+}
+
+#seccionServicioPatio .campo textarea {
+    min-height: 105px !important;
+    resize: vertical !important;
+}
+
+#seccionServicioPatio .campo input:focus,
+#seccionServicioPatio .campo select:focus,
+#seccionServicioPatio .campo textarea:focus {
+    background: #FFFFFF !important;
+
+    border-color: #167D5A !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22,125,90,.12) !important;
+}
+
+#seccionServicioPatio .campo-completo {
+    grid-column: 1 / -1 !important;
+}
+
+/* ============================================================
+   ACCIONES DEL FORMULARIO
+============================================================ */
+
+#seccionServicioPatio .acciones-formulario {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    margin-top: 23px !important;
+    padding-top: 18px !important;
+
+    border-top: 1px solid #E1E8E4 !important;
+}
+
+#seccionServicioPatio .acciones-formulario .btn {
+    min-width: 135px !important;
+
+    padding: 11px 18px !important;
+
+    border-radius: 7px !important;
+
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .acciones-formulario .btn-primary {
+    background: #167D5A !important;
+    color: #FFFFFF !important;
+
+    border: 1px solid #126749 !important;
+}
+
+#seccionServicioPatio .acciones-formulario .btn-primary:hover {
+    background: #123C2A !important;
+}
+
+#seccionServicioPatio .acciones-formulario .btn-secondary {
+    background: #EEF2EF !important;
+    color: #34463D !important;
+
+    border: 1px solid #CCD7D1 !important;
+}
+
+/* ============================================================
+   RESUMEN
+============================================================ */
+
+#seccionServicioPatio #contenedorFormularioServicioPatio + .tarjeta {
+    background: #F9FBFA !important;
+}
+
+#seccionServicioPatio .resumen-grid {
+    display: grid !important;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 15px !important;
+
+    width: 100% !important;
+}
+
+#seccionServicioPatio .resumen-card {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 13px !important;
+
+    min-height: 84px !important;
+
+    padding: 15px 17px !important;
+
+    box-sizing: border-box !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D9E3DD !important;
+    border-left: 5px solid #167D5A !important;
+
+    border-radius: 9px !important;
+
+    box-shadow: 0 2px 7px rgba(18,60,42,.06) !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(2) {
+    border-left-color: #B08D2C !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(3) {
+    border-left-color: #64736B !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(4) {
+    border-left-color: #123C2A !important;
+}
+
+#seccionServicioPatio .resumen-icono {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 43px !important;
+    height: 43px !important;
+
+    flex: 0 0 43px !important;
+
+    background: #E8F2ED !important;
+
+    border-radius: 8px !important;
+
+    font-size: 20px !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(2) .resumen-icono {
+    background: #F5EED8 !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(3) .resumen-icono {
+    background: #EEF1EF !important;
+}
+
+#seccionServicioPatio .resumen-card:nth-child(4) .resumen-icono {
+    background: #E5ECE8 !important;
+}
+
+#seccionServicioPatio .resumen-card > div {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 4px !important;
+}
+
+#seccionServicioPatio .resumen-card span:not(.resumen-icono) {
+    color: #64736B !important;
+
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+#seccionServicioPatio .resumen-card strong {
+    color: #123C2A !important;
+
+    font-size: 22px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   TABLA
+============================================================ */
+
+#seccionServicioPatio .encabezado-tabla {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+
+    margin-bottom: 18px !important;
+}
+
+#seccionServicioPatio .encabezado-tabla h3 {
+    margin: 0 !important;
+}
+
+#seccionServicioPatio .filtros-tabla {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+}
+
+#seccionServicioPatio .filtros-tabla input,
+#seccionServicioPatio .filtros-tabla select {
+    height: 40px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 8px 11px !important;
+
+    background: #FFFFFF !important;
+
+    color: #26332D !important;
+
+    border: 1px solid #C9D5CE !important;
+    border-radius: 7px !important;
+
+    font-size: 13px !important;
+
+    outline: none !important;
+}
+
+#seccionServicioPatio .filtros-tabla input:focus,
+#seccionServicioPatio .filtros-tabla select:focus {
+    border-color: #167D5A !important;
+
+    box-shadow:
+        0 0 0 3px rgba(22,125,90,.10) !important;
+}
+
+/* CONTENEDOR TABLA */
+
+#seccionServicioPatio .tabla-contenedor {
+    width: 100% !important;
+
+    overflow-x: auto !important;
+
+    border: 1px solid #D6E0DA !important;
+    border-radius: 9px !important;
+
+    background: #FFFFFF !important;
+}
+
+/* TABLA */
+
+#seccionServicioPatio #tablaServiciosPatio {
+    width: 100% !important;
+    min-width: 1250px !important;
+
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+
+    background: #FFFFFF !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio thead th {
+    padding: 13px 12px !important;
+
+    background: #123C2A !important;
+
+    color: #FFFFFF !important;
+
+    border: none !important;
+    border-bottom: 3px solid #B08D2C !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    text-align: left !important;
+
+    white-space: nowrap !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody td {
+    padding: 12px !important;
+
+    color: #34463D !important;
+
+    background: #FFFFFF !important;
+
+    border-bottom: 1px solid #E4EBE7 !important;
+
+    font-size: 13px !important;
+
+    vertical-align: middle !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:hover td {
+    background: #F1F7F4 !important;
+}
+
+#seccionServicioPatio #tablaServiciosPatio tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ============================================================
+   ESTADOS
+============================================================ */
+
+#seccionServicioPatio .estado-pendiente {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #F5EED8 !important;
+    color: #80651B !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-proceso,
+#seccionServicioPatio .estado-en-curso {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #E8F2ED !important;
+    color: #167D5A !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-finalizado,
+#seccionServicioPatio .estado-realizado {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #DCEBE3 !important;
+    color: #123C2A !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+#seccionServicioPatio .estado-cancelado {
+    display: inline-block !important;
+
+    padding: 5px 10px !important;
+
+    background: #F8E4E2 !important;
+    color: #A63D32 !important;
+
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   ACCIONES DE TABLA
+============================================================ */
+
+#seccionServicioPatio .acciones-tabla {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+#seccionServicioPatio .acciones-tabla button {
+    padding: 7px 9px !important;
+
+    border: none !important;
+    border-radius: 6px !important;
+
+    cursor: pointer !important;
+
+    font-size: 12px !important;
+}
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 1100px) {
+
+    #seccionServicioPatio .resumen-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    #seccionServicioPatio .form-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #seccionServicioPatio .campo-completo {
+        grid-column: 1 !important;
+    }
+
+    #seccionServicioPatio .resumen-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #seccionServicioPatio .filtros-tabla {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    #seccionServicioPatio .filtros-tabla input,
+    #seccionServicioPatio .filtros-tabla select {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    #seccionServicioPatio .encabezado-seccion {
+        padding: 20px !important;
+    }
+
+    #seccionServicioPatio .encabezado-seccion h2 {
+        font-size: 23px !important;
+    }
+
+    #seccionServicioPatio .tarjeta {
+        padding: 18px !important;
+    }
+
+}
+
+
+/* ============================================================
+   📅 CALENDARIO DASHBOARD
+   DISEÑO INSTITUCIONAL TREN MAYA
+============================================================ */
+
+/* CONTENEDOR PRINCIPAL */
+#seccionCalendario {
+    background: #FFFFFF !important;
+    border: 1px solid #D8E1DC !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    box-shadow: 0 5px 16px rgba(18, 60, 42, 0.08) !important;
+}
+
+/* ============================================================
+   CABECERA DEL CALENDARIO
+============================================================ */
+
+#seccionCalendario .card-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    padding: 17px 20px !important;
+
+background: linear-gradient(105deg, #399dcf, #187f99 60%, #082c79) !important;
+    border-bottom: 4px solid #B08D2C !important;
+}
+
+/* TÍTULO / MES */
+#mesAnio {
+    margin: 0 !important;
+
+    color: #FFFFFF !important;
+
+    font-size: 20px !important;
+    font-weight: 800 !important;
+
+    text-transform: capitalize !important;
+}
+
+/* BOTONES ANTERIOR / SIGUIENTE */
+#mesAnterior,
+#mesSiguiente {
+    width: 38px !important;
+    height: 38px !important;
+
+    padding: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #B08D2C !important;
+    color: #FFFFFF !important;
+
+    border: 1px solid #D1B04C !important;
+    border-radius: 7px !important;
+
+    font-size: 18px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    transition: all .2s ease !important;
+}
+
+#mesAnterior:hover,
+#mesSiguiente:hover {
+    background: #96751F !important;
+
+    transform: translateY(-1px) !important;
+}
+
+/* ============================================================
+   DÍAS DE LA SEMANA
+============================================================ */
+
+#diasCalendario {
+    display: grid !important;
+
+    grid-template-columns: repeat(7, 1fr) !important;
+
+    gap: 6px !important;
+
+    padding: 18px !important;
+
+    background: #F3F6F4 !important;
+}
+
+/* ============================================================
+   CADA DÍA
+============================================================ */
+
+.dia-calendario {
+    position: relative !important;
+
+    min-height: 78px !important;
+
+    padding: 9px !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D8E1DC !important;
+
+    border-radius: 8px !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease !important;
+}
+
+.dia-calendario:hover {
+    background: #E8F2ED !important;
+
+    border-color: #167D5A !important;
+
+    transform: translateY(-2px) !important;
+
+    box-shadow: 0 4px 9px rgba(18,60,42,.10) !important;
+}
+
+/* NÚMERO DEL DÍA */
+.dia-numero {
+    color: #123C2A !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   HOY
+============================================================ */
+
+.dia-calendario.hoy {
+    background: #F5EED8 !important;
+
+    border: 2px solid #B08D2C !important;
+}
+
+/* MARCADOR VISUAL DE HOY */
+.dia-calendario.hoy::before {
+    content: "HOY" !important;
+
+    position: absolute !important;
+
+    top: 6px !important;
+    right: 6px !important;
+
+    padding: 2px 5px !important;
+
+    background: #B08D2C !important;
+    color: #FFFFFF !important;
+
+    border-radius: 4px !important;
+
+    font-size: 8px !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   DÍA SELECCIONADO
+============================================================ */
+
+.dia-calendario.seleccionado {
+    background: #E8F2ED !important;
+
+    border: 2px solid #167D5A !important;
+
+    box-shadow:
+        0 3px 9px rgba(22,125,90,.12) !important;
+}
+
+.dia-calendario.seleccionado .dia-numero {
+    color: #123C2A !important;
+}
+
+/* ============================================================
+   DÍA CON OPERACIONES
+============================================================ */
+
+.dia-calendario.dia-con-programacion {
+    background: #F8FBF9 !important;
+
+    border-color: #9FC8B4 !important;
+}
+
+.dia-calendario.dia-con-programacion::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 7px !important;
+
+    height: 3px !important;
+
+    background: linear-gradient(
+        90deg,
+        #167D5A 0%,
+        #167D5A 65%,
+        #B08D2C 65%,
+        #B08D2C 100%
+    ) !important;
+
+    border-radius: 4px !important;
+}
+
+/* ============================================================
+   TEXTO DE OPERACIONES
+============================================================ */
+
+.dia-programaciones {
+    margin-top: 8px !important;
+
+    color: #167D5A !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   DÍAS VACÍOS
+============================================================ */
+
+.dia-calendario.calendario-vacio {
+    background: transparent !important;
+
+    border-color: transparent !important;
+
+    box-shadow: none !important;
+
+    cursor: default !important;
+}
+
+.dia-calendario.calendario-vacio:hover {
+    background: transparent !important;
+
+    border-color: transparent !important;
+
+    transform: none !important;
+
+    box-shadow: none !important;
+}
+
+/* ============================================================
+   DETALLE DEL DÍA
+============================================================ */
+
+#detalleDia {
+    margin: 0 18px 18px 18px !important;
+
+    padding: 18px !important;
+
+    background: #F8FAF9 !important;
+
+    border: 1px solid #D8E1DC !important;
+
+    border-left: 5px solid #B08D2C !important;
+
+    border-radius: 9px !important;
+}
+
+#detalleDia h3 {
+    margin: 0 0 12px 0 !important;
+
+    color: #123C2A !important;
+
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+#detalleDia p {
+    color: #64736B !important;
+
+    font-size: 13px !important;
+}
+
+/* ============================================================
+   DETALLE DE CADA OPERACIÓN
+============================================================ */
+
+.detalle-programacion {
+    display: grid !important;
+
+    grid-template-columns:
+        1.2fr
+        1.5fr
+        80px
+        110px !important;
+
+    gap: 10px !important;
+
+    padding: 12px 14px !important;
+
+    margin-bottom: 8px !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D8E1DC !important;
+
+    border-left: 4px solid #167D5A !important;
+
+    border-radius: 7px !important;
+
+    font-size: 13px !important;
+}
+
+.detalle-programacion strong {
+    color: #123C2A !important;
+}
+
+.detalle-programacion span {
+    color: #64736B !important;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 700px) {
+
+    #seccionCalendario .card-header {
+        gap: 10px !important;
+    }
+
+    #mesAnio {
+        font-size: 17px !important;
+        text-align: center !important;
+    }
+
+    #diasCalendario {
+        gap: 4px !important;
+        padding: 10px !important;
+    }
+
+    .dia-calendario {
+        min-height: 60px !important;
+        padding: 6px !important;
+    }
+
+    .dia-programaciones {
+        font-size: 9px !important;
+    }
+
+    .dia-calendario.hoy::before {
+        display: none !important;
+    }
+
+    .detalle-programacion {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+
+
+/* ============================================================
+   CALENDARIO — MEJORAR VISIBILIDAD DEL TEXTO
+============================================================ */
+
+#seccionCalendario .dia-numero,
+#seccionCalendario .dia-programaciones,
+#seccionCalendario .detalle-dia h3,
+#seccionCalendario .detalle-dia p,
+#seccionCalendario .detalle-programacion strong,
+#seccionCalendario .detalle-programacion span {
+    font-weight: 700 !important;
+}
+
+#seccionCalendario .dia-numero {
+    color: #123C2A !important;
+    font-size: 14px !important;
+}
+
+#seccionCalendario .dia-programaciones {
+    color: #123C2A !important;
+    font-weight: 800 !important;
+}
+
+#seccionCalendario .detalle-programacion strong {
+    color: #123C2A !important;
+    font-weight: 800 !important;
+}
+
+#seccionCalendario .detalle-programacion span {
+    color: #26332D !important;
+    font-weight: 700 !important;
+}
+
+/* CALENDARIO — TÍTULO EN NEGRO */
+#seccionCalendario .card-header h2 {
+    color: #fff !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   INICIO — ENCABEZADO SISTEMA DE GESTIÓN FERROVIARIA
+   VERDE DEGRADADO + LOGO EN CÍRCULO
+========================================================= */
+
+.encabezado {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #167D5A 0%,
+        #1E8B68 50%,
+        #2FA27C 100%
+    ) !important;
+
+    color: #FFFFFF !important;
+
+    border-bottom: 4px solid #B08D2C !important;
+
+    box-shadow:
+        0 6px 20px rgba(18,60,42,.22) !important;
+}
+
+
+/* CONTENIDO DEL ENCABEZADO */
+.encabezado .marca-sistema {
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+
+/* =========================================================
+   CÍRCULO DECORATIVO
+========================================================= */
+
+.encabezado::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 230px !important;
+    height: 230px !important;
+
+    top: -85px !important;
+    right: -55px !important;
+
+    border-radius: 50% !important;
+
+    background-color: rgba(255,255,255,.10) !important;
+
+    background-image: url("./img/logo.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 115px 115px !important;
+
+    border: 3px solid rgba(176,141,44,.75) !important;
+
+    box-shadow:
+        inset 0 0 0 14px rgba(255,255,255,.04),
+        0 0 30px rgba(0,0,0,.08) !important;
+
+    z-index: 1 !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   LÍNEA DECORATIVA INSTITUCIONAL
+========================================================= */
+
+.encabezado::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 35% !important;
+    height: 4px !important;
+
+    background: #B08D2C !important;
+
+    z-index: 2 !important;
+}
+
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+.encabezado h1 {
+    position: relative !important;
+    z-index: 4 !important;
+
+    color: #FFFFFF !important;
+}
+
+.encabezado p {
+    position: relative !important;
+    z-index: 4 !important;
+
+    color: #EAF4EF !important;
+}
+
+
+
+/* =========================================================
+   LÍNEA DORADA JUNTO A LA FECHA
+   MÁS LARGA SIN MODIFICAR EL VERDE
+========================================================= */
+
+.fecha-dashboard {
+    position: relative !important;
+    border-left: none !important;
+    padding-left: 20px !important;
+}
+
+.fecha-dashboard::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: -18px !important;
+
+    width: 2px !important;
+    height: 115px !important;
+
+    background: #B08D2C !important;
+
+    border-radius: 3px !important;
+}
+
+
+/* ==========================================
+   FONDO CREMA DEL SISTEMA
+========================================== */
+
+body {
+    background-color:   #FFFFFF !important;
+}
+/* ============================================================
+   CALENDARIO — CUADROS DE LOS DÍAS
+============================================================ */
+
+#seccionCalendario .dia-calendario {
+    background: #F8F3E8 !important;
+    border-color: #D8CFBA !important;
+}
+
+/* Al pasar el mouse */
+#seccionCalendario .dia-calendario:hover {
+    background: #E4DBC6 !important;
+    border-color:  #FFFFFF !important;
+}
+
+/* Día con operación */
+#seccionCalendario .dia-calendario.dia-con-programacion {
+    background: #E7E0CD !important;
+    border-color: #B8CDBF !important;
+}
+
+#mesAnio {
+    color: #000000 !important;
+    font-weight: 800 !important;
+}
+
+
+/* ============================================================
+   PERÍODO + CLIMA EN LA MISMA FILA
+============================================================ */
+
+.filtros-dashboard {
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    width: 100% !important;
+
+    background: #F5F0E1 !important;
+
+    border: 1px solid #D8E1DC !important;
+    border-radius: 12px !important;
+
+    padding: 14px 18px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   PERÍODO
+============================================================ */
+
+.periodo-consulta-dashboard {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+
+    flex: 1 !important;
+}
+
+.periodo-consulta-dashboard .filtro-titulo {
+    white-space: nowrap !important;
+
+    color: #123C2A !important;
+
+    font-size: 14px !important;
+}
+
+.periodo-consulta-dashboard .filtro-opciones {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    margin: 0 !important;
+}
+
+
+/* ============================================================
+   CLIMA
+============================================================ */
+
+.clima-dashboard-inline {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    min-width: 500px !important;
+
+    padding-left: 18px !important;
+
+    border-left: 4px solid #B08D2C !important;
+}
+
+.clima-inline-titulo {
+    white-space: nowrap !important;
+
+    color: #123C2A !important;
+
+    font-size: 14px !important;
+}
+
+
+/* SELECT DE ESTACIÓN */
+
+#selectorEstacionClima {
+    min-width: 175px !important;
+
+    height: 38px !important;
+
+    padding: 7px 10px !important;
+
+    background: #FFFFFF !important;
+
+    color: #26332D !important;
+
+    border: 1px solid #C9D5CE !important;
+
+    border-radius: 7px !important;
+
+    font-size: 12px !important;
+
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    outline: none !important;
+}
+
+
+/* ============================================================
+   CONTENIDO DEL CLIMA
+============================================================ */
+
+#climaDashboardInline,
+#climaContenido {
+    display: flex !important;
+    align-items: center !important;
+}
+
+#climaContenido {
+    min-width: 220px !important;
+
+    padding: 0 !important;
+}
+
+.clima-principal {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    margin: 0 !important;
+}
+
+.clima-icono {
+    width: 38px !important;
+    height: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #F5EED8 !important;
+
+    border-radius: 8px !important;
+
+    font-size: 21px !important;
+}
+
+.clima-temperatura {
+    color: #123C2A !important;
+
+    font-size: 20px !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+}
+
+.clima-condicion {
+    margin-top: 2px !important;
+
+    color: #64736B !important;
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* OCULTAR DATOS GRANDES DEL DISEÑO ANTERIOR */
+
+.clima-datos {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    margin-left: 8px !important;
+}
+
+.clima-dato {
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+}
+
+.clima-dato span {
+    display: inline !important;
+
+    color: #64736B !important;
+
+    font-size: 10px !important;
+
+    margin-right: 3px !important;
+}
+
+.clima-dato strong {
+    display: inline !important;
+
+    color: #123C2A !important;
+
+    font-size: 12px !important;
+}
+
+.clima-estacion {
+    display: none !important;
+}
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1100px) {
+
+    .filtros-dashboard {
+        flex-direction: column !important;
+    }
+
+    .clima-dashboard-inline {
+        min-width: 0 !important;
+
+        width: 100% !important;
+
+        padding-left: 0 !important;
+        padding-top: 12px !important;
+
+        border-left: none !important;
+        border-top: 3px solid #B08D2C !important;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .periodo-consulta-dashboard {
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+    }
+
+    .periodo-consulta-dashboard .filtro-opciones {
+        flex-wrap: wrap !important;
+    }
+
+    .clima-dashboard-inline {
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+    }
+
+    #selectorEstacionClima {
+        width: 100% !important;
+    }
+}
+/* ============================================================
+   CLIMA EN OPERACIONES
+   JUNTO A NUEVA OPERACIÓN
+============================================================ */
+
+.clima-operaciones-inline {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    height: 44px !important;
+
+    padding: 0 12px !important;
+
+    box-sizing: border-box !important;
+
+    background: #F5F0E1 !important;
+
+    border: 1px solid #D8E1DC !important;
+
+    border-left: 4px solid #B08D2C !important;
+
+    border-radius: 10px !important;
+
+    white-space: nowrap !important;
+}
+
+.clima-operaciones-icono {
+    font-size: 19px !important;
+}
+
+#selectorEstacionOperaciones {
+    height: 32px !important;
+
+    min-width: 145px !important;
+
+    padding: 4px 8px !important;
+
+    background: #FFFFFF !important;
+
+    color: #123C2A !important;
+
+    border: 1px solid #C9D5CE !important;
+
+    border-radius: 6px !important;
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+
+    outline: none !important;
+
+    cursor: pointer !important;
+}
+
+#selectorEstacionOperaciones:focus {
+    border-color: #167D5A !important;
+
+    box-shadow:
+        0 0 0 2px rgba(22,125,90,.12) !important;
+}
+
+.clima-operaciones-temperatura {
+    color: #123C2A !important;
+
+    font-size: 15px !important;
+
+    font-weight: 800 !important;
+}
+
+.clima-operaciones-condicion {
+    color: #64736B !important;
+
+    font-size: 10px !important;
+
+    font-weight: 700 !important;
+}
+@media (max-width: 1000px) {
+
+    .clima-operaciones-inline {
+        width: 100% !important;
+
+        justify-content: center !important;
+
+        margin-top: 8px !important;
+    }
+}
+@media (max-width: 700px) {
+
+    .clima-operaciones-inline {
+        flex-wrap: wrap !important;
+
+        height: auto !important;
+
+        padding: 8px !important;
+    }
+
+}
+/* ============================================================
+   🌦️ CLIMA OPERATIVO EN SUBMENÚ
+============================================================ */
+
+#subMenuOperaciones {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 6px !important;
+
+    width: 100% !important;
+}
+/* ============================================================
+   CONTENEDOR DEL CLIMA
+============================================================ */
+
+#climaSubmenuOperaciones {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    margin-left: auto !important;
+
+    min-height: 46px !important;
+
+    padding: 5px 10px !important;
+
+    background: #F5F0E1 !important;
+
+    border: 1px solid #D8E1DC !important;
+
+    border-left: 4px solid #B08D2C !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+
+    white-space: nowrap !important;
+}
+/* ============================================================
+   ESTACIÓN
+============================================================ */
+
+.clima-submenu-estacion {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 5px !important;
+
+    color: #123C2A !important;
+
+    font-size: 15px !important;
+}
+
+#selectorEstacionSubmenu {
+    height: 34px !important;
+
+    min-width: 145px !important;
+
+    padding: 5px 8px !important;
+
+    background: #FFFFFF !important;
+
+    color: #123C2A !important;
+
+    border: 1px solid #C9D5CE !important;
+
+
+    @keyframes movimientoTren {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(100vw + 1200px));
+    }
+}
+}
+@media (max-width: 768px) {
+  /* 1. Ajustar el contenedor de los botones de navegación */
+  nav { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en lugar de fila continua */
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  /* 2. Reducir el tamaño de texto de los botones y centrarlos perfectamente */
+  nav button {
+    font-size: 12px;
+    padding: 8px 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 3. Ocultar la caja que se desliza en versión móvil */
+  .nav-active-indicator {
+    display: none !important;
+  }
+
+  /* Darle el fondo y borde directamente al botón seleccionado */
+  /* (Si en tu HTML usas la clase 'activo' en lugar de 'active', usa .activo) */
+  nav button.active,
+  nav button.activo {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  /* 4. Cambiar la disposición del clima de fila a columna */
+  .clima-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .clima-detalles {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  /* 5. Fijar el asistente en la esquina para que no estorbe */
+  .asistente-widget {
+    position: fixed;
+    bottom: 15px; 
+    right: 15px;
+    z-index: 9999;
+    transform: scale(0.75);
+  }
+  /* 6. Centrar la imagen de fondo del encabezado */
+  .dashboard-header {
+        display: grid !important;
+        grid-template-columns: 50px 1fr !important;
+        grid-template-rows: auto auto !important;
+        gap: 4px !important; /* Espacio reducido entre filas */
+        
+        /* Relleno: Arriba 10px, Derecha 12px, Abajo 6px, Izquierda 12px */
+        padding: 10px 12px 6px 12px !important; 
+        min-height: unset !important;
+        height: auto !important; /* Se adaptará al milímetro al contenido */
+        
+        background-position: center 25% !important;
+        background-size: cover !important;
+    }
+
+    /* Ocultamos decoraciones y el subtítulo */
+    .dashboard-header::after,
+    .tm-subtitulo {
+        display: none !important;
+    }
+
+    /* Colocamos el logo en la primera columna, primera fila */
+    .header-logo-container {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        display: flex;
+        align-items: center;
+    }
+    
+    .header-logo-container img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Colocamos los textos en la segunda columna, primera fila */
+    .header-titulos {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .tm-ante-titulo {
+        font-size: 8px !important;
+        margin-bottom: 2px !important;
+        line-height: 1.2 !important;
+    }
+
+    .header-titulos h1 {
+    font-size: 14px !important;
+    margin: 0 0 0 2px !important; /* Añade 2px a la izquierda */
+    line-height: 1.2 !important;
+    }
+
+   /* Ajustar la fecha para que no empuje el banner hacia abajo */
+    body .dashboard .dashboard-header .fecha-dashboard {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+        
+        justify-self: end !important;
+        margin-left: auto !important; /* Fuerza el anclaje a la derecha */
+        margin-top: 2px !important;
+        margin-bottom: 0 !important; /* Cero espacio debajo */
+        padding: 3px 8px !important;
+        background: rgba(4, 28, 77, 0.9) !important;
+        border-radius: 6px !important;
+        width: fit-content !important;
+        
+        border: none !important;
+        border-left: none !important; 
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Oculta cualquier línea "fantasma" generada por los temas */
+    body .dashboard .dashboard-header .fecha-dashboard::before,
+    body .dashboard .dashboard-header .fecha-dashboard::after {
+        display: none !important;
+    }
+
+    .fecha-dashboard strong {
+        font-size: 9px !important;
+        text-align: right;
+        display: block;
+    }
+}
+
+/* OCULTAR DISTINTIVO PROMOCIONAL DE NETLIFY */
+iframe#nl-badge-frame {
+    display: none !important;
+}

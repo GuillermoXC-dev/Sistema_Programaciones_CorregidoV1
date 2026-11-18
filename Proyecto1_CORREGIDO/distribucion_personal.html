@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<title>Sistema de Programaciones · PERSONAL</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css">
+
+    
+    
+    
+
+    <style>
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+        :root {
+            --verde-oscuro: #123C2A;
+            --verde: #167D5A;
+            --verde-claro: #E8F2ED;
+
+            --dorado: #B08D2C;
+            --dorado-claro: #F5EED8;
+
+            --fondo: #F3F6F4;
+            --blanco: #FFFFFF;
+
+            --texto: #26332D;
+            --texto-secundario: #64736B;
+
+            --borde: #D8E1DC;
+
+            --rojo: #B42318;
+            --rojo-claro: #F8E9E7;
+        }
+
+        /* =========================================================
+           CONFIGURACIÓN GENERAL
+        ========================================================= */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+        }
+
+        .contenedor {
+            width: 94%;
+            max-width: 1450px;
+            margin: 0 auto;
+        }
+
+        /* =========================================================
+           ENCABEZADO
+        ========================================================= */
+        .encabezado {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            padding: 25px 0;
+            border-bottom: 4px solid var(--dorado);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .encabezado-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .encabezado h1 {
+            margin: 0;
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+        }
+
+        .encabezado p {
+            margin: 7px 0 0;
+            color: #DCE8E2;
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           BARRA DE MENÚ DE PESTAÑAS PRINCIPALES
+        ========================================================= */
+        .menu-dashboard {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 8px 16px;
+            margin: 20px auto 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            border: 1px solid #dfe7e4;
+        }
+
+        .menu-dashboard button {
+            border: none;
+            background: transparent;
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--texto);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-dashboard button:hover {
+            background: var(--verde-claro);
+            color: var(--verde-oscuro);
+        }
+
+        .menu-dashboard button.activo {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+        }
+
+        /* =========================================================
+           SUB-MENÚ INTERNO DE LA PESTAÑA PERSONAL
+        ========================================================= */
+        .sub-menu-personal {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sub-menu-btn {
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            color: var(--texto);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sub-menu-btn:hover {
+            background: var(--verde-claro);
+            border-color: var(--verde);
+        }
+
+        .sub-menu-btn.activo-sub {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            border-color: var(--verde-oscuro);
+        }
+
+        /* =========================================================
+           CONTENEDORES DE LAS VISTAS INTERNAS
+        ========================================================= */
+        .vista-modulo {
+            display: none;
+        }
+
+        .vista-modulo.visible-vista {
+            display: block;
+        }
+
+        /* =========================================================
+           CONTENIDO PRINCIPAL Y BARRA SUPERIOR
+        ========================================================= */
+        main.contenedor {
+            padding-top: 10px;
+            padding-bottom: 50px;
+        }
+
+        .barra-acciones-personal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .btn-anadir-personal {
+            border: 2px solid var(--dorado);
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(18, 60, 42, 0.15);
+        }
+
+        .btn-anadir-personal:hover {
+            background: var(--verde);
+            transform: translateY(-1px);
+        }
+
+        /* =========================================================
+           HOJA DE LLENADO (OCULTA AL ENTRAR)
+        ========================================================= */
+        .formulario {
+            display: none;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-top: 4px solid var(--dorado);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 15px rgba(18, 60, 42, 0.08);
+        }
+
+        .formulario.visible {
+            display: block;
+        }
+
+        .formulario h2 {
+            margin: 0;
+            color: var(--verde-oscuro);
+            font-size: 21px;
+            font-weight: 700;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--verde-claro);
+        }
+
+        .formulario > p {
+            margin: 14px 0 25px;
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           FILAS DEL FORMULARIO
+        ========================================================= */
+        .fila {
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 17px;
+        }
+
+        .fila label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--texto);
+        }
+
+        .fila input,
+        .fila select,
+        .fila textarea {
+            width: 100%;
+            min-height: 43px;
+            padding: 10px 13px;
+            border: 1px solid var(--borde);
+            border-radius: 7px;
+            background: var(--blanco);
+            color: var(--texto);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .fila input:focus,
+        .fila select:focus,
+        .fila textarea:focus {
+            border-color: var(--verde);
+            box-shadow: 0 0 0 3px rgba(22, 125, 90, 0.10);
+        }
+
+        /* =========================================================
+           BOTONES DEL FORMULARIO
+        ========================================================= */
+        .botones {
+            display: flex;
+            gap: 10px;
+            margin-top: 28px;
+            padding-top: 22px;
+            border-top: 1px solid var(--borde);
+        }
+
+        .botones button {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 19px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .guardar {
+            background: var(--verde);
+            color: var(--blanco);
+        }
+
+        .guardar:hover {
+            background: var(--verde-oscuro);
+            transform: translateY(-1px);
+        }
+
+        .limpiar {
+            background: #EEF2EF;
+            color: var(--texto);
+        }
+
+        .limpiar:hover {
+            background: #DDE5E0;
+        }
+
+        .cancelar {
+            background: var(--rojo-claro);
+            color: var(--rojo);
+        }
+
+        .cancelar:hover {
+            background: #F2D4D0;
+        }
+
+        /* =========================================================
+           TABLAS Y CONTENEDORES
+        ========================================================= */
+        .tabla-contenedor {
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(18, 60, 42, 0.08);
+            overflow-x: auto;
+        }
+
+        .tabla-contenedor h2 {
+            margin: 0 0 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--verde-claro);
+            color: var(--verde-oscuro);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 900px;
+            font-size: 13px;
+        }
+
+        table thead th {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        table thead th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        table tbody td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #E5EBE7;
+            color: var(--texto);
+            background: var(--blanco);
+            vertical-align: middle;
+        }
+
+        table tbody tr:hover td {
+            background: #F3F7F5;
+        }
+
+        /* =========================================================
+           INSIGNIAS DE ESTATUS
+        ========================================================= */
+        .badge-estatus {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .acciones {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .btn-editar,
+        .btn-borrar {
+            border: none;
+            border-radius: 6px;
+            padding: 8px 11px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-editar {
+            background: var(--dorado);
+            color: var(--blanco);
+        }
+
+        .btn-editar:hover {
+            background: #927521;
+        }
+
+        .btn-borrar {
+            background: var(--rojo);
+            color: var(--blanco);
+        }
+
+        .btn-borrar:hover {
+            background: #8F1C13;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+        @media (max-width: 700px) {
+            .contenedor {
+                width: 92%;
+            }
+            .formulario {
+                padding: 20px;
+            }
+            .fila {
+                grid-template-columns: 1fr;
+                gap: 7px;
+                margin-bottom: 15px;
+            }
+            .botones {
+                flex-direction: column;
+            }
+            .botones button {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="horario-personal.css">
+
+
+
+<link rel="stylesheet" href="tema-tren-maya-v4.css">
+<link rel="stylesheet" href="tema-tren-maya-v5.css">
+<link rel="stylesheet" href="tema-tren-maya-v6.css">
+<link rel="stylesheet" href="tema-tren-maya-v7.css">
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-distribucion_personal">
+
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
+    <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">PERSONAL</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+    <!-- =====================================================
+         BARRA DE MENÚ PRINCIPAL
+    ====================================================== -->
+    <div class="contenedor">
+        <nav class="menu-dashboard">
+            <button onclick="window.location.href='dashboard.html'" type="button">Inicio</button>
+            <button onclick="window.location.href='index.html'" type="button">Operaciones</button>
+            <button onclick="window.location.href='servicio-patio.html'" type="button">Material Rodante</button>
+            <button onclick="window.location.href='distribucion_personal.html'" type="button" class="activo">Personal</button>
+            <button onclick="window.location.href='incidencias.html'" type="button">Incidencias</button>
+            <button onclick="window.location.href='combustible.html'" type="button">Combustible</button>
+            <button onclick="window.location.href='costos.html'" type="button">Costos</button>
+        </nav>
+
+        <!-- SUB-MENÚ DE PESTAÑAS (AMPLIADO A 6 MÓDULOS) -->
+        <div class="sub-menu-personal">
+            <button type="button" id="subBtnCatalogo" class="sub-menu-btn activo-sub" onclick="cambiarVistaPersonal('catalogo')"> 1. Personal</button>
+            <button type="button" id="subBtnAsistencia" class="sub-menu-btn" onclick="cambiarVistaPersonal('asistencia')"> 2. Asistencia y Turnos</button>
+            <button type="button" id="subBtnIncidencias" class="sub-menu-btn" onclick="cambiarVistaPersonal('incidencias')"> 3. Permisos e Incidencias</button>
+            <button type="button" id="subBtnGrupos" class="sub-menu-btn" onclick="cambiarVistaPersonal('grupos')"> 4. Asignación de Grupos</button>
+            <button type="button" id="subBtnPatio" class="sub-menu-btn" onclick="cambiarVistaPersonal('patio')"> 5. Asignación Grupo de Patio</button>
+            <button type="button" id="subBtnCamino" class="sub-menu-btn" onclick="cambiarVistaPersonal('camino')"> 6. Asignación Grupo de Camino</button>
+            <button type="button" id="subBtnHorario" class="sub-menu-btn" onclick="cambiarVistaPersonal('horario')"> 7. Horario Semanal</button>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+    <main class="contenedor">
+
+        <!-- =====================================================
+             VISTA 1: CATÁLOGO Y CARGOS
+        ====================================================== -->
+        <div id="vistaCatalogo" class="vista-modulo visible-vista">
+            <div class="barra-acciones-personal">
+                <div></div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="exportarTablaAExcel('cuerpoTablaPersonal', 'personal_tren_maya.xlsx')" class="btn-anadir-personal" type="button" style="background-color: #16a34a;">
+                        📥 Exportar a Excel
+                </button>
+                <button id="btnAnadirPersonal" class="btn-anadir-personal" type="button">
+                    ➕ Añadir personal
+                </button>
+            </div>
+        </div>
+
+            <!-- HOJA DE LLENADO DESPLEGABLE -->
+            <div id="hojaPersonal" class="formulario">
+                <h2 id="tituloFormularioPersonal">👥 Añadir Personal</h2>
+                <p>Registra o actualiza los datos del personal operativo y su estatus actual.</p>
+
+                <div class="fila">
+                    <label for="nombre_personal">Nombre del personal</label>
+                    <input type="text" id="nombre_personal" placeholder="Ej. Juan Pérez Hernández">
+                </div>
+
+                <div class="fila">
+                    <label for="id_trabajador">ID</label>
+                    <input type="text" id="id_trabajador" placeholder="Ej. TMY-001">
+                </div>
+
+                <div class="fila">
+                    <label for="campo_personal">Campo</label>
+                    <select id="campo_personal">
+                        <option value="">Selecciona el campo...</option>
+                        <option value="Patio">Patio</option>
+                        <option value="Camino">Camino</option>
+                    </select>
+                </div>
+
+                <div class="fila">
+                    <label for="tipo_trabajador">Tipo de trabajador</label>
+                    <select id="tipo_trabajador">
+                        <option value="">Selecciona el tipo de trabajador...</option>
+                        <option value="Garrotero de patio">Garrotero de patio</option>
+                        <option value="Mayordomo">Mayordomo</option>
+                        <option value="Jefe de patio">Jefe de patio</option>
+                        <option value="Garrotero de camino">Garrotero de camino</option>
+                        <option value="Conductor">Conductor</option>
+                        <option value="Maquinista">Maquinista</option>
+                    </select>
+                </div>
+
+                <div class="fila">
+                    <label for="patio_personal">Patio</label>
+                    <select id="patio_personal">
+                        <option value="">Selecciona el patio...</option>
+                        <option value="TM Palenque">TM Palenque</option>
+                        <option value="POC Escarcega">POC Escarcega</option>
+                        <option value="TDC Poxila">TDC Poxila</option>
+                        <option value="TM Progreso">TM Progreso</option>
+                        <option value="POC Valladolid">POC Valladolid</option>
+                        <option value="TM Cancún">TM Cancún</option>
+                        <option value="TM Chetumal">TM Chetumal</option>
+                        <option value="POC Xpujil">POC Xpujil</option>
+                    </select>
+                </div>
+
+                <div class="fila">
+                    <label for="estatus_personal">Estatus</label>
+                    <select id="estatus_personal">
+                        <option value="Disponible">Disponible</option>
+                        <option value="Asignado">Asignado</option>
+                        <option value="En turno">En turno</option>
+                        <option value="Descanso">Descanso</option>
+                        <option value="Permiso">Permiso</option>
+                        <option value="Capacitación">Capacitación</option>
+                        <option value="Comisión">Comisión</option>
+                    </select>
+                </div>
+
+                <div class="botones">
+                    <button id="btnGuardarPersonal" class="guardar" type="button">💾 GUARDAR</button>
+                    <button id="btnLimpiarPersonal" class="limpiar" type="button">LIMPIAR</button>
+                    <button id="btnCancelarPersonal" class="cancelar" type="button">CANCELAR</button>
+                </div>
+            </div>
+
+            <!-- TABLA DE PERSONAL -->
+            <div class="tabla-contenedor">
+                <h2>Personal Tren Maya</h2>
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del personal</th>
+                            <th>ID</th>
+                            <th>Campo</th>
+                            <th>Tipo de trabajador</th>
+                            <th>Patio</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaPersonal">
+                        <tr>
+                            <td colspan="7">Cargando personal...</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 2: ASISTENCIA Y TURNOS
+        ====================================================== -->
+        <div id="vistaAsistencia" class="vista-modulo">
+            <div class="tabla-contenedor">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                    <h2 style="margin: 0; border: none; padding: 0;">Control Diario de Asistencia y Turnos</h2>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="date" id="fechaAsistenciaFiltro" style="padding: 8px; border: 1px solid var(--borde); border-radius: 6px;">
+                        <button onclick="guardarAsistenciaMasiva()" class="btn-anadir-personal" style="padding: 8px 16px; font-size: 13px;">💾 Guardar Lista</button>
+                    </div>
+                </div>
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                    <thead>
+                        <tr>
+                            <th>Colaborador</th>
+                            <th>Cargo / Tipo</th>
+                            <th>Patio</th>
+                            <th>Turno Asignado</th>
+                            <th>Estatus de Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaAsistencia">
+                        <tr>
+                            <td colspan="5">Cargando lista de asistencia...</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 3: PERMISOS E INCIDENCIAS
+        ====================================================== -->
+        <div id="vistaIncidencias" class="vista-modulo">
+            <div class="tabla-contenedor">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0; border: none; padding: 0;">Bitácora de Permisos, Vacaciones e Incapacidades</h2>
+                    <button onclick="abrirModalIncidencia()" class="btn-anadir-personal" style="padding: 8px 16px; font-size: 13px;">➕ Registrar Incidencia</button>
+                </div>
+
+                <div id="formIncidenciaBox" class="formulario" style="display: none; margin-bottom: 20px;">
+                    <h2 id="tituloFormIncidencia">Registrar Incidencia de Personal</h2>
+                    <div class="fila">
+                        <label>Trabajador</label>
+                        <select id="incColaboradorSelect"></select>
+                    </div>
+                    <div class="fila">
+                        <label>Tipo de Incidencia</label>
+                        <select id="incTipoSelect">
+                            <option value="Vacaciones">Vacaciones</option>
+                            <option value="Permiso con goce">Permiso con goce</option>
+                            <option value="Permiso sin goce">Permiso sin goce</option>
+                            <option value="Incapacidad médica">Incapacidad médica</option>
+                            <option value="Falta injustificada">Falta injustificada</option>
+                            <option value="Comisión oficial">Comisión oficial</option>
+                        </select>
+                    </div>
+                    <div class="fila">
+                        <label>Período (Fechas)</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="date" id="incFechaInicio">
+                            <input type="date" id="incFechaFin">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <label>Folio / Documento</label>
+                        <input type="text" id="incFolio" placeholder="Ej. OFICIO-2026-054">
+                    </div>
+                    <div class="botones">
+                        <button id="btnGuardarIncidencia" onclick="guardarIncidencia()" class="guardar">💾 Guardar Incidencia</button>
+                        <button onclick="cerrarModalIncidencia()" class="cancelar">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                    <thead>
+                        <tr>
+                            <th>Colaborador</th>
+                            <th>Tipo de Incidencia</th>
+                            <th>Período</th>
+                            <th>Folio / Documento</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaIncidencias">
+                        <tr>
+                            <td colspan="6">Cargando bitácora de incidencias...</td>
+                        </tr>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 4: ASIGNACIÓN DE GRUPOS (ESTRUCTURA 2 x 4)
+        ====================================================== -->
+        <div id="vistaGrupos" class="vista-modulo">
+            <div class="tabla-contenedor" style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h2 style="margin: 0; border: none; padding: 0;">👥 Asignación de Grupos y Cuadrillas por Patio</h2>
+                    <button type="button" onclick="abrirFormularioAsignacionGrupo()" class="btn-anadir-personal" style="padding: 10px 20px; font-size: 13px;">
+                        ➕ Asignar Grupo
+                    </button>
+                </div>
+
+                <!-- Formulario Desplegable -->
+                <div id="formAsignacionGrupoBox" class="formulario" style="display: none; margin-top: 15px;">
+                    <h2>Formulario de Asignación de Grupo</h2>
+                    <p>Selecciona al colaborador, el patio, el grupo y la fecha. El sistema validará automáticamente que no cuente con permisos o incidencias activas (excepto Comisión Oficial).</p>
+
+                    <div class="fila">
+                        <label>Colaborador *</label>
+                        <select id="asig_personal" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="">Cargando personal...</option>
+                        </select>
+                    </div>
+
+                    <div class="fila">
+                        <label>Patio Asignado *</label>
+                        <select id="asig_patio" onchange="actualizarGruposPorPatio()" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="">Selecciona el patio...</option>
+                            <option value="TM Palenque">TM Palenque</option>
+                            <option value="POC Escarcega">POC Escarcega</option>
+                            <option value="TDC Poxila">TDC Poxila</option>
+                            <option value="TM Progreso">TM Progreso</option>
+                            <option value="POC Valladolid">POC Valladolid</option>
+                            <option value="TM Cancún">TM Cancún</option>
+                            <option value="TM Chetumal">TM Chetumal</option>
+                            <option value="POC Xpujil">POC Xpujil</option>
+                        </select>
+                    </div>
+
+                    <div class="fila">
+                        <label>Grupo *</label>
+                        <select id="asig_grupo" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="">Primero seleccione un patio...</option>
+                        </select>
+                    </div>
+
+                    <div class="fila">
+                        <label>Fecha de Asignación *</label>
+                        <input type="date" id="asig_fecha" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                    </div>
+
+                    <div class="botones">
+                        <button type="button" id="btnGuardarAsignacionGrupo" onclick="validarYGuardarAsignacionGrupo()" class="guardar">💾 Validar e Insertar Asignación</button>
+                        <button type="button" onclick="cerrarFormularioAsignacionGrupo()" class="cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DE TABLAS EN ESTRUCTURA 2 x 4 (2 Columnas, 4 Filas) -->
+            <div id="contenedorTablasPatios" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <!-- Se inyectan dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 5: ASIGNACIÓN GRUPO DE PATIO (NUEVA PESTAÑA)
+        ====================================================== -->
+        <div id="vistaPatio" class="vista-modulo">
+            <div class="tabla-contenedor" style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h2 style="margin: 0; border: none; padding: 0;">🏗️ Asignación de Grupo de Patio</h2>
+                    <button type="button" onclick="abrirFormularioPatio()" class="btn-anadir-personal" style="padding: 10px 20px; font-size: 13px;">
+                        ➕ Llenar Asignación de Patio
+                    </button>
+                </div>
+
+                <!-- Hoja de Llenado Desplegable para Patio -->
+                <div id="formPatioBox" class="formulario" style="display: none; margin-top: 15px;">
+                    <h2>Formulario de Asignación de Grupo de Patio</h2>
+                    <p>Selecciona la información general de grupo para autocompletar la cuadrilla de patio y define su estatus operativo.</p>
+
+                    <div class="fila">
+                        <label>Seleccionar Grupo *</label>
+                        <select id="patio_select_grupo" onchange="autocompletarDatosGrupoPatio()" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="">Selecciona un grupo registrado...</option>
+                        </select>
+                    </div>
+
+                    <div class="fila"><label>Grupo</label><input type="text" id="patio_grupo_nombre" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Patio</label><input type="text" id="patio_ubicacion" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Jefe de Patio</label><input type="text" id="patio_jefe" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Mayordomo</label><input type="text" id="patio_mayordomo" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Garrotero 1</label><input type="text" id="patio_garrotero1" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Garrotero 2</label><input type="text" id="patio_garrotero2" readonly placeholder="Se autocompleta..."></div>
+
+                    <div class="fila">
+                        <label>Estatus Operativo *</label>
+                        <select id="patio_estatus" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="Disponible">🟢 Disponible</option>
+                            <option value="Asignado">🟤 Asignado</option>
+                            <option value="En turno">🔵 En turno</option>
+                            <option value="Descanso">🔴 Descanso</option>
+                        </select>
+                    </div>
+
+                    <div class="botones">
+                        <button type="button" onclick="guardarGrupoPatio()" class="guardar">💾 Guardar Asignación de Patio</button>
+                        <button type="button" onclick="cerrarFormularioPatio()" class="cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Control de Grupos de Patio -->
+            <div class="tabla-contenedor">
+                <h2>📋 Control de Asignación de Grupos de Patio</h2>
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Patio</th>
+                            <th>Jefe de Patio</th>
+                            <th>Mayordomo</th>
+                            <th>Garrotero 1</th>
+                            <th>Garrotero 2</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaGrupoPatio">
+                        <tr><td colspan="8" style="text-align: center;">Cargando asignaciones de patio...</td></tr>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 6: ASIGNACIÓN GRUPO DE CAMINO (NUEVA PESTAÑA)
+        ====================================================== -->
+        <div id="vistaCamino" class="vista-modulo">
+            <div class="tabla-contenedor" style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h2 style="margin: 0; border: none; padding: 0;">🚂 Asignación de Grupo de Camino</h2>
+                    <button type="button" onclick="abrirFormularioCamino()" class="btn-anadir-personal" style="padding: 10px 20px; font-size: 13px;">
+                        ➕ Llenar Asignación de Camino
+                    </button>
+                </div>
+
+                <!-- Hoja de Llenado Desplegable para Camino -->
+                <div id="formCaminoBox" class="formulario" style="display: none; margin-top: 15px;">
+                    <h2>Formulario de Asignación de Grupo de Camino</h2>
+                    <p>Selecciona un grupo registrado y establece su estatus operativo para trayectos en ruta.</p>
+
+                    <div class="fila">
+                        <label>Seleccionar Grupo *</label>
+                        <select id="camino_select_grupo" onchange="autocompletarDatosGrupoCamino()" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="">Selecciona un grupo registrado...</option>
+                        </select>
+                    </div>
+
+                    <div class="fila"><label>Grupo</label><input type="text" id="camino_grupo_nombre" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Patio / Ruta</label><input type="text" id="camino_ubicacion" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Conductor / Maquinista</label><input type="text" id="camino_jefe" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Auxiliar / Mayordomo</label><input type="text" id="camino_mayordomo" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Garrotero 1</label><input type="text" id="camino_garrotero1" readonly placeholder="Se autocompleta..."></div>
+                    <div class="fila"><label>Garrotero 2</label><input type="text" id="camino_garrotero2" readonly placeholder="Se autocompleta..."></div>
+
+                    <div class="fila">
+                        <label>Estatus Operativo *</label>
+                        <select id="camino_estatus" style="width: 100%; padding: 10px; border: 1px solid var(--borde); border-radius: 7px;">
+                            <option value="Disponible">🟢 Disponible</option>
+                            <option value="Asignado">🟤 Asignado</option>
+                            <option value="En ruta">🔵 En ruta</option>
+                            <option value="Descanso">🔴 Descanso</option>
+                        </select>
+                    </div>
+
+                    <div class="botones">
+                        <button type="button" onclick="guardarGrupoCamino()" class="guardar">💾 Guardar Asignación de Camino</button>
+                        <button type="button" onclick="cerrarFormularioCamino()" class="cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Control de Grupos de Camino -->
+            <div class="tabla-contenedor">
+                <h2>📋 Control de Asignación de Grupos de Camino</h2>
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table>
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Ruta / Patio</th>
+                            <th>Conductor</th>
+                            <th>Auxiliar</th>
+                            <th>Garrotero 1</th>
+                            <th>Garrotero 2</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaGrupoCamino">
+                        <tr><td colspan="8" style="text-align: center;">Cargando asignaciones de camino...</td></tr>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             VISTA 7: HORARIO SEMANAL DEL PERSONAL
+        ====================================================== -->
+        <div id="vistaHorario" class="vista-modulo">
+            <div class="tabla-contenedor">
+                <h2>🗓️ Horario semanal del personal</h2>
+
+                <div class="hz-barra">
+                    <div class="hz-semana">
+                        <button type="button" id="hzAnterior">◀</button>
+                        <button type="button" id="hzHoy">Hoy</button>
+                        <button type="button" id="hzSiguiente">▶</button>
+                        <strong id="hzRango"></strong>
+                    </div>
+                    <select id="hzCampo">
+                        <option value="">Patio y Camino</option>
+                        <option value="Patio">Solo Patio</option>
+                        <option value="Camino">Solo Camino</option>
+                    </select>
+                    <select id="hzPatio">
+                        <option value="">Todos los patios</option>
+                    </select>
+                    <select id="hzJornada">
+                        <option value="">Todas las jornadas</option>
+                        <option value="J1">J1 · 06:00–14:00</option>
+                        <option value="J2">J2 · 14:00–22:00</option>
+                        <option value="J3">J3 · 22:00–06:00</option>
+                    </select>
+                    <input type="search" id="hzBuscar" placeholder="Buscar persona...">
+                </div>
+
+                <div class="hz-leyenda">
+                    <span class="hz-patio">Patio</span>
+                    <span class="hz-camino">Camino</span>
+                    <span class="hz-libre">Libre (clic para asignar)</span>
+                    <span class="hz-choque">Choque (más de una asignación)</span>
+                </div>
+
+                <div id="hzPanel" class="hz-panel" hidden>
+                    <h3 id="hzPanelTitulo"></h3>
+                    <label for="hzJornadaPanel">Jornada (8 horas)</label>
+                    <select id="hzJornadaPanel"></select>
+                    <label for="hzGrupo">Grupo</label>
+                    <select id="hzGrupo"></select>
+                    <div class="hz-panel-acciones">
+                        <button type="button" id="hzGuardar" class="hz-guardar">💾 Guardar</button>
+                        <button type="button" id="hzQuitar">Quitar asignación</button>
+                        <button type="button" id="hzEditarPersona">✏️ Editar persona</button>
+                        <button type="button" id="hzEliminarPersona" class="hz-eliminar">🗑️ Eliminar persona</button>
+                        <button type="button" id="hzCancelar">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="hz-scroll">
+                    <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="hz-tabla">
+                        <thead id="hzCabeza"></thead>
+                        <tbody id="hzCuerpo"></tbody>
+                        <tfoot id="hzResumen"></tfoot>
+                    </table></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- =====================================================
+         SCRIPTS CENTRALIZADOS
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="permisos.js"></script>
+    <script src="temayin.js"></script>
+
+    <script>
+        const dbPersonal = window.supabaseClient;
+
+        /* =====================================================
+           SELECTOR DE COLOR Y CONFIGURACIÓN DE LOS 8 PATIOS OFICIALES
+        ====================================================== */
+        const PATIOS_OFICIALES = [
+            { nombre: "TM Palenque", color: "#123C2A" },     // Verde Oscuro
+            { nombre: "POC Escarcega", color: "#0284c7" },    // Azul
+            { nombre: "TDC Poxila", color: "#047857" },     // Verde Bosque
+            { nombre: "TM Progreso", color: "#d97706" },    // Ámbar
+            { nombre: "POC Valladolid", color: "#D9A441" }, // Amarillo Mostaza
+            { nombre: "TM Cancún", color: "#1E3A5F" },      // Azul Elegante
+            { nombre: "TM Chetumal", color: "#475569" },    // Gris Pizarra
+            { nombre: "POC Xpujil", color: "#b91c1c" }      // Rojo Oscuro
+        ];
+
+        // Elementos del DOM de Catálogo
+        const hojaPersonal = document.getElementById("hojaPersonal");
+        const btnAnadirPersonal = document.getElementById("btnAnadirPersonal");
+        const tituloFormularioPersonal = document.getElementById("tituloFormularioPersonal");
+
+        const inputNombre = document.getElementById("nombre_personal");
+        const inputIdTrabajador = document.getElementById("id_trabajador");
+        const selectCampo = document.getElementById("campo_personal");
+        const selectTipoTrabajador = document.getElementById("tipo_trabajador");
+        const selectPatio = document.getElementById("patio_personal");
+        const selectEstatus = document.getElementById("estatus_personal");
+
+        const btnGuardarPersonal = document.getElementById("btnGuardarPersonal");
+        const btnLimpiarPersonal = document.getElementById("btnLimpiarPersonal");
+        const btnCancelarPersonal = document.getElementById("btnCancelarPersonal");
+        const cuerpoTablaPersonal = document.getElementById("cuerpoTablaPersonal");
+
+        const COLORES_ESTATUS = {
+            "Disponible":   { icono: "🟢", fondo: "#dcfce7", texto: "#166534", borde: "#86efac" },
+            "Asignado":     { icono: "🟤", fondo: "#f5ebe6", texto: "#5c4033", borde: "#d6bfa9" },
+            "En turno":     { icono: "🔵", fondo: "#dbeafe", texto: "#1e40af", borde: "#93c5fd" },
+            "En ruta":      { icono: "🔵", fondo: "#dbeafe", texto: "#1e40af", borde: "#93c5fd" },
+            "Descanso":     { icono: "🔴", fondo: "#fee2e2", texto: "#991b1b", borde: "#fca5a5" },
+            "Permiso":      { icono: "🟡", fondo: "#fef9c3", texto: "#854d0e", borde: "#fde047" },
+            "Capacitación": { icono: "🟠", fondo: "#ffedd5", texto: "#9a3412", borde: "#fdba74" },
+            "Comisión":     { icono: "⚫", fondo: "#f1f5f9", texto: "#1e293b", borde: "#cbd5e1" }
+        };
+
+        function formatearEstatusConColor(estatus) {
+            const cfg = COLORES_ESTATUS[estatus] || { icono: "⚪", fondo: "#f3f4f6", texto: "#374151", borde: "#d1d5db" };
+            return `
+                <span class="badge-estatus" style="background-color: ${cfg.fondo}; color: ${cfg.texto}; border: 1px solid ${cfg.borde};">
+                    ${cfg.icono} ${estatus || ""}
+                </span>
+            `;
+        }
+
+        function escaparTexto(txt) {
+            return String(txt ?? "")
+                .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        /* =====================================================
+           CONTROL DE SUB-PESTAÑAS (6 MÓDULOS)
+        ====================================================== */
+        function cambiarVistaPersonal(vista) {
+            window.vistaActualPersonal = vista;
+            document.getElementById("vistaCatalogo").classList.remove("visible-vista");
+            document.getElementById("vistaAsistencia").classList.remove("visible-vista");
+            document.getElementById("vistaIncidencias").classList.remove("visible-vista");
+            document.getElementById("vistaGrupos").classList.remove("visible-vista");
+            document.getElementById("vistaPatio").classList.remove("visible-vista");
+            document.getElementById("vistaCamino").classList.remove("visible-vista");
+            document.getElementById("vistaHorario").classList.remove("visible-vista");
+
+            document.getElementById("subBtnCatalogo").classList.remove("activo-sub");
+            document.getElementById("subBtnAsistencia").classList.remove("activo-sub");
+            document.getElementById("subBtnIncidencias").classList.remove("activo-sub");
+            document.getElementById("subBtnGrupos").classList.remove("activo-sub");
+            document.getElementById("subBtnPatio").classList.remove("activo-sub");
+            document.getElementById("subBtnCamino").classList.remove("activo-sub");
+            document.getElementById("subBtnHorario").classList.remove("activo-sub");
+
+            if (vista === 'horario') { window.cambiarVistaHorario(); return; }
+
+            if (vista === 'catalogo') {
+                document.getElementById("vistaCatalogo").classList.add("visible-vista");
+                document.getElementById("subBtnCatalogo").classList.add("activo-sub");
+                cargarPersonal();
+            } else if (vista === 'asistencia') {
+                document.getElementById("vistaAsistencia").classList.add("visible-vista");
+                document.getElementById("subBtnAsistencia").classList.add("activo-sub");
+                cargarTablaAsistencia();
+            } else if (vista === 'incidencias') {
+                document.getElementById("vistaIncidencias").classList.add("visible-vista");
+                document.getElementById("subBtnIncidencias").classList.add("activo-sub");
+                cargarTablaIncidencias();
+            } else if (vista === 'grupos') {
+                document.getElementById("vistaGrupos").classList.add("visible-vista");
+                document.getElementById("subBtnGrupos").classList.add("activo-sub");
+                cargarPersonalParaAsignacionGrupo();
+                renderizarEstructuraTablasPatios();
+                cargarTablasAsignacionesGrupos();
+            } else if (vista === 'patio') {
+                document.getElementById("vistaPatio").classList.add("visible-vista");
+                document.getElementById("subBtnPatio").classList.add("activo-sub");
+                cargarSelectsGruposParaPatio();
+                cargarTablaGruposPatio();
+            } else if (vista === 'camino') {
+                document.getElementById("vistaCamino").classList.add("visible-vista");
+                document.getElementById("subBtnCamino").classList.add("activo-sub");
+                cargarSelectsGruposParaCamino();
+                cargarTablaGruposCamino();
+            }
+        }
+
+        /* =====================================================
+           ACCIONES DE PERSONAL DESDE CUALQUIER PESTAÑA
+        ====================================================== */
+        window.vistaActualPersonal = 'catalogo';
+
+        function accionesPersona(id) {
+            const n = Number(id);
+            return `<span class="acciones-persona">
+                <button type="button" class="btn-mini" title="Editar persona" onclick="irAPersonal(${n})">✏️</button>
+                <button type="button" class="btn-mini btn-mini-borrar" title="Eliminar persona" onclick="borrarPersonalGlobal(${n})">🗑️</button>
+            </span>`;
+        }
+
+        function irAPersonal(id) {
+            cambiarVistaPersonal('catalogo');
+            editarPersonal(id);
+        }
+
+        async function borrarPersonalGlobal(id) {
+            if (!confirm("¿Estás seguro de eliminar a esta persona del catálogo?")) return;
+            const { error } = await dbPersonal.from("Personal").delete().eq("id", id);
+            if (error) { alert("No se pudo eliminar: " + error.message); return; }
+            cambiarVistaPersonal(window.vistaActualPersonal);
+        }
+
+        /* =====================================================
+           MÓDULO 1: CATÁLOGO DE PERSONAL
+        ====================================================== */
+        function mostrarHoja(abrir) {
+            if (abrir) {
+                hojaPersonal.classList.add("visible");
+                btnAnadirPersonal.textContent = "❌ Cerrar hoja";
+            } else {
+                hojaPersonal.classList.remove("visible");
+                btnAnadirPersonal.textContent = "➕ Añadir personal";
+                limpiarFormularioPersonal();
+            }
+        }
+
+        btnAnadirPersonal.addEventListener("click", () => mostrarHoja(!hojaPersonal.classList.contains("visible")));
+
+        function limpiarFormularioPersonal() {
+            inputNombre.value = "";
+            inputIdTrabajador.value = "";
+            selectCampo.value = "";
+            selectTipoTrabajador.value = "";
+            selectPatio.value = "";
+            selectEstatus.value = "Disponible";
+            delete btnGuardarPersonal.dataset.editando;
+            btnGuardarPersonal.textContent = "💾 GUARDAR";
+            tituloFormularioPersonal.textContent = "👥 Añadir Personal";
+        }
+
+        btnLimpiarPersonal.addEventListener("click", limpiarFormularioPersonal);
+        btnCancelarPersonal.addEventListener("click", () => mostrarHoja(false));
+
+        async function cargarPersonal() {
+            cuerpoTablaPersonal.innerHTML = `<tr><td colspan="7">Cargando personal...</td></tr>`;
+            const { data, error } = await dbPersonal.from("Personal").select("*").order("id", { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                cuerpoTablaPersonal.innerHTML = `<tr><td colspan="7">No hay personal registrado o error al cargar.</td></tr>`;
+                return;
+            }
+
+            cuerpoTablaPersonal.innerHTML = "";
+            data.forEach(reg => {
+                cuerpoTablaPersonal.innerHTML += `
+                    <tr>
+                        <td><strong>${escaparTexto(reg.nombre)}</strong></td>
+                        <td>${escaparTexto(reg.id_empleado)}</td>
+                        <td>${escaparTexto(reg.campo)}</td>
+                        <td>${escaparTexto(reg.tipo_trabajador)}</td>
+                        <td>${escaparTexto(reg.patio)}</td>
+                        <td>${formatearEstatusConColor(reg.estatus)}</td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn-editar" onclick="editarPersonal(${reg.id})">✏️ Editar</button>
+                                <button class="btn-borrar" onclick="borrarPersonal(${reg.id})">🗑️ Borrar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        btnGuardarPersonal.addEventListener("click", async () => {
+            const nombre = inputNombre.value.trim();
+            const id_empleado = inputIdTrabajador.value.trim();
+            const campo = selectCampo.value;
+            const tipo_trabajador = selectTipoTrabajador.value;
+            const patio = selectPatio.value;
+            const estatus = selectEstatus.value;
+
+            if (!nombre || !id_empleado || !campo || !tipo_trabajador || !patio) {
+                alert("Por favor completa todos los campos requeridos.");
+                return;
+            }
+
+            const payload = { nombre, id_empleado, campo, tipo_trabajador, patio, estatus };
+            const idEditando = btnGuardarPersonal.dataset.editando;
+
+            let res = idEditando ? await dbPersonal.from("Personal").update(payload).eq("id", idEditando) : await dbPersonal.from("Personal").insert([payload]);
+
+            if (res.error) {
+                alert("Error al guardar: " + res.error.message);
+                return;
+            }
+
+            mostrarHoja(false);
+            cargarPersonal();
+        });
+
+        async function editarPersonal(id) {
+            const { data } = await dbPersonal.from("Personal").select("*").eq("id", id).single();
+            if (!data) return;
+
+            mostrarHoja(true);
+            inputNombre.value = data.nombre;
+            inputIdTrabajador.value = data.id_empleado;
+            selectCampo.value = data.campo;
+            selectTipoTrabajador.value = data.tipo_trabajador;
+            selectPatio.value = data.patio;
+            selectEstatus.value = data.estatus;
+
+            btnGuardarPersonal.dataset.editando = id;
+            btnGuardarPersonal.textContent = "💾 ACTUALIZAR";
+            tituloFormularioPersonal.textContent = "✏️ Editar Personal";
+            hojaPersonal.scrollIntoView({ behavior: "smooth" });
+        }
+
+        async function borrarPersonal(id) {
+            if (!confirm("¿Estás seguro de eliminar este registro?")) return;
+            await dbPersonal.from("Personal").delete().eq("id", id);
+            cargarPersonal();
+        }
+
+        /* =====================================================
+           MÓDULO 2: ASISTENCIA Y TURNOS
+        ====================================================== */
+        async function cargarTablaAsistencia() {
+            const cuerpo = document.getElementById("cuerpoTablaAsistencia");
+            cuerpo.innerHTML = `<tr><td colspan="5">Cargando listado de asistencia...</td></tr>`;
+
+            const { data } = await dbPersonal.from("Personal").select("id, nombre, tipo_trabajador, patio, estatus").eq("estatus", "Disponible");
+            if (!data || data.length === 0) {
+                cuerpo.innerHTML = `<tr><td colspan="5">No hay personal disponible para asistencia.</td></tr>`;
+                return;
+            }
+
+            cuerpo.innerHTML = "";
+            data.forEach(p => {
+                cuerpo.innerHTML += `
+                    <tr>
+                        <td><strong>${escaparTexto(p.nombre)}</strong> ${accionesPersona(p.id)}</td>
+                        <td>${escaparTexto(p.tipo_trabajador)}</td>
+                        <td>${escaparTexto(p.patio)}</td>
+                        <td>
+                            <select id="turno_${p.id}" style="padding: 6px; border-radius: 6px; border: 1px solid var(--borde);">
+                                <option value="Matutino">Matutino</option>
+                                <option value="Vespertino">Vespertino</option>
+                                <option value="Nocturno">Nocturno</option>
+                                <option value="Guardia 24h">Guardia 24h</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="asist_${p.id}" style="padding: 6px; border-radius: 6px; border: 1px solid var(--borde);">
+                                <option value="Asistencia">Asistencia</option>
+                                <option value="Retardo">Retardo</option>
+                                <option value="Falta">Falta</option>
+                                <option value="Justificado">Justificado</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function guardarAsistenciaMasiva() {
+            alert("¡Pase de lista y turnos guardados correctamente!");
+        }
+
+        /* =====================================================
+           MÓDULO 3: INCIDENCIAS Y PERMISOS
+        ====================================================== */
+        async function cargarTablaIncidencias() {
+            const cuerpo = document.getElementById("cuerpoTablaIncidencias");
+            cuerpo.innerHTML = `<tr><td colspan="6">Cargando incidencias...</td></tr>`;
+
+            const { data: personalList } = await dbPersonal.from("Personal").select("id, nombre");
+            const selectCol = document.getElementById("incColaboradorSelect");
+            selectCol.innerHTML = "";
+            if (personalList) {
+                personalList.forEach(item => {
+                    selectCol.innerHTML += `<option value="${item.id}">${item.nombre}</option>`;
+                });
+            }
+
+            const { data, error } = await dbPersonal
+                .from("personal_incidencias")
+                .select("*")
+                .order("id", { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                cuerpo.innerHTML = `<tr><td colspan="6">No hay incidencias registradas.</td></tr>`;
+                return;
+            }
+
+            const mapaPersonal = {};
+            if (personalList) {
+                personalList.forEach(p => { mapaPersonal[p.id] = p.nombre; });
+            }
+
+            cuerpo.innerHTML = "";
+            data.forEach(inc => {
+                const nombreColaborador = mapaPersonal[inc.personal_id] || "Colaborador #" + inc.personal_id;
+                cuerpo.innerHTML += `
+                    <tr>
+                        <td><strong>${escaparTexto(nombreColaborador)}</strong> ${accionesPersona(inc.personal_id)}</td>
+                        <td>${escaparTexto(inc.tipo_incidencia)}</td>
+                        <td>${escaparTexto(inc.fecha_inicio)} al ${escaparTexto(inc.fecha_fin)}</td>
+                        <td>${escaparTexto(inc.folio_documento || 'S/F')}</td>
+                        <td><span class="badge-estatus" style="background: #dbeafe; color: #1e40af;">${escaparTexto(inc.estatus)}</span></td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn-editar" onclick="editarIncidencia(${inc.id})">✏️ Editar</button>
+                                <button class="btn-borrar" onclick="borrarIncidencia(${inc.id})">🗑️ Borrar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function abrirModalIncidencia() {
+            document.getElementById("formIncidenciaBox").style.display = "block";
+            delete document.getElementById("btnGuardarIncidencia").dataset.editando;
+            document.getElementById("tituloFormIncidencia").textContent = "Registrar Incidencia de Personal";
+            document.getElementById("incFechaInicio").value = "";
+            document.getElementById("incFechaFin").value = "";
+            document.getElementById("incFolio").value = "";
+        }
+
+        function cerrarModalIncidencia() {
+            document.getElementById("formIncidenciaBox").style.display = "none";
+        }
+
+        async function guardarIncidencia() {
+            const personal_id = document.getElementById("incColaboradorSelect").value;
+            const tipo_incidencia = document.getElementById("incTipoSelect").value;
+            const fecha_inicio = document.getElementById("incFechaInicio").value;
+            const fecha_fin = document.getElementById("incFechaFin").value;
+            const folio_documento = document.getElementById("incFolio").value.trim();
+
+            if (!fecha_inicio || !fecha_fin) {
+                alert("Por favor selecciona el período de fechas.");
+                return;
+            }
+
+            const payload = { personal_id, tipo_incidencia, fecha_inicio, fecha_fin, folio_documento, estatus: "Aprobado" };
+            const idEditando = document.getElementById("btnGuardarIncidencia").dataset.editando;
+
+            let res;
+            if (idEditando) {
+                res = await dbPersonal.from("personal_incidencias").update(payload).eq("id", idEditando);
+            } else {
+                res = await dbPersonal.from("personal_incidencias").insert([payload]);
+            }
+
+            if (res.error) {
+                alert("Error al guardar la incidencia: " + res.error.message);
+                return;
+            }
+
+            cerrarModalIncidencia();
+            cargarTablaIncidencias();
+        }
+
+        async function editarIncidencia(id) {
+            const { data, error } = await dbPersonal.from("personal_incidencias").select("*").eq("id", id).single();
+            if (error || !data) {
+                alert("No fue posible cargar el registro de la incidencia.");
+                return;
+            }
+
+            abrirModalIncidencia();
+            document.getElementById("incColaboradorSelect").value = data.personal_id;
+            document.getElementById("incTipoSelect").value = data.tipo_incidencia;
+            document.getElementById("incFechaInicio").value = data.fecha_inicio;
+            document.getElementById("incFechaFin").value = data.fecha_fin;
+            document.getElementById("incFolio").value = data.folio_documento || "";
+
+            const btnGuardar = document.getElementById("btnGuardarIncidencia");
+            btnGuardar.dataset.editando = id;
+            btnGuardar.textContent = "💾 Actualizar Incidencia";
+            document.getElementById("tituloFormIncidencia").textContent = "✏️ Editar Incidencia";
+        }
+
+        async function borrarIncidencia(id) {
+            if (!confirm("¿Estás seguro de eliminar este registro de incidencia?")) return;
+            const { error } = await dbPersonal.from("personal_incidencias").delete().eq("id", id);
+            if (error) {
+                alert("Error al eliminar: " + error.message);
+                return;
+            }
+            cargarTablaIncidencias();
+        }
+
+        /* =====================================================
+           MÓDULO 4: ASIGNACIÓN DE GRUPOS (ESTRUCTURA 2 x 4)
+        ====================================================== */
+        function abrirFormularioAsignacionGrupo() {
+            const box = document.getElementById("formAsignacionGrupoBox");
+            if (box) {
+                box.style.display = 'block';
+                box.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function cerrarFormularioAsignacionGrupo() {
+            const box = document.getElementById("formAsignacionGrupoBox");
+            if (box) box.style.display = 'none';
+        }
+
+        function actualizarGruposPorPatio() {
+            const patio = document.getElementById("asig_patio").value;
+            const selectGrupo = document.getElementById("asig_grupo");
+            if (!selectGrupo) return;
+
+            let html = '<option value="">Seleccionar grupo...</option>';
+            if (patio) {
+                html += `<option value="Grupo A - ${patio}">Grupo A - ${patio}</option>`;
+                html += `<option value="Grupo B - ${patio}">Grupo B - ${patio}</option>`;
+                html += `<option value="Grupo C - ${patio}">Grupo C - ${patio}</option>`;
+            }
+            selectGrupo.innerHTML = html;
+        }
+
+        async function cargarPersonalParaAsignacionGrupo() {
+            const selectPersonal = document.getElementById("asig_personal");
+            if (!selectPersonal) return;
+
+            try {
+                const { data, error } = await dbPersonal.from("Personal").select("id, nombre");
+                if (!error && data && data.length > 0) {
+                    let opts = '<option value="">Seleccionar colaborador...</option>';
+                    data.forEach(p => {
+                        opts += `<option value="${p.id}">${p.nombre}</option>`;
+                    });
+                    selectPersonal.innerHTML = opts;
+                } else {
+                    selectPersonal.innerHTML = '<option value="">No hay personal disponible</option>';
+                }
+            } catch (err) {
+                console.error("Error al cargar personal para grupos:", err);
+            }
+        }
+
+        function renderizarEstructuraTablasPatios() {
+            const contenedor = document.getElementById("contenedorTablasPatios");
+            if (!contenedor) return;
+
+            let htmlGrid = "";
+            PATIOS_OFICIALES.forEach((patio, index) => {
+                const idTabla = `tbodyPatio_${index}`;
+                htmlGrid += `
+                    <div style="background: #ffffff; border-radius: 12px; border: 2px solid ${patio.color}; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+                        <div style="background: ${patio.color}; color: #fff; padding: 12px 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                            <span>🚂 ${patio.nombre}</span>
+                        </div>
+                        <div class="tabla-contenedor" style="padding: 15px; box-shadow: none; border: none;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid #e2e8f0; text-align: left; font-size: 11px;">
+                                        <th style="padding: 8px; background: ${patio.color}; color: #fff;">GRUPO</th>
+                                        <th style="padding: 8px; background: ${patio.color}; color: #fff;">ID</th>
+                                        <th style="padding: 8px; background: ${patio.color}; color: #fff;">PUESTO</th>
+                                        <th style="padding: 8px; background: ${patio.color}; color: #fff;">NOMBRE</th>
+                                        <th style="padding: 8px; background: ${patio.color}; color: #fff;">FECHA</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="${idTabla}" style="font-size: 12px;">
+                                    <tr><td colspan="5" style="text-align: center; padding: 15px; color: #666;">Sin asignaciones.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+            contenedor.innerHTML = htmlGrid;
+        }
+
+        async function validarYGuardarAsignacionGrupo() {
+            const personal_id = document.getElementById("asig_personal")?.value;
+            const patio = document.getElementById("asig_patio")?.value;
+            const grupo = document.getElementById("asig_grupo")?.value;
+            const fecha = document.getElementById("asig_fecha")?.value;
+
+            if (!personal_id || !patio || !grupo || !fecha) {
+                alert("Por favor completa todos los campos obligatorios (*).");
+                return;
+            }
+
+            try {
+                const { data: incidencias, error } = await dbPersonal
+                    .from("personal_incidencias")
+                    .select("*")
+                    .eq("personal_id", personal_id);
+
+                if (!error && incidencias && incidencias.length > 0) {
+                    let bloqueado = false;
+                    let motivoIncidencia = "";
+
+                    incidencias.forEach(inc => {
+                        const tipo = (inc.tipo_incidencia || "").toLowerCase();
+                        const inicio = inc.fecha_inicio;
+                        const fin = inc.fecha_fin || inc.fecha_inicio;
+
+                        if (fecha >= inicio && fecha <= fin) {
+                            if (tipo.includes("comisión oficial") || tipo.includes("comision oficial")) {
+                                console.log("Comisión oficial autorizada para asignación.");
+                            } else {
+                                bloqueado = true;
+                                motivoIncidencia = inc.tipo_incidencia;
+                            }
+                        }
+                    });
+
+                    if (bloqueado) {
+                        alert(`⚠️ ACCIÓN DENEGADA: El colaborador tiene una incidencia activa ("${motivoIncidencia}") en la fecha seleccionada y no puede ser asignado a un grupo.`);
+                        return;
+                    }
+                }
+
+                const { error: errorInsert } = await dbPersonal
+                    .from("AsignacionGruposPersonal")
+                    .insert([{ personal_id, patio, grupo, fecha }]);
+
+                if (errorInsert) {
+                    alert("Error al guardar la asignación: " + errorInsert.message);
+                } else {
+                    alert("¡Grupo asignado y validado con éxito!");
+                    cerrarFormularioAsignacionGrupo();
+                    cargarTablasAsignacionesGrupos();
+                }
+
+            } catch (err) {
+                console.error("Excepción en la validación de grupos:", err);
+                alert("Ocurrió un error inesperado al validar las restricciones.");
+            }
+        }
+
+        async function cargarTablasAsignacionesGrupos() {
+            try {
+                const { data: personalList } = await dbPersonal.from("Personal").select("id, nombre, id_empleado, tipo_trabajador");
+                const mapaNombres = {};
+                const mapaIds = {};
+                const mapaPuestos = {};
+
+                if (personalList) {
+                    personalList.forEach(p => {
+                        mapaNombres[p.id] = p.nombre;
+                        mapaIds[p.id] = p.id_empleado;
+                        mapaPuestos[p.id] = p.tipo_trabajador;
+                    });
+                }
+
+                const { data, error } = await dbPersonal
+                    .from("AsignacionGruposPersonal")
+                    .select("*")
+                    .order("id", { ascending: false });
+
+                const registrosPorPatio = {};
+                PATIOS_OFICIALES.forEach(p => { registrosPorPatio[p.nombre] = ""; });
+
+                if (!error && data && data.length > 0) {
+                    data.forEach(item => {
+                        const nombreColab = mapaNombres[item.personal_id] || "Colaborador #" + item.personal_id;
+                        const idColab = mapaIds[item.personal_id] || "S/ID";
+                        const puestoColab = mapaPuestos[item.personal_id] || "S/Puesto";
+
+                        const fila = `
+                            <tr style="border-bottom: 1px solid #f1f5f3;">
+                                <td style="padding: 8px;"><strong>${escaparTexto(item.grupo)}</strong></td>
+                                <td style="padding: 8px;">${escaparTexto(idColab)}</td>
+                                <td style="padding: 8px;">${escaparTexto(puestoColab)}</td>
+                                <td style="padding: 8px;">${escaparTexto(nombreColab)} ${accionesPersona(item.personal_id)}</td>
+                                <td style="padding: 8px;">${escaparTexto(item.fecha)}</td>
+                            </tr>
+                        `;
+                        if (registrosPorPatio[item.patio] !== undefined) {
+                            registrosPorPatio[item.patio] += fila;
+                        }
+                    });
+                }
+
+                PATIOS_OFICIALES.forEach((patio, index) => {
+                    const tbody = document.getElementById(`tbodyPatio_${index}`);
+                    if (tbody) {
+                        tbody.innerHTML = registrosPorPatio[patio.nombre] || `<tr><td colspan="5" style="text-align: center; padding: 15px; color: #666;">Sin personal asignado en ${patio.nombre}.</td></tr>`;
+                    }
+                });
+
+            } catch (err) {
+                console.error("Excepción al cargar tablas dinámicas de patios:", err);
+            }
+        }
+
+        /* =====================================================
+           MÓDULO 5: ASIGNACIÓN GRUPO DE PATIO (NUEVA PESTAÑA)
+        ====================================================== */
+        function abrirFormularioPatio() {
+            const box = document.getElementById("formPatioBox");
+            if (box) {
+                box.style.display = 'block';
+                box.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function cerrarFormularioPatio() {
+            const box = document.getElementById("formPatioBox");
+            if (box) box.style.display = 'none';
+        }
+
+        let cacheGruposGeneralesPatio = [];
+
+        async function cargarSelectsGruposParaPatio() {
+            const select = document.getElementById("patio_select_grupo");
+            if (!select || !dbPersonal) return;
+
+            const { data, error } = await dbPersonal.from("AsignacionGruposPersonal").select("*");
+            if (error || !data || data.length === 0) {
+                select.innerHTML = '<option value="">No hay grupos generales registrados...</option>';
+                return;
+            }
+
+            cacheGruposGeneralesPatio = data;
+            let opts = '<option value="">Selecciona un grupo registrado...</option>';
+            data.forEach(g => {
+                opts += `<option value="${g.id}">${g.grupo} (${g.patio})</option>`;
+            });
+            select.innerHTML = opts;
+        }
+
+        async function autocompletarDatosGrupoPatio() {
+            const idSel = document.getElementById("patio_select_grupo").value;
+            const grupoObj = cacheGruposGeneralesPatio.find(g => g.id == idSel);
+
+            if (!grupoObj) {
+                document.getElementById("patio_grupo_nombre").value = "";
+                document.getElementById("patio_ubicacion").value = "";
+                document.getElementById("patio_jefe").value = "";
+                document.getElementById("patio_mayordomo").value = "";
+                document.getElementById("patio_garrotero1").value = "";
+                document.getElementById("patio_garrotero2").value = "";
+                return;
+            }
+
+            // Consultar datos del colaborador asignado mediante personal_id
+            let nombreColab = "Desconocido";
+            if (grupoObj.personal_id) {
+                const { data: pData } = await dbPersonal.from("Personal").select("nombre").eq("id", grupoObj.personal_id).single();
+                if (pData) nombreColab = pData.nombre;
+            }
+
+            document.getElementById("patio_grupo_nombre").value = grupoObj.grupo || "";
+            document.getElementById("patio_ubicacion").value = grupoObj.patio || "";
+            document.getElementById("patio_jefe").value = nombreColab;
+            document.getElementById("patio_mayordomo").value = "Asignado en Grupo";
+            document.getElementById("patio_garrotero1").value = "N/D";
+            document.getElementById("patio_garrotero2").value = "N/D";
+        }
+
+        async function guardarGrupoPatio() {
+            const grupo = document.getElementById("patio_grupo_nombre").value.trim();
+            const patio = document.getElementById("patio_ubicacion").value.trim();
+            const jefe_patio = document.getElementById("patio_jefe").value.trim();
+            const mayordomo = document.getElementById("patio_mayordomo").value.trim();
+            const garrotero_1 = document.getElementById("patio_garrotero1").value.trim();
+            const garrotero_2 = document.getElementById("patio_garrotero2").value.trim();
+            const estatus = document.getElementById("patio_estatus").value;
+
+            if (!grupo || !patio || !jefe_patio) {
+                alert("Por favor selecciona un grupo válido para asignar.");
+                return;
+            }
+
+            const { error } = await dbPersonal.from("AsignacionGrupoPatio").insert([{
+                grupo, patio, jefe_patio, mayordomo, garrotero_1, garrotero_2, estatus
+            }]);
+
+            if (error) {
+                alert("Error al guardar grupo de patio: " + error.message);
+                return;
+            }
+
+            alert("¡Grupo de patio asignado correctamente!");
+            cerrarFormularioPatio();
+            cargarTablaGruposPatio();
+        }
+
+        async function cargarTablaGruposPatio() {
+            const tbody = document.getElementById("cuerpoTablaGrupoPatio");
+            if (!tbody || !dbPersonal) return;
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center;">Cargando asignaciones de patio...</td></tr>`;
+
+            const { data, error } = await dbPersonal.from("AsignacionGrupoPatio").select("*").order("id", { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center;">No hay grupos de patio registrados.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${escaparTexto(item.grupo)}</strong></td>
+                        <td>${escaparTexto(item.patio)}</td>
+                        <td>${escaparTexto(item.jefe_patio)}</td>
+                        <td>${escaparTexto(item.mayordomo)}</td>
+                        <td>${escaparTexto(item.garrotero_1)}</td>
+                        <td>${escaparTexto(item.garrotero_2 || 'N/A')}</td>
+                        <td>${formatearEstatusConColor(item.estatus)}</td>
+                        <td><button class="btn-borrar" onclick="eliminarGrupoPatio(${item.id})">🗑️ Borrar</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function eliminarGrupoPatio(id) {
+            if (!confirm("¿Estás seguro de eliminar esta asignación de patio?")) return;
+            await dbPersonal.from("AsignacionGrupoPatio").delete().eq("id", id);
+            cargarTablaGruposPatio();
+        }
+
+        /* =====================================================
+           MÓDULO 6: ASIGNACIÓN GRUPO DE CAMINO (NUEVA PESTAÑA)
+        ====================================================== */
+        function abrirFormularioCamino() {
+            const box = document.getElementById("formCaminoBox");
+            if (box) {
+                box.style.display = 'block';
+                box.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function cerrarFormularioCamino() {
+            const box = document.getElementById("formCaminoBox");
+            if (box) box.style.display = 'none';
+        }
+
+        let cacheGruposGeneralesCamino = [];
+
+        async function cargarSelectsGruposParaCamino() {
+            const select = document.getElementById("camino_select_grupo");
+            if (!select || !dbPersonal) return;
+
+            const { data, error } = await dbPersonal.from("AsignacionGruposPersonal").select("*");
+            if (error || !data || data.length === 0) {
+                select.innerHTML = '<option value="">No hay grupos generales registrados...</option>';
+                return;
+            }
+
+            cacheGruposGeneralesCamino = data;
+            let opts = '<option value="">Selecciona un grupo registrado...</option>';
+            data.forEach(g => {
+                opts += `<option value="${g.id}">${g.grupo} (${g.patio})</option>`;
+            });
+            select.innerHTML = opts;
+        }
+
+        async function autocompletarDatosGrupoCamino() {
+            const idSel = document.getElementById("camino_select_grupo").value;
+            const grupoObj = cacheGruposGeneralesCamino.find(g => g.id == idSel);
+
+            if (!grupoObj) {
+                document.getElementById("camino_grupo_nombre").value = "";
+                document.getElementById("camino_ubicacion").value = "";
+                document.getElementById("camino_jefe").value = "";
+                document.getElementById("camino_mayordomo").value = "";
+                document.getElementById("camino_garrotero1").value = "";
+                document.getElementById("camino_garrotero2").value = "";
+                return;
+            }
+
+            let nombreColab = "Desconocido";
+            if (grupoObj.personal_id) {
+                const { data: pData } = await dbPersonal.from("Personal").select("nombre").eq("id", grupoObj.personal_id).single();
+                if (pData) nombreColab = pData.nombre;
+            }
+
+            document.getElementById("camino_grupo_nombre").value = grupoObj.grupo || "";
+            document.getElementById("camino_ubicacion").value = grupoObj.patio || "";
+            document.getElementById("camino_jefe").value = nombreColab;
+            document.getElementById("camino_mayordomo").value = "Asignado en Ruta";
+            document.getElementById("camino_garrotero1").value = "N/D";
+            document.getElementById("camino_garrotero2").value = "N/D";
+        }
+
+        async function guardarGrupoCamino() {
+            const grupo = document.getElementById("camino_grupo_nombre").value.trim();
+            const patio = document.getElementById("camino_ubicacion").value.trim();
+            const jefe_patio = document.getElementById("camino_jefe").value.trim();
+            const mayordomo = document.getElementById("camino_mayordomo").value.trim();
+            const garrotero_1 = document.getElementById("camino_garrotero1").value.trim();
+            const garrotero_2 = document.getElementById("camino_garrotero2").value.trim();
+            const estatus = document.getElementById("camino_estatus").value;
+
+            if (!grupo || !patio || !jefe_patio) {
+                alert("Por favor selecciona un grupo válido para asignar a camino.");
+                return;
+            }
+
+            const { error } = await dbPersonal.from("AsignacionGrupoCamino").insert([{
+                grupo, patio, jefe_patio, mayordomo, garrotero_1, garrotero_2, estatus
+            }]);
+
+            if (error) {
+                alert("Error al guardar grupo de camino: " + error.message);
+                return;
+            }
+
+            alert("¡Grupo de camino asignado correctamente!");
+            cerrarFormularioCamino();
+            cargarTablaGruposCamino();
+        }
+
+        async function cargarTablaGruposCamino() {
+            const tbody = document.getElementById("cuerpoTablaGrupoCamino");
+            if (!tbody || !dbPersonal) return;
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center;">Cargando asignaciones de camino...</td></tr>`;
+
+            const { data, error } = await dbPersonal.from("AsignacionGrupoCamino").select("*").order("id", { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center;">No hay grupos de camino registrados.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${escaparTexto(item.grupo)}</strong></td>
+                        <td>${escaparTexto(item.patio)}</td>
+                        <td>${escaparTexto(item.jefe_patio)}</td>
+                        <td>${escaparTexto(item.mayordomo)}</td>
+                        <td>${escaparTexto(item.garrotero_1)}</td>
+                        <td>${escaparTexto(item.garrotero_2 || 'N/A')}</td>
+                        <td>${formatearEstatusConColor(item.estatus)}</td>
+                        <td><button class="btn-borrar" onclick="eliminarGrupoCamino(${item.id})">🗑️ Borrar</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function eliminarGrupoCamino(id) {
+            if (!confirm("¿Estás seguro de eliminar esta asignación de camino?")) return;
+            await dbPersonal.from("AsignacionGrupoCamino").delete().eq("id", id);
+            cargarTablaGruposCamino();
+        }
+
+        // Cargar datos por defecto al iniciar
+        document.addEventListener("DOMContentLoaded", async function () {
+            document.getElementById("fechaAsistenciaFiltro").valueAsDate = new Date();
+            await cargarPersonal();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="alertas-realtime.js"></script>
+    <script src="horario-personal.js"></script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

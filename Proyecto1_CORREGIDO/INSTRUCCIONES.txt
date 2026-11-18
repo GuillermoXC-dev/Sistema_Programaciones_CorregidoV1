@@ -1,0 +1,24 @@
+AJUSTES SOLICITADOS — PROYECTO 1
+
+Copia todos los archivos de esta carpeta dentro de la carpeta actual del proyecto.
+Reemplaza los correspondientes y conserva tu carpeta img tal como está.
+Se usan las imágenes originales, incluido el emblema dorado LOGO_TREN_MAYA_.png.
+
+Cambios: ocho HTML, sw.js y dos archivos nuevos: encabezado-comun.css y encabezado-comun.js.
+Los otros archivos de código se incluyen sin modificaciones para facilitar la copia completa.
+
+- Mismo título SISTEMA DE PROGRAMACIONES en blanco y dorado y en mayúsculas.
+- Mismo emblema dorado, tamaño y distribución en los encabezados.
+- Fecha en todas las páginas, con la zona horaria de Ciudad de México.
+- Retirados los textos antiguos del encabezado del dashboard.
+- Retirados los botones superiores de Inicio de Operaciones y Material Rodante.
+- Programación / Iniciar / Finalizar distribuidos en una barra a todo lo ancho.
+- Oculta la barra extra Operaciones / Recepción / Servicio de patio / Salidas de Material Rodante.
+- Se mantienen Catálogo Maestro y Mantenimientos.
+
+Cierra todas las pestañas del sistema y vuelve a abrirlo. Si ves la versión anterior,
+recarga con Ctrl+F5. No requiere cambios en Supabase.
+
+Verificado: scripts internos conservados; quince JavaScript de datos idénticos;
+referencias locales presentes; fecha probada antes y después de medianoche en CDMX.
+No se realizó una nueva revisión visual en navegador.

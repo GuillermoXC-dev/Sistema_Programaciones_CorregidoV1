@@ -1,0 +1,123 @@
+/* TREN MAYA DE CARGA / DISEÑO V4 - PRESENTACIÓN REAL, HTML INTERACTIVO
+   Referencia: boceto proporcionado. No altera consultas ni fórmulas. */
+:root{--tm4-oscuro:#053c4b;--tm4-azul:#083c4e;--tm4-verde:#075d62;--tm4-oro:#daa941;--tm4-azulclaro:#b6dce0;--tm4-borde:#bed8dc;--tm4-fondo:#eef8f9}
+body.tm-carga-exacta{background:radial-gradient(ellipse at left 65%,rgba(107,177,182,.15),transparent 46%),linear-gradient(180deg,#e7f3f6 0%,#f5fafb 53%,#e9f4f6 100%) !important;background-attachment:fixed !important;color:#103e4d;font-family:'Trebuchet MS',Arial,sans-serif;min-height:100vh}
+body.tm-carga-exacta::before,body.tm-carga-exacta::after{content:'';position:fixed;z-index:-1;bottom:0;width:180px;height:430px;pointer-events:none;opacity:.23;background-image:url('img/tema_v4/marca-agua-pie.webp');background-repeat:no-repeat;background-size:auto 180px}
+body.tm-carga-exacta::before{left:0;background-position:left bottom}
+body.tm-carga-exacta::after{right:0;background-position:right bottom}
+body.tm-carga-exacta .dashboard{width:min(1568px,95%);margin:18px auto 16px}
+body.tm-carga-exacta .contenedor{max-width:1568px;width:95%;margin:20px auto}
+body.tm-carga-exacta .dashboard-header,body.tm-carga-exacta .encabezado{position:relative;display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:190px;padding:25px 26px 28px;overflow:hidden;border:1px solid #d4ab4c;border-bottom:5px solid #d6ad4c !important;border-radius:17px !important;background:linear-gradient(90deg,rgba(2,39,49,.99) 0%,rgba(2,40,52,.96) 29%,rgba(2,40,52,.36) 55%,rgba(4,46,54,.05) 100%),url('img/tema_v4/banner-carga.webp') center center /cover no-repeat !important;color:white !important;box-shadow:0 8px 18px rgba(8,54,65,.16) !important;isolation:isolate}
+body.tm-page-dashboard .dashboard-header{height:228px;min-height:0;padding-left:26px}
+body.tm-carga-exacta .dashboard-header::after,body.tm-carga-exacta .encabezado::after{content:'';position:absolute;inset:auto 0 0;z-index:-1;height:16px;background:linear-gradient(90deg,rgba(237,188,75,.75) 0%,rgba(237,188,75,.75) 39%,transparent 40%);border-radius:0;pointer-events:none;width:auto;transform:none}
+body.tm-carga-exacta .dashboard-header>div:first-child,body.tm-carga-exacta .marca-sistema,body.tm-carga-exacta .encabezado>div:first-child:not(.acciones-principales){display:flex;align-items:center;gap:28px;min-width:0;position:relative;z-index:1}
+body.tm-carga-exacta .tm-logo-marco{display:flex !important;flex:none !important;align-items:center;justify-content:center;width:105px;height:125px;background:rgba(2,46,55,.95);border:2px solid #e0b344;border-radius:18px;box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 2px 9px rgba(0,0,0,.24);padding:9px;z-index:2}
+body.tm-carga-exacta .tm-logo-marco img{display:block !important;width:auto !important;height:90px !important;max-width:90% !important;opacity:1 !important;filter:brightness(1.17) saturate(1.08)}
+body.tm-carga-exacta .tm-titular{min-width:0;max-width:675px}
+body.tm-carga-exacta .tm-ante-titulo{font-size:15px;font-weight:800;letter-spacing:1px;color:#f1cf7a;line-height:1.25;margin-bottom:10px}
+body.tm-carga-exacta .tm-ante-titulo span{padding:0 8px;color:#edca70}
+body.tm-carga-exacta .tm-titular h1{color:#fff !important;font-size:clamp(22px,2.3vw,37px) !important;font-weight:800;line-height:1.13 !important;letter-spacing:-.5px;max-width:670px;margin:0 0 12px !important;white-space:normal !important;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+body.tm-carga-exacta .tm-titular p{color:#e1eef1 !important;font-size:15px !important;letter-spacing:.1px;line-height:1.4;margin:0 !important}
+body.tm-carga-exacta .fecha-dashboard{z-index:1;align-self:flex-start;flex:none;min-width:0;width:auto;max-width:320px;padding:17px 23px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:#073c4b;border:2px solid #d4ab4a;border-radius:13px;box-shadow:0 7px 14px rgba(3,37,46,.2);text-transform:uppercase}
+body.tm-carga-exacta .fecha-dashboard strong{font-size:clamp(12px,1.2vw,17px);line-height:1.35;letter-spacing:.2px}
+body.tm-carga-exacta .acciones-principales,body.tm-carga-exacta .acciones-encabezado{position:relative;z-index:1;flex:none}
+body.tm-carga-exacta .acciones-principales button{border:1px solid #d1ac53;border-radius:10px;color:#fff !important;background:rgba(4,65,73,.93) !important;box-shadow:0 3px 10px rgba(0,0,0,.16)}
+/* visual location strip */
+body.tm-carga-exacta .tm-miga{height:47px;display:flex;align-items:center;gap:16px;font-size:12px;color:#62808c;white-space:nowrap;overflow:hidden}
+body.tm-carga-exacta .tm-miga strong{color:#056771;font-size:13px;letter-spacing:.3px;flex:none}
+body.tm-carga-exacta .tm-miga-linea{flex:1;height:1px;background:linear-gradient(90deg,#cfaa55,#d7e8e8);position:relative;min-width:20px}
+body.tm-carga-exacta .tm-miga-linea::before{content:'';display:block;width:6px;height:6px;border:2px solid #d7b15b;border-radius:50%;background:#edf7f8;position:absolute;top:-4px;left:0}
+/* navigation */
+body.tm-carga-exacta .menu-dashboard{display:grid !important;grid-template-columns:repeat(8,minmax(0,1fr));gap:0;align-items:stretch;padding:6px !important;margin:7px 0 22px !important;min-height:74px;background:rgba(255,255,255,.98) !important;border:1px solid #add0d4 !important;border-radius:15px !important;box-shadow:0 7px 16px rgba(8,59,72,.13) !important}
+body.tm-page-dashboard .menu-dashboard{margin:0 0 23px !important}
+body.tm-carga-exacta .menu-dashboard button{min-width:0;min-height:57px !important;display:flex;align-items:center;justify-content:center;gap:16px;border:0 !important;border-right:1px solid #cee1e4 !important;border-radius:0;background:transparent !important;color:#104359 !important;font-size:clamp(11px,1vw,14px) !important;font-weight:700;line-height:1.15;padding:9px 8px !important;transition:transform .15s ease,background-color .15s ease,box-shadow .15s ease}
+body.tm-carga-exacta .menu-dashboard button:last-child{border-right:0 !important}
+body.tm-carga-exacta .menu-dashboard button.menu-activo{background:linear-gradient(125deg,#08666b,#004b55) !important;color:#fff !important;border:1px solid #d7aa47 !important;border-radius:11px !important;box-shadow:0 3px 7px rgba(2,52,61,.2) !important}
+body.tm-carga-exacta .menu-dashboard button:hover{background:#e6f5f5 !important;transform:translateY(-1px)}
+body.tm-carga-exacta .menu-dashboard button.menu-activo:hover{background:linear-gradient(125deg,#087c7f,#004b55) !important}
+body.tm-carga-exacta .tm-ico-nav{width:31px;height:31px;object-fit:contain;flex:none;pointer-events:none}
+body.tm-carga-exacta .menu-dashboard button.menu-activo .tm-ico-nav{filter:brightness(0) saturate(100%) invert(89%) sepia(26%) saturate(749%) hue-rotate(340deg) brightness(104%) contrast(93%)}
+/* homepage reference hero cards */
+body.tm-carga-exacta .tm-accesos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+body.tm-carga-exacta .tm-acceso,body.tm-carga-exacta .tm-resumen-v4{position:relative;overflow:hidden;min-width:0;border:1px solid #adcbd0;border-radius:16px;background-color:#fff;box-shadow:0 4px 0 rgba(9,84,93,.08),0 9px 16px rgba(21,73,81,.1);color:#064151}
+body.tm-carga-exacta .tm-acceso{display:block;text-decoration:none;height:249px;padding:19px 29px 20px;isolation:isolate;transition:transform .19s ease,box-shadow .19s ease;background-image:linear-gradient(90deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.98) 42%,rgba(255,255,255,.64) 68%,rgba(255,255,255,.30) 100%),url('img/tema_v4/fondo-operaciones.webp');background-size:cover,auto 94%;background-position:center,right center;background-repeat:no-repeat}
+body.tm-carga-exacta .tm-acceso-patio{background-image:linear-gradient(90deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.97) 42%,rgba(255,255,255,.60) 68%,rgba(255,255,255,.24) 100%),url('img/tema_v4/fondo-patio.webp')}
+body.tm-carga-exacta .tm-acceso-material{background-image:linear-gradient(90deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.97) 42%,rgba(255,255,255,.57) 68%,rgba(255,255,255,.25) 100%),url('img/tema_v4/fondo-material.webp')}
+body.tm-carga-exacta .tm-acceso:hover{transform:translateY(-3px);box-shadow:0 5px 0 rgba(9,84,93,.06),0 14px 24px rgba(21,73,81,.17)}
+body.tm-carga-exacta .tm-acceso:focus-visible,body.tm-carga-exacta .menu-dashboard button:focus-visible{outline:3px solid #e0b544;outline-offset:3px}
+body.tm-carga-exacta .tm-acceso::before,body.tm-carga-exacta .tm-resumen-v4::before{content:'';position:absolute;inset:4px auto auto 4px;width:29px;height:29px;border-top:2px solid #d6a545;border-left:2px solid #d6a545;border-radius:14px 0 0 0;pointer-events:none}
+body.tm-carga-exacta .tm-acceso::after,body.tm-carga-exacta .tm-resumen-v4::after{content:'';position:absolute;inset:auto 4px 4px auto;width:29px;height:29px;border-right:2px solid #d6a545;border-bottom:2px solid #d6a545;border-radius:0 0 14px 0;pointer-events:none}
+body.tm-carga-exacta .tm-acceso-top{display:flex;align-items:center;gap:15px;min-height:65px}
+body.tm-carga-exacta .tm-icono-recuadro{height:55px;width:55px;background:linear-gradient(125deg,#e5f6f6,#c6e9e9);border-radius:13px;display:grid;place-items:center;flex:none}
+body.tm-carga-exacta .tm-icono-recuadro img{width:40px;height:40px}
+body.tm-carga-exacta .tm-acceso h2{font-size:clamp(18px,1.6vw,25px);line-height:1.18;color:#063d4f;margin:0;font-weight:800}
+body.tm-carga-exacta .tm-acceso h3{font-size:clamp(16px,1.27vw,20px);color:#004958;line-height:1.2;margin:15px 0 13px;font-weight:800}
+body.tm-carga-exacta .tm-acceso p{font-size:14px;color:#617f8c;margin:0}
+body.tm-carga-exacta .tm-card-ornamento{position:absolute;bottom:17px;left:29px;right:29px;border-top:1px solid #bbd3d7;padding-top:12px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+body.tm-carga-exacta .tm-card-ornamento i{display:block;height:9px;border-radius:8px;background:#c3dadd;opacity:.8}
+body.tm-carga-exacta .tm-card-ornamento i:nth-child(1){width:87%;background:#82babc}
+body.tm-carga-exacta .tm-card-ornamento i:nth-child(2){width:80%}
+body.tm-carga-exacta .tm-card-ornamento i:nth-child(3){width:63%}
+body.tm-carga-exacta .tm-resumen-v4{padding:15px 25px 19px;margin-top:21px;background-image:linear-gradient(90deg,rgba(255,255,255,.98),rgba(255,255,255,.91) 59%,rgba(255,255,255,.7)),url('img/tema_v4/fondo-resumen.webp');background-position:center,right top;background-repeat:no-repeat;background-size:cover,auto 62%}
+body.tm-carga-exacta .tm-resumen-v4 h2{font-size:24px;display:flex;align-items:center;gap:14px;margin:0 0 11px;color:#043f4f;font-weight:800}
+body.tm-carga-exacta .tm-resumen-v4 h2 img{width:46px;height:46px;padding:6px;background:#e1f4f4;border-radius:10px}
+body.tm-carga-exacta .tm-tabla-envoltura{overflow:auto}
+body.tm-carga-exacta .tm-tabla-resumen{width:100%;border-collapse:collapse;font-size:14px;background:transparent}
+body.tm-carga-exacta .tm-tabla-resumen thead th{height:41px;padding:8px 17px;background:#063f51;color:#fff;font-weight:800;white-space:nowrap}
+body.tm-carga-exacta .tm-tabla-resumen thead th:first-child{border-radius:8px 0 0 8px}
+body.tm-carga-exacta .tm-tabla-resumen thead th:last-child{border-radius:0 8px 8px 0}
+body.tm-carga-exacta .tm-tabla-resumen th img{width:19px;height:19px;vertical-align:middle;margin-right:9px;filter:brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(686%) hue-rotate(344deg)}
+body.tm-carga-exacta .tm-tabla-resumen td{height:40px;padding:8px 15px;color:#234e5a;border-bottom:1px solid #dce9eb;background:rgba(255,255,255,.37);white-space:nowrap}
+body.tm-carga-exacta .tm-tabla-resumen td[colspan]{text-align:center;color:#6b838a}
+body.tm-carga-exacta .tm-tabla-resumen td button{background:#0d6e72;border:0;border-radius:8px;padding:5px 11px;color:#fff;font-weight:700;cursor:pointer}
+body.tm-carga-exacta .tm-tabla-resumen td button:hover{background:#084d53}
+/* underlying real dashboard panels retain full behavior */
+body.tm-page-dashboard .filtros-dashboard{margin-top:28px}
+/* all screens get thematic panel artwork, but always behind high-contrast text */
+body.tm-carga-exacta .dashboard-card,body.tm-carga-exacta .panel,body.tm-carga-exacta .tarjeta,body.tm-carga-exacta .resumen-card,body.tm-carga-exacta .recepcion-card,body.tm-carga-exacta .locomotoras-card,body.tm-carga-exacta .formulario-seccion{position:relative;border:1px solid var(--tm4-borde) !important;border-radius:16px !important;background-color:#fff !important;background-image:linear-gradient(90deg,rgba(255,255,255,.98),rgba(255,255,255,.97) 42%,rgba(255,255,255,.84)),url('img/tema_v4/fondo-operaciones.webp') !important;background-position:center,right top !important;background-repeat:no-repeat !important;background-size:cover,auto 160px !important;box-shadow:0 5px 0 rgba(13,85,92,.05),0 8px 18px rgba(15,73,78,.08) !important;color:#153f4b}
+body.tm-carga-exacta .dashboard-grid>.dashboard-card:nth-child(2n),body.tm-carga-exacta .locomotoras-card,body.tm-carga-exacta .recepcion-card:nth-child(even),body.tm-carga-exacta .panel:nth-of-type(3n+2){background-image:linear-gradient(90deg,rgba(255,255,255,.98),rgba(255,255,255,.96) 45%,rgba(255,255,255,.81)),url('img/tema_v4/fondo-patio.webp') !important}
+body.tm-carga-exacta .locomotoras-card,body.tm-carga-exacta .tarjeta:nth-of-type(3n),body.tm-carga-exacta .dashboard-card:nth-of-type(3n){background-image:linear-gradient(90deg,rgba(255,255,255,.98),rgba(255,255,255,.96) 45%,rgba(255,255,255,.85)),url('img/tema_v4/fondo-material.webp') !important}
+body.tm-carga-exacta .dashboard-card::before,body.tm-carga-exacta .panel::before,body.tm-carga-exacta .tarjeta::before,body.tm-carga-exacta .recepcion-card::before,body.tm-carga-exacta .locomotoras-card::before{content:'';position:absolute;top:5px;left:5px;width:24px;height:24px;border-top:2px solid var(--tm4-oro);border-left:2px solid var(--tm4-oro);border-radius:10px 0 0 0;pointer-events:none;z-index:1}
+body.tm-carga-exacta .card-header{background:linear-gradient(105deg, #399dcf, #187f99 60%, #024b70) !important;border-bottom:1px solid #d6e6e8 !important}
+body.tm-carga-exacta .card-header h2,body.tm-carga-exacta .panel h2{color:#fefefe !important}
+body.tm-carga-exacta :is(table:not(.tm-tabla-resumen)) th{background:#073e50;color:#fff}
+body.tm-carga-exacta input:focus,body.tm-carga-exacta select:focus,body.tm-carga-exacta textarea:focus{outline:2px solid #cbaa54;outline-offset:1px}
+body.tm-carga-exacta .pestanas{background:#fff;border:1px solid #b9d4d7;border-radius:13px;padding:7px;box-shadow:0 6px 14px rgba(16,77,83,.08)}
+body.tm-carga-exacta .pestana{display:inline-flex;align-items:center;gap:9px;border-radius:9px !important;font-weight:700}
+body.tm-carga-exacta .pestana.activa{background:linear-gradient(120deg,#064e59,#087579) !important;color:white !important}
+body.tm-carga-exacta .pestana .tm-ico-nav{width:23px;height:23px}
+body.tm-carga-exacta .pestana.activa .tm-ico-nav{filter:brightness(0) invert(1)}
+body.tm-carga-exacta .tm-footer-v4{display:flex;align-items:flex-end;min-height:90px;width:100%;padding:52px 5% 17px;margin-top:20px;font-size:11px;letter-spacing:.4px;color:#648792;background-image:linear-gradient(to bottom,rgba(236,248,250,0),rgba(233,246,247,.32)),url('img/tema_v4/marca-agua-pie.webp');background-repeat:no-repeat;background-size:cover,cover;background-position:bottom center,bottom center;pointer-events:none}
+body.tm-carga-exacta .tm-nav-titulo{min-width:0}
+/* Page-specific section art */
+body.tm-page-combustible .dashboard-card,body.tm-page-costos .tarjeta{background-image:linear-gradient(90deg,rgba(255,255,255,.98),rgba(255,255,255,.96) 45%,rgba(255,255,255,.83)),url('img/tema_v4/fondo-material.webp') !important}
+/* screen sizes */
+@media(max-width:1190px){body.tm-carga-exacta .menu-dashboard{grid-template-columns:repeat(4,minmax(0,1fr))}body.tm-carga-exacta .menu-dashboard button{border-bottom:1px solid #deebed !important}body.tm-carga-exacta .tm-acceso{padding:17px 16px;height:225px}body.tm-carga-exacta .tm-acceso-top{gap:9px}body.tm-carga-exacta .tm-acceso h2{font-size:19px}body.tm-carga-exacta .tm-acceso h3{font-size:15px}body.tm-carga-exacta .tm-card-ornamento{left:16px;right:16px}}
+@media(max-width:800px){body.tm-carga-exacta .tm-accesos-grid{grid-template-columns:1fr}body.tm-carga-exacta .tm-acceso{height:202px}body.tm-carga-exacta .dashboard-header,body.tm-carga-exacta .encabezado{min-height:225px;height:auto;flex-wrap:wrap;padding:20px 18px}body.tm-carga-exacta .dashboard-header>div:first-child,body.tm-carga-exacta .marca-sistema,body.tm-carga-exacta .encabezado>div:first-child:not(.acciones-principales){gap:15px}body.tm-carga-exacta .tm-logo-marco{width:76px;height:92px}body.tm-carga-exacta .tm-logo-marco img{height:65px !important}body.tm-carga-exacta .tm-titular h1{font-size:25px !important}body.tm-carga-exacta .tm-ante-titulo{font-size:11px}body.tm-carga-exacta .fecha-dashboard{align-self:flex-end;padding:8px 11px}body.tm-carga-exacta .tm-miga{font-size:11px}body.tm-carga-exacta .tm-resumen-v4{padding:13px}body.tm-carga-exacta .tm-tabla-resumen{min-width:630px}}
+@media(max-width:540px){body.tm-carga-exacta .dashboard{width:96%}body.tm-carga-exacta .menu-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}body.tm-carga-exacta .menu-dashboard button{min-height:50px !important;font-size:12px !important}body.tm-carga-exacta .tm-ico-nav{width:27px;height:27px}body.tm-carga-exacta .tm-subtitulo{display:none}body.tm-carga-exacta .tm-titular h1{font-size:20px !important}body.tm-carga-exacta .tm-logo-marco{width:61px;height:76px}body.tm-carga-exacta .tm-logo-marco img{height:51px !important}body.tm-carga-exacta .tm-miga-linea:last-child{display:none}body.tm-carga-exacta .tm-miga>span:nth-of-type(2){white-space:normal}body.tm-carga-exacta .tm-resumen-v4 h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){body.tm-carga-exacta .tm-acceso,body.tm-carga-exacta .menu-dashboard button{transition:none}}
+
+
+/* V4.1: pixel alignment and restoration of real, readable controls */
+body.tm-page-dashboard .dashboard{width:calc(100% - 84px) !important;max-width:1568px !important}
+body.tm-carga-exacta .dashboard-header::after{content:'' !important;position:absolute !important;left:0 !important;right:auto !important;top:auto !important;bottom:0 !important;width:40% !important;height:5px !important;border:0 !important;border-radius:0 !important;background:#d5af52 !important;background-image:none !important;box-shadow:none !important;pointer-events:none !important}
+body.tm-carga-exacta .encabezado::after{content:'' !important;position:absolute !important;left:0 !important;right:auto !important;top:auto !important;bottom:0 !important;width:40% !important;height:5px !important;border:0 !important;border-radius:0 !important;background:#d5af52 !important;background-image:none !important;box-shadow:none !important;pointer-events:none !important}
+body.tm-carga-exacta .dashboard-header,body.tm-carga-exacta .encabezado{background-size:cover !important;background-position:center !important}
+body.tm-page-dashboard .fecha-dashboard{position:absolute !important;right:2px;top:34px;min-width:300px;min-height:70px;align-items:center;justify-content:center}
+body.tm-carga-exacta .menu-dashboard button{white-space:nowrap}
+body.tm-carga-exacta .tm-miga{margin-top:1px}
+body.tm-page-dashboard .tm-miga{margin-bottom:0}
+body.tm-page-distribucion_personal header.tm-personal-encabezado{width:min(1568px,95%);margin:18px auto 0;display:flex;justify-content:flex-start;gap:23px}
+body.tm-page-distribucion_personal .menu-dashboard{width:min(1568px,95%);margin:17px auto !important}
+body.tm-page-distribucion_personal .formulario{border:1px solid #bed8dc;border-radius:16px;background:linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.9)),url('img/tema_v4/fondo-patio.webp') no-repeat right top /auto 190px,#fff;box-shadow:0 5px 15px rgba(18,79,89,.08)}
+body.tm-page-distribucion_personal .tm-personal-encabezado>div:first-child{display:flex}
+@media(max-width:540px){body.tm-page-dashboard .dashboard{width:96% !important}body.tm-page-dashboard .fecha-dashboard{position:relative !important;right:auto;top:auto;min-width:160px;min-height:0}}
+
+/* Correct nested markup in the original operations headers. */
+body.tm-page-index .encabezado .marca-sistema>div,body.tm-page-servicio-patio .encabezado .marca-sistema>div{display:flex;flex-direction:row;align-items:center;gap:27px}
+body.tm-page-index .encabezado,body.tm-page-servicio-patio .encabezado{min-height:225px;height:auto !important}
+body.tm-page-index .encabezado .marca-sistema,body.tm-page-servicio-patio .encabezado .marca-sistema{flex-direction:row !important}
+
+/* The prototype’s lower track motif now separates the welcome from the live analytics. */
+body.tm-page-dashboard .tm-marca-separadora{height:74px;margin-top:6px;display:flex;align-items:flex-end;padding:0 20px 15px;font-size:12px;letter-spacing:.6px;color:#6d949a;background:linear-gradient(180deg,rgba(239,249,250,0),rgba(224,241,243,.54)),url('img/tema_v4/marca-agua-pie.webp') no-repeat center bottom /cover;background-size:cover,auto 83px;border-bottom:1px solid #c4dde0}
+body.tm-page-dashboard .filtros-dashboard{margin-top:21px}

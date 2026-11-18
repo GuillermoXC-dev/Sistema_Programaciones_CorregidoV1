@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<title>Sistema de Programaciones · OPERACIONES</title>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Tus estilos actuales -->
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tema-global-unificado.css">
+
+    <!-- AGREGA TU NUEVO ARCHIVO AQUÍ -->
+    <link rel="stylesheet" href="movil-responsive.css">
+
+
+
+
+
+<link rel="stylesheet" href="tema-tren-maya-v4.css">
+<link rel="stylesheet" href="tema-tren-maya-v5.css">
+<link rel="stylesheet" href="tema-tren-maya-v6.css">
+<link rel="stylesheet" href="tema-tren-maya-v7.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    /* =========================================================
+       VARIABLES Y CONFIGURACIÓN BASE (Unificadas con Dashboard)
+    ========================================================= */
+    :root {
+        --tm-verde: #4b5d84;
+        --tm-verde-oscuro: #4b5d84;
+        --tm-jade: #008f83;
+        --tm-turquesa: #00a99d;
+        --tm-dorado: #c8a951;
+        --tm-dorado-claro: #e2c875;
+
+        --fondo: #f3f6f5;
+        --blanco: #ffffff;
+        --texto: #26332f;
+        --texto-secundario: #66736f;
+        --borde: #dfe7e4;
+
+        --sombra: 0 4px 14px rgba(0, 60, 50, 0.07);
+        --radio: 12px;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(180deg, #eef5f3 0%, #f7f9f8 50%, #eef3f1 100%) !important;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--texto);
+    }
+
+    /* =========================================================
+       ENCABEZADO UNIFICADO TREN MAYA
+    ========================================================= */
+    .dashboard-header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 18px 24px;
+        background: linear-gradient(120deg, var(--tm-verde-oscuro), var(--tm-verde), var(--tm-jade));
+        color: white;
+        border-radius: var(--radio);
+        box-shadow: var(--sombra);
+        overflow: hidden;
+        margin-bottom: 12px;
+    }
+
+    .dashboard-header::after {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        right: -90px;
+        top: -135px;
+        border: 42px solid rgba(255,255,255,.06);
+        border-radius: 50%;
+    }
+
+    .marca-sistema {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .marca-sistema img {
+        height: 70px;
+        width: auto;
+    }
+
+    .marca-sistema h1 {
+        margin: 0 0 5px;
+        font-size: clamp(19px, 2vw, 29px);
+        line-height: 1.2;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .marca-sistema p {
+        margin: 0;
+        color: rgba(255,255,255,.88);
+        font-size: 13px;
+    }
+
+    .acciones-principales {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-banner {
+        background: #ffffff;
+        color: var(--tm-verde-oscuro);
+        border: 1px solid var(--tm-dorado);
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .btn-banner:hover {
+        background: var(--tm-dorado);
+        color: #ffffff;
+    }
+
+    /* =========================================================
+       BARRA DE NAVEGACIÓN DINÁMICA (PÍLDORA Y LÍNEA DORADA)
+    ========================================================= */
+    /* =========================================================
+   BARRA DE NAVEGACIÓN DINÁMICA (PÍLDORA Y LÍNEA DORADA)
+========================================================= */
+.nav-bar {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 6px;
+    margin: 9px 0 15px 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--tm-verde-oscuro), var(--tm-verde), var(--tm-jade));
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid var(--borde);
+}
+
+.nav-pill {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.nav-btn {
+    flex: 1;                /* ESTO HACE QUE TODAS MIDAN EXACTAMENTE LO MISMO */
+    width: 100%;            /* Distribuye el ancho equitativamente en la barra */
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 8px 6px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.25s ease, color 0.25s ease;
+    letter-spacing: 0.5px;
+    text-align: center;     /* Centra el texto de cada pestaña */
+    white-space: nowrap;    /* Evita saltos de línea extraños en pantallas medianas */
+}
+
+    .nav-btn:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background: linear-gradient(transparent, rgba(255, 255, 255, 0.35), transparent);
+    }
+
+    .nav-btn::before {
+        content: "";
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--tm-dorado);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .nav-btn:hover {
+        transform: translateY(-1px);
+        color: #fffdf5;
+    }
+
+    .nav-btn:hover::before,
+    .nav-btn.active::before {
+        width: 50%;
+    }
+
+    .nav-btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--tm-dorado);
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .nav-btn span.label {
+            font-size: 11px;
+        }
+    }
+
+    /* =========================================================
+       SUBMENÚ CÁPSULAS Y CLIMA
+    ========================================================= */
+    .sub-menu-capsulas {
+        width: 100%;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(15, 37, 92, 0.801);
+        padding: 8px 16px;
+        border-radius: 30px;
+        border: 3px solid #7d7504;
+    }
+
+    .sub-menu-botones {
+        display: flex;
+        gap: 8px;
+    }
+
+    .sub-menu-botones .pestana {
+        border: 2px solid #7d7504;
+        background: rgba(74, 99, 161, 0.8);
+        color: #ffffff;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: default;
+    }
+
+    #climaSubmenuOperaciones {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+        font-size: 13px;
+        color: #ffffff;
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    #climaSubmenuOperaciones select {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 13px;
+        background: #0f172a;
+        color: #fff;
+    }
+/* =========================================================
+   ESTILOS PARA LA PÍLDORA DESLIZANTE DE SUBPESTAÑAS
+========================================================= */
+.sub-menu-capsulas {
+    position: relative;
+    overflow: hidden;
+}
+
+.sub-menu-botones {
+    position: relative;
+    display: flex;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 4px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sub-nav-pill {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    width: 0;
+    background: rgba(74, 99, 161, 0.9); /* Color activo de la píldora */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+                0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.sub-btn {
+    position: relative;
+    z-index: 2;
+    border: none !important;
+    background: transparent !important;
+    color: #ffffff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.25s ease;
+}
+</style>
+
+
+<style>
+  /* Tablas de Programación, Iniciar y Finalizar */
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas) table {
+    --fila: #ffffff;
+    --fila-alterna: #edf4f6;
+    --fila-activa: #dceef1;
+    --texto: #172b36;
+  }
+
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas) thead th {
+    background: #07566a !important;
+    color: #ffffff !important;
+  }
+
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas) tbody td {
+    background: var(--fila) !important;
+    color: var(--texto) !important;
+    border-bottom: 1px solid #cedde1;
+  }
+
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas)
+  tbody tr:nth-child(even) > td {
+    background: var(--fila-alterna) !important;
+  }
+
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas)
+  tbody tr:hover > td {
+    background: var(--fila-activa) !important;
+  }
+
+  /* Estatus con letras oscuras sobre dorado claro */
+  :is(#seccionProgramaciones, #seccionEntradas, #seccionSalidas)
+  tbody td span.text-amber-400 {
+    background: #fff0c2 !important;
+    color: #654300 !important;
+    font-weight: 700;
+  }
+</style>
+
+<link rel="stylesheet" href="proyecto1-unificado.css?v=3">
+<link rel="stylesheet" href="diseno-comun.css?v=3">
+<link rel="stylesheet" href="encabezado-comun.css?v=1">
+<script src="encabezado-comun.js?v=1" defer></script>
+
+</head>
+<body class="tm-v5 tm-v6 tm-carga-exacta tm-page-index">
+
+<div class="contenedor-global max-w-[1400px] mx-auto px-4 py-6">
+
+    <!-- ENCABEZADO UNIFICADO -->
+    <header class="dashboard-header p1-header">
+  <img class="p1-logo" src="img/LOGO_TREN_MAYA_.png" alt="Emblema dorado del Tren Maya" width="92" height="116">
+  <div class="p1-identidad">
+    <h1 class="p1-titulo"><span>SISTEMA DE</span><span class="p1-titulo-dorado">PROGRAMACIONES</span></h1>
+    <p class="p1-modulo">OPERACIONES</p>
+  </div>
+  <time id="fechaActual" class="fecha-dashboard p1-fecha" aria-label="Fecha actual en Ciudad de México"></time>
+</header>
+
+    <!-- BARRA DE NAVEGACIÓN DINÁMICA CON PÍLDORA -->
+    <nav class="nav-bar" id="ferroviaryNav">
+        <div class="nav-pill"></div>
+
+        <button class="nav-btn" onclick="window.location.href='dashboard.html'" type="button">
+            <span class="label">INICIO</span>
+        </button>
+        <button class="nav-btn active" onclick="window.location.href='index.html'" type="button">
+            <span class="label">OPERACIONES</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='servicio-patio.html'" type="button">
+            <span class="label">MATERIAL RODANTE</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='distribucion_personal.html'" type="button">
+            <span class="label">PERSONAL</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='incidencias.html'" type="button">
+            <span class="label">INCIDENCIAS</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='combustible.html'" type="button">
+            <span class="label">COMBUSTIBLE</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='costos.html'" type="button">
+            <span class="label">COSTOS</span>
+        </button>
+    </nav>
+    <!-- SUBMENÚ EXPANDIDO CON PÍLDORA DESLIZANTE Y CLIMA -->
+<div id="subMenuOperaciones" class="sub-menu-capsulas" style="position: relative; overflow: hidden;">
+    <div class="sub-menu-botones" id="subNavBar" style="position: relative; display: flex; gap: 8px;">
+        <!-- Píldora deslizante de las subpestañas -->
+        <div class="sub-nav-pill"></div>
+
+        <button id="subTabProgramaciones" class="sub-btn pestana activa" type="button" onclick="cambiarSubPestanaOperaciones('programaciones', this)">PROGRAMACIÓN</button>
+        <button id="subTabSalidas" class="sub-btn pestana" type="button" onclick="cambiarSubPestanaOperaciones('salidas', this)">INICIAR</button>
+        <button id="subTabEntradas" class="sub-btn pestana" type="button" onclick="cambiarSubPestanaOperaciones('entradas', this)">FINALIZAR</button>
+    </div>
+
+        <!-- CLIMA OPERATIVO AMPLIADO -->
+        <div id="climaSubmenuOperaciones">
+            <div class="flex items-center gap-2">
+                <span>🌦️</span>
+                <select id="selectorEstacionSubmenu" class="bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs">
+                    <option value="Palenque, Chiapas, Mexico">TM Palenque</option>
+                    <option value="Escarcega, Campeche, Mexico">POC Escárcega</option>
+                    <option value="Pomuch, Campeche, Mexico">POC Pomuch</option>
+                    <option value="Poxila, Yucatan, Mexico">TDC Poxilá</option>
+                    <option value="Progreso, Yucatan, Mexico">TM Progreso</option>
+                    <option value="Valladolid, Yucatan, Mexico">POC Valladolid</option>
+                    <option value="Cancun, Quintana Roo, Mexico">TM Cancún</option>
+                </select>
+            </div>
+            <div>Temp: <span id="submenuClimaTemperatura" class="font-bold text-amber-400">-- °C</span></div>
+            <div>Condición: <span id="submenuClimaCondicion" class="font-bold text-amber-400">Consultando...</span></div>
+            <div>Sensación: <strong id="submenuClimaSensacion" class="text-amber-400">-- °C</strong></div>
+            <div>Humedad: <strong id="submenuClimaHumedad" class="text-amber-400">-- %</strong></div>
+            <div>Viento: <strong id="submenuClimaViento" class="text-amber-400">-- km/h</strong></div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN OPERACIONES -->
+    <section id="seccionProgramaciones" class="space-y-6">
+        
+        <!-- HOJA DE LLENADO DESPLEGABLE -->
+        <div id="panel-formulario" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-2xl transition-all">
+            <h2 class="text-xl font-semibold mb-4 text-emerald-400 border-b border-slate-700 pb-2">HOJA DE LLENADO DE OPERACIÓN</h2>
+            <form id="form-operacion" onsubmit="guardarOperacionSupabase(event)" class="space-y-6">
+                <!-- Datos Generales -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Denominación</label>
+                        <input type="text" id="denominacion" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Fecha</label>
+                        <input type="date" id="fecha" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Locomotora</label>
+                        <select id="locomotora" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="">Seleccione locomotora...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tipo</label>
+                        <select id="tipo" onchange="cambiarTipoRuta()" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="Directo">Directo</option>
+                            <option value="Escalonado">Escalonado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Origen</label>
+                        <select id="origen" onchange="actualizarRutas()" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="TM Palenque">TM Palenque</option>
+                            <option value="POC Escarcega">POC Escarcega</option>
+                            <option value="TDC Poxila">TDC Poxila</option>
+                            <option value="TM Progreso">TM Progreso</option>
+                            <option value="POC Valladolid">POC Valladolid</option>
+                            <option value="TM Cancún">TM Cancún</option>
+                            <option value="TM Chetumal">TM Chetumal</option>
+                            <option value="POC Xpujil">POC Xpujil</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Rumbo</label>
+                        <select id="rumbo" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="Horario">Horario</option>
+                            <option value="Antihorario">Antihorario</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Configuración de Ruta Dinámica -->
+                <div class="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                    <label class="block text-xs font-semibold uppercase text-emerald-400 mb-2">Configuración de Ruta</label>
+                    <div id="contenedor-ruta-directo">
+                        <label class="block text-xs text-slate-400 mb-1">Destino (Directo)</label>
+                        <select id="destino-directo" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="TM Palenque">TM Palenque</option>
+                            <option value="POC Escarcega">POC Escarcega</option>
+                            <option value="TDC Poxila">TDC Poxila</option>
+                            <option value="TM Progreso">TM Progreso</option>
+                            <option value="POC Valladolid">POC Valladolid</option>
+                            <option value="TM Cancún">TM Cancún</option>
+                            <option value="TM Chetumal">TM Chetumal</option>
+                            <option value="POC Xpujil">POC Xpujil</option>
+                        </select>
+                    </div>
+                    <div id="contenedor-ruta-escalonado" class="hidden space-y-3">
+                        <p class="text-xs text-slate-400">Defina paradas (! = Origen/Destino, X = Sin parada, O = Con parada):</p>
+                        <div class="overflow-x-auto">
+                            <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left border-collapse text-xs">
+                               <thead>
+                                    <tr class="bg-slate-800 text-slate-300">
+                                        <th class="p-2 border border-slate-700">Patio</th>
+                                        <th class="p-2 border border-slate-700">Paradas</th>
+                                    </tr>
+                               </thead>
+                               <tbody id="tabla-paradas-body"></tbody>
+                            </table></div>
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-xs text-slate-400">Ruta Final Resultante:</span>
+                            <input type="text" id="ruta-final-input" readonly class="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-3 py-1 text-sm text-emerald-300 font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tiempos, Longitud y Combustible -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Longitud del tren</label>
+                        <input type="text" id="longitud" placeholder="Ej. 650m" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Distancia</label>
+                        <input type="text" id="distancia" placeholder="Ej. 420 km" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Salida Prog.</label>
+                        <input type="time" id="salida" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Llegada Prog.</label>
+                        <input type="time" id="llegada" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Combustible</label>
+                        <input type="text" id="combustible" placeholder="Litros" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <!-- Personal -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Personal (Pendiente - Se enlazará con pestaña Personal)</label>
+                    <input type="text" disabled value="Pendiente de integración" class="w-full bg-slate-950 border border-slate-800 text-slate-600 rounded px-3 py-2 text-sm cursor-not-allowed">
+                </div>
+
+                <!-- Distribución de Cargamento -->
+                <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="text-xs font-bold uppercase text-yellow-400">Distribución de Cargamento</label>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-300">Cantidad de vagones:</span>
+                            <input type="number" id="cantidad-vagones" min="1" value="1" onchange="generarFilasVagones()" class="w-20 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-sm text-center text-white">
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-800 text-slate-300">
+                                    <th class="p-2 border border-slate-700">No. Serie</th>
+                                    <th class="p-2 border border-slate-700">Tipo</th>
+                                    <th class="p-2 border border-slate-700">Mercancía</th>
+                                    <th class="p-2 border border-slate-700">Tonelaje</th>
+                                    <th class="p-2 border border-slate-700">De</th>
+                                    <th class="p-2 border border-slate-700">A</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-vagones-body"></tbody>
+                        </table></div>
+                    </div>
+                    <div class="mt-3 flex justify-end">
+                        <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">CARROS TOTALES: <span id="carros-totales">1</span></span>
+                    </div>
+                </div>
+
+                <!-- Estatus y Observaciones -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Estatus</label>
+                        <select id="estatus" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                            <option value="Programado">Programado</option>
+                            <option value="En curso">En curso</option>
+                            <option value="Finalizado">Finalizado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Observaciones</label>
+                        <input type="text" id="observaciones" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-700">
+                    <button type="button" onclick="toggleFormulario()" class="bg-red-700 hover:bg-red-500 px-4 py-2 rounded text-sm font-semibold shadow text-white">Cancelar</button>
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded text-sm font-semibold shadow text-white">Guardar Operación</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TABLA PRINCIPAL DE OPERACIONES -->
+        <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl p-6">
+            <div class="border-b border-slate-700 pb-4 mb-4 font-semibold text-slate-300 flex justify-between items-center">
+                <span>REGISTRO DE OPERACIONES</span>
+                <button onclick="toggleFormulario()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-xs font-bold">➕ Nueva Operación</button>
+            </div>
+            <div class="overflow-x-auto">
+                <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left text-sm">
+                    <thead class="bg-slate-900 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="p-3">Denominación</th>
+                            <th class="p-3">Fecha</th>
+                            <th class="p-3">Locomotora</th>
+                            <th class="p-3">Tipo / Ruta</th>
+                            <th class="p-3">Salida / Llegada</th>
+                            <th class="p-3">Carros</th>
+                            <th class="p-3">Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-operaciones-body" class="divide-y divide-slate-700">
+                        <!-- Registros cargados dinámicamente -->
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
+    </section>
+
+   <!-- SECCIÓN ENTRADAS -->
+<section id="seccionEntradas" class="space-y-6" style="display: none;">
+    
+    <!-- HOJA DE LLENADO DESPLEGABLE DE ENTRADAS -->
+    <div id="panel-formulario-entrada" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-2xl transition-all">
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400 border-b border-slate-700 pb-2">Registro de Entrada de Tren</h2>
+        
+        <form id="form-entrada" onsubmit="guardarEntradaSupabase(event)" class="space-y-6">
+            
+            <!-- PASO 1: SELECCIONAR DENOMINACIÓN -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Seleccionar Denominación (Operación en curso)</label>
+                    <select id="entrada_denominacion" onchange="cargarDatosOperacionSeleccionada(this.value)" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                        <option value="">Seleccione denominación...</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">No. Locomotora</label>
+                    <input type="text" id="entrada_locomotora" readonly class="w-full bg-slate-950 border border-slate-800 text-slate-400 rounded px-3 py-2 text-sm cursor-not-allowed">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Ruta Registrada</label>
+                <input type="text" id="entrada_ruta" readonly class="w-full bg-slate-950 border border-slate-800 text-slate-400 rounded px-3 py-2 text-sm cursor-not-allowed font-mono">
+            </div>
+
+            <!-- PASO 2: DISTRIBUCIÓN DE CARGAMENTO Y ACCIÓN -->
+            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 space-y-4">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold uppercase text-yellow-400">Gestión de Material Rodante</label>
+                    <div class="w-1/3">
+                        <select id="entrada_accion_tipo" onchange="cambiarAccionMaterialRodante(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                            <option value="">Seleccione acción...</option>
+                            <option value="Agregar">Agregar Material Rodante</option>
+                            <option value="Retirar">Retirar Material Rodante</option>
+                            <option value="Finalizar">Finalizar Viaje</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Contenedor para Agregar / Retirar vagones -->
+                <div id="contenedor-gestion-vagones" class="hidden space-y-2">
+                    <p class="text-xs text-slate-300">Material rodante asociado a la operación:</p>
+                    <div class="overflow-x-auto">
+                        <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-800 text-slate-300">
+                                    <th class="p-2 border border-slate-700">No. Serie</th>
+                                    <th class="p-2 border border-slate-700">Tipo</th>
+                                    <th class="p-2 border border-slate-700">Mercancía</th>
+                                    <th class="p-2 border border-slate-700">Tonelaje</th>
+                                    <th class="p-2 border border-slate-700">Acción / Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-gestion-vagones-body"></tbody>
+                        </table></div>
+                    </div>
+                </div>
+
+                <!-- Contenedor para Finalizar Viaje -->
+                <div id="contenedor-finalizar-viaje" class="hidden space-y-4 pt-2 border-t border-yellow-500/20">
+                    <h3 class="text-xs font-bold uppercase text-emerald-400">Datos de Cierre de Viaje</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Fecha de Llegada</label>
+                            <input type="date" id="entrada_fecha_llegada" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Hora de Llegada</label>
+                            <input type="time" id="entrada_hora_llegada" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Km Recorridos</label>
+                            <input type="text" id="entrada_km_recorridos" placeholder="Ej. 420 km" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Combustible Restante</label>
+                            <input type="text" id="entrada_combustible_restante" placeholder="Litros" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Combustible Utilizado</label>
+                            <input type="text" id="entrada_combustible_utilizado" placeholder="Litros" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tiempo Total del Viaje</label>
+                            <input type="text" id="entrada_tiempo_total" placeholder="Ej. 8 hrs 30 min" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Responsable (Recibe)</label>
+                            <input type="text" id="entrada_responsable" placeholder="Nombre de quien recibe" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Personal (Patio)</label>
+                            <input type="text" disabled value="Vinculado desde Personal" class="w-full bg-slate-950 border border-slate-800 text-slate-600 rounded px-3 py-2 text-sm cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Estatus</label>
+                            <select id="entrada_estatus" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                                <option value="Finalizado">Finalizado</option>
+                                <option value="En revisión">En revisión</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Incidencias y Observaciones</label>
+                        <textarea id="entrada_incidencias" placeholder="Detalle cualquier novedad o incidencia..." class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white h-20"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-700">
+                <button type="button" onclick="toggleFormularioEntrada()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-sm">Cancelar</button>
+                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded text-sm font-semibold shadow text-white">Guardar Entrada</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- TABLA PRINCIPAL DE ENTRADAS -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl">
+        <div class="p-4 border-b border-slate-700 font-semibold text-slate-300 flex justify-between items-center">
+            <span>Registros de Entradas</span>
+            <button onclick="toggleFormularioEntrada()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-xs font-bold">➕ Registrar Entrada</button>
+        </div>
+        <div class="overflow-x-auto">
+            <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left text-sm">
+                <thead class="bg-slate-900 text-slate-400 uppercase text-xs">
+                    <tr>
+                        <th class="p-3">Denominación</th>
+                        <th class="p-3">Ruta</th>
+                        <th class="p-3">Locomotora</th>
+                        <th class="p-3">Llegada</th>
+                        <th class="p-3">Responsable</th>
+                        <th class="p-3">Estatus</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-entradas-body" class="divide-y divide-slate-700">
+                    <tr><td colspan="6" class="p-4 text-center text-slate-400">No hay registros de entradas.</td></tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+</section>
+    
+<!-- SECCIÓN SALIDAS -->
+<section id="seccionSalidas" class="space-y-6" style="display: none;">
+    
+    <!-- HOJA DE LLENADO DESPLEGABLE DE SALIDAS -->
+    <div id="panel-formulario-salida" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-2xl transition-all">
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400 border-b border-slate-700 pb-2">Registro de Salida de Tren</h2>
+        
+        <form id="form-salida" onsubmit="guardarSalidaSupabase(event)" class="space-y-6">
+            
+            <!-- PASO 1: SELECCIONAR DENOMINACIÓN -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Seleccionar Denominación (Operación)</label>
+                    <select id="salida_denominacion" onchange="cargarDatosOperacionSalidaSeleccionada(this.value)" required class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-white">
+                        <option value="">Seleccione denominación...</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">No. Locomotora</label>
+                    <input type="text" id="salida_locomotora" readonly class="w-full bg-slate-950 border border-slate-800 text-slate-400 rounded px-3 py-2 text-sm cursor-not-allowed">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Ruta Registrada</label>
+                <input type="text" id="salida_ruta" readonly class="w-full bg-slate-950 border border-slate-800 text-slate-400 rounded px-3 py-2 text-sm cursor-not-allowed font-mono">
+            </div>
+
+            <!-- PASO 2: DISTRIBUCIÓN DE CARGAMENTO Y ACCIÓN -->
+            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 space-y-4">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold uppercase text-yellow-400">Gestión de Material Rodante</label>
+                    <div class="w-1/3">
+                        <select id="salida_accion_tipo" onchange="cambiarAccionMaterialRodanteSalida(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                            <option value="">Seleccione acción...</option>
+                            <option value="Agregar">Agregar Material Rodante</option>
+                            <option value="Retirar">Retirar Material Rodante</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Contenedor para Agregar / Retirar vagones -->
+                <div id="contenedor-gestion-vagones-salida" class="hidden space-y-2">
+                    <p class="text-xs text-slate-300">Material rodante asociado a la operación:</p>
+                    <div class="overflow-x-auto">
+                        <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-800 text-slate-300">
+                                    <th class="p-2 border border-slate-700">No. Serie</th>
+                                    <th class="p-2 border border-slate-700">Tipo</th>
+                                    <th class="p-2 border border-slate-700">Mercancía</th>
+                                    <th class="p-2 border border-slate-700">Tonelaje</th>
+                                    <th class="p-2 border border-slate-700">Acción / Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-gestion-vagones-salida-body"></tbody>
+                        </table></div>
+                    </div>
+                </div>
+
+                <!-- DATOS DE SALIDA (Sustituye la sección de finalizar viaje) -->
+                <div id="contenedor-datos-salida" class="space-y-4 pt-2 border-t border-yellow-500/20">
+                    <h3 class="text-xs font-bold uppercase text-emerald-400">Datos de Salida del Tren</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Fecha de Salida</label>
+                            <input type="date" id="salida_fecha_salida" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Hora de Salida</label>
+                            <input type="time" id="salida_hora_salida" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">No. de Candado</label>
+                            <input type="text" id="salida_no_candado" placeholder="Ej. CAND-001" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Combustible Cargado</label>
+                            <input type="text" id="salida_combustible_cargado" placeholder="Litros" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Combustible Total</label>
+                            <input type="text" id="salida_combustible_total" placeholder="Litros" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Responsable (Envia)</label>
+                            <input type="text" id="salida_responsable" placeholder="Nombre de quien despacha" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Estatus</label>
+                            <select id="salida_estatus" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white">
+                                <option value="En curso">En curso</option>
+                                <option value="Programado">Programado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Incidencia Salida</label>
+                        <textarea id="salida_incidencia" placeholder="Detalle cualquier novedad o incidencia de salida..." class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-white h-20"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-700">
+                <button type="button" onclick="toggleFormularioSalida()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-sm">Cancelar</button>
+                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded text-sm font-semibold shadow text-white">Guardar Salida</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- TABLA PRINCIPAL DE SALIDAS -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl">
+        <div class="p-4 border-b border-slate-700 font-semibold text-slate-300 flex justify-between items-center">
+            <span>Registros de Salidas</span>
+            <button onclick="toggleFormularioSalida()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-xs font-bold">➕ Registrar Salida</button>
+        </div>
+        <div class="overflow-x-auto">
+            <div class="p1-tabla-scroll" tabindex="0" role="region" aria-label="Tabla desplazable"><table class="w-full text-left text-sm">
+                <thead class="bg-slate-900 text-slate-400 uppercase text-xs">
+                    <tr>
+                        <th class="p-3">Denominación</th>
+                        <th class="p-3">Ruta</th>
+                        <th class="p-3">Locomotora</th>
+                        <th class="p-3">Salida</th>
+                        <th class="p-3">Candado</th>
+                        <th class="p-3">Estatus</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-salidas-body" class="divide-y divide-slate-700">
+                    <tr><td colspan="6" class="p-4 text-center text-slate-400">No hay registros de salidas.</td></tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+</section>
+
+
+</div>
+
+<!-- SUPABASE Y SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="permisos.js"></script>
+<script src="temayin.js"></script>
+<script src="alertas-realtime.js"></script>
+<script>
+    // Secuencia lógica oficial de la red ferroviaria
+    const patios = [
+        "TM Progreso",
+        "TDC Poxila",
+        "POC Valladolid",
+        "TM Cancún",
+        "TM Chetumal",
+        "POC Xpujil",
+        "POC Escarcega",
+        "TM Palenque",
+        "POC Pomuch"
+    ];
+
+    // Función para abrir/cerrar el formulario de nueva operación
+    function toggleFormulario() {
+        const panel = document.getElementById('panel-formulario');
+        panel.classList.toggle('hidden');
+    }
+
+    function cambiarTipoRuta() {
+        const tipo = document.getElementById('tipo').value;
+        const directDiv = document.getElementById('contenedor-ruta-directo');
+        const escalonadoDiv = document.getElementById('contenedor-ruta-escalonado');
+        if (tipo === 'Directo') {
+            directDiv.classList.remove('hidden');
+            escalonadoDiv.classList.add('hidden');
+        } else {
+            directDiv.classList.add('hidden');
+            escalonadoDiv.classList.remove('hidden');
+            inicializarTablaParadas();
+        }
+    }
+
+    function calcularRutaFinal() {
+        const origen = document.getElementById('origen').value;
+        const filas = document.querySelectorAll('#tabla-paradas-body tr');
+        let paradasIntermedias = [];
+        let destinoFinal = '';
+
+        filas.forEach((fila) => {
+            const nombrePatio = fila.querySelector('td').textContent.trim();
+            const selectValor = fila.querySelector('.parada-select').value;
+
+            if (selectValor === '!') {
+                destinoFinal = nombrePatio;
+            } else if (selectValor === 'O') {
+                if (nombrePatio !== origen) {
+                    paradasIntermedias.push(nombrePatio);
+                }
+            }
+        });
+
+        paradasIntermedias.sort((a, b) => {
+            return patios.indexOf(a) - patios.indexOf(b);
+        });
+
+        let rutaArray = [origen];
+        
+        paradasIntermedias.forEach(p => {
+            if (p !== origen && p !== destinoFinal) {
+                rutaArray.push(p);
+            }
+        });
+
+        if (destinoFinal && destinoFinal !== origen) {
+            rutaArray.push(destinoFinal);
+        }
+
+        document.getElementById('ruta-final-input').value = rutaArray.join('-');
+    }
+
+    function inicializarTablaParadas() {
+        const tbody = document.getElementById('tabla-paradas-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        const origenSeleccionado = document.getElementById('origen').value;
+        
+        patios.forEach(patio => {
+            if (patio === origenSeleccionado) {
+                return; 
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="p-2 border border-slate-700 font-medium">${patio}</td>
+                <td class="p-2 border border-slate-700">
+                    <select onchange="calcularRutaFinal()" class="parada-select bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                        <option value="X" selected>X (Sin parada)</option>
+                        <option value="O">O (Parada)</option>
+                        <option value="!">! (Destino)</option>
+                    </select>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+        calcularRutaFinal();
+    } // <-- Llave cerrada correctamente aquí
+
+    // Caché para almacenar las series de material rodante ordenadas numéricamente
+    let cacheSeriesMaterialRodante = {
+        "Góndola": [],
+        "Furgón": [],
+        "Carro tanque": [],
+        "Tolva": [],
+        "Plataforma intermodal": []
+    };
+
+    const tablaSupabasePorTipo = {
+        "Góndola": "Gondola",
+        "Furgón": "Furgon",
+        "Carro tanque": "CarroTanque",
+        "Tolva": "Tolva",
+        "Plataforma intermodal": "plataforma_intermodal"
+    };
+
+    async function cargarSeriesDesdeSupabase(tipoCarro) {
+        const nombreTabla = tablaSupabasePorTipo[tipoCarro];
+        if (!nombreTabla) return [];
+
+        try {
+            if (typeof supabase !== 'undefined' && window.supabaseClient) {
+                const { data, error } = await window.supabaseClient.from(nombreTabla).select('*');
+                if (!error && data && data.length > 0) {
+                    let items = data.map(item => {
+                        const inicial = item.inicial || 'TMY';
+                        const numero = item.numero || item.no_serie || '';
+                        return {
+                            texto: `${inicial} ${numero}`.trim(),
+                            numVal: parseInt(String(numero).replace(/\D/g, ''), 10) || 0
+                        };
+                    });
+
+                    items.sort((a, b) => a.numVal - b.numVal);
+                    return items.map(i => i.texto);
+                }
+            }
+        } catch (err) {
+            console.warn(`No se pudieron cargar datos de ${nombreTabla} desde Supabase:`, err);
+        }
+        return [];
+    }
+
+    async function actualizarSeriesVagon(selectTipo, selectSerieId, inputManualId) {
+        const tipoSeleccionado = selectTipo.value;
+        const selectSerie = document.getElementById(selectSerieId);
+        const inputManual = document.getElementById(inputManualId);
+
+        selectSerie.innerHTML = '<option value="">Cargando series...</option>';
+        
+        if (!cacheSeriesMaterialRodante[tipoSeleccionado] || cacheSeriesMaterialRodante[tipoSeleccionado].length === 0) {
+            cacheSeriesMaterialRodante[tipoSeleccionado] = await cargarSeriesDesdeSupabase(tipoSeleccionado);
+        }
+
+        const listaSeries = cacheSeriesMaterialRodante[tipoSeleccionado];
+
+        selectSerie.innerHTML = '<option value="">Seleccione serie...</option>';
+        listaSeries.forEach(serie => {
+            const opt = document.createElement('option');
+            opt.value = serie;
+            opt.textContent = serie;
+            selectSerie.appendChild(opt);
+        });
+
+        const optOtro = document.createElement('option');
+        optOtro.value = "OTRO";
+        optOtro.textContent = "OTRO (Manual)";
+        selectSerie.appendChild(optOtro);
+
+        inputManual.classList.add('hidden');
+        inputManual.value = '';
+    }
+
+    function controlarSeleccionSerie(selectSerie, inputManualId) {
+        const inputManual = document.getElementById(inputManualId);
+        if (selectSerie.value === "OTRO") {
+            inputManual.classList.remove('hidden');
+            inputManual.focus();
+        } else {
+            inputManual.classList.add('hidden');
+            inputManual.value = selectSerie.value;
+        }
+    }
+
+    async function generarFilasVagones() {
+        const cantidad = parseInt(document.getElementById('cantidad-vagones').value) || 1;
+        document.getElementById('carros-totales').innerText = cantidad;
+        const tbody = document.getElementById('tabla-vagones-body');
+        tbody.innerHTML = '';
+
+        for (let i = 0; i < cantidad; i++) {
+            const tipoDefault = "Carro tanque";
+            if (!cacheSeriesMaterialRodante[tipoDefault] || cacheSeriesMaterialRodante[tipoDefault].length === 0) {
+                cacheSeriesMaterialRodante[tipoDefault] = await cargarSeriesDesdeSupabase(tipoDefault);
+            }
+            const seriesIniciales = cacheSeriesMaterialRodante[tipoDefault];
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="p-2 border border-slate-700">
+                    <select id="vagon_serie_select_${i}" onchange="controlarSeleccionSerie(this, 'vagon_serie_manual_${i}')" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white mb-1">
+                        <option value="">Seleccione serie...</option>
+                        ${seriesIniciales.map(s => `<option value="${s}">${s}</option>`).join('')}
+                        <option value="OTRO">OTRO (Manual)</option>
+                    </select>
+                    <input type="text" id="vagon_serie_manual_${i}" placeholder="Escribir serie manual..." class="hidden w-full bg-slate-900 border border-emerald-500 rounded px-2 py-1 text-xs text-white">
+                </td>
+                <td class="p-2 border border-slate-700">
+                    <select id="vagon_tipo_${i}" onchange="actualizarSeriesVagon(this, 'vagon_serie_select_${i}', 'vagon_serie_manual_${i}')" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                        <option selected>Carro tanque</option>
+                        <option>Furgón</option>
+                        <option>Góndola</option>
+                        <option>Tolva</option>
+                        <option>Plataforma intermodal</option>
+                    </select>
+                </td>
+                <td class="p-2 border border-slate-700"><input type="text" placeholder="Mercancía" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                <td class="p-2 border border-slate-700"><input type="text" placeholder="Tonelaje" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                <td class="p-2 border border-slate-700"><select class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">${patios.map(p=>`<option>${p}</option>`).join('')}</select></td>
+                <td class="p-2 border border-slate-700"><select class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">${patios.map(p=>`<option>${p}</option>`).join('')}</select></td>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+
+    function actualizarRutas() {
+        if(document.getElementById('tipo').value === 'Escalonado') {
+            inicializarTablaParadas();
+        }
+    }
+
+    async function cargarLocomotorasSupabase() {
+        const selectLocomotora = document.getElementById('locomotora');
+        if (!selectLocomotora) return;
+        selectLocomotora.innerHTML = '<option value="">Seleccione locomotora...</option>';
+        
+        let listaLocomotoras = [];
+
+        try {
+            if (typeof supabase !== 'undefined' && window.supabaseClient) {
+                const { data, error } = await window.supabaseClient.from('Locomotoras').select('*');
+                if (!error && data && data.length > 0) {
+                    listaLocomotoras = data.map(loc => ({
+                        tipo: (loc.locomotora || loc.tipo || '').trim().toLowerCase(),
+                        inicial: loc.inicial || 'TMY',
+                        numero: parseInt(loc.numero || 0, 10),
+                        textoTipo: loc.locomotora || loc.tipo || ''
+                    }));
+                }
+            }
+        } catch (err) {
+            console.warn("Cargando locomotoras desde respaldo local:", err);
+        }
+
+        if (listaLocomotoras.length === 0) {
+            listaLocomotoras = [
+                { tipo: 'camino', inicial: 'TMY', numero: 1001, textoTipo: 'Camino' },
+                { tipo: 'camino', inicial: 'TMY', numero: 1002, textoTipo: 'Camino' }
+            ];
+        }
+
+        listaLocomotoras = listaLocomotoras.filter(loc => loc.tipo.includes('camino'));
+        listaLocomotoras.sort((a, b) => a.numero - b.numero);
+
+        listaLocomotoras.forEach(loc => {
+            const opt = document.createElement('option');
+            opt.value = `${loc.inicial} ${loc.numero}`;
+            opt.textContent = `${loc.inicial} ${loc.numero} (${loc.textoTipo})`;
+            selectLocomotora.appendChild(opt);
+        });
+    }
+
+    function descripcionClimaSubmenu(codigo) {
+        const estados = {
+            0:  ["☀️", "Despejado"],
+            1:  ["🌤️", "Principalmente despejado"],
+            2:  ["⛅", "Parcialmente nublado"],
+            3:  ["☁️", "Nublado"],
+            51: ["🌦️", "Lluvia ligera"],
+            61: ["🌧️", "Lluvia ligera"]
+        };
+        return estados[codigo] || ["🌡️", "Normal"];
+    }
+
+    async function cargarClimaSubmenu() {
+        const selector = document.getElementById("selectorEstacionSubmenu");
+        if (!selector) return;
+        const lugar = selector.value;
+
+        try {
+            const respuestaGeo = await fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(lugar) + "&count=1&language=es&format=json");
+            const geo = await respuestaGeo.json();
+            if (!geo.results || geo.results.length === 0) return;
+            const ubicacion = geo.results[0];
+
+            const urlClima = `https://api.open-meteo.com/v1/forecast?latitude=${ubicacion.latitude}&longitude=${ubicacion.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`;
+            const respuestaClima = await fetch(urlClima);
+            const clima = await respuestaClima.json();
+            const actual = clima.current;
+            const [icono, condicion] = descripcionClimaSubmenu(actual.weather_code);
+
+            document.getElementById("submenuClimaTemperatura").textContent = `${Math.round(actual.temperature_2m)} °C`;
+            document.getElementById("submenuClimaCondicion").textContent = `${icono} ${condicion}`;
+            document.getElementById("submenuClimaSensacion").textContent = `${Math.round(actual.apparent_temperature)} °C`;
+            document.getElementById("submenuClimaHumedad").textContent = `${actual.relative_humidity_2m} %`;
+            document.getElementById("submenuClimaViento").textContent = `${Math.round(actual.wind_speed_10m)} km/h`;
+        } catch (error) {
+            console.warn("Clima no disponible:", error);
+        }
+    }
+
+    function cambiarSubPestanaOperaciones(subpestana) {
+        const seccionProg = document.getElementById("seccionProgramaciones");
+        const seccionEnt = document.getElementById("seccionEntradas");
+        const seccionSal = document.getElementById("seccionSalidas");
+        
+        const btnProg = document.getElementById("subTabProgramaciones");
+        const btnEnt = document.getElementById("subTabEntradas");
+        const btnSal = document.getElementById("subTabSalidas");
+
+        if (seccionProg) seccionProg.style.display = 'none';
+        if (seccionEnt) seccionEnt.style.display = 'none';
+        if (seccionSal) seccionSal.style.display = 'none';
+
+        if (btnProg) btnProg.style.background = 'rgba(15, 23, 42, 0.6)';
+        if (btnEnt) btnEnt.style.background = 'rgba(15, 23, 42, 0.6)';
+        if (btnSal) btnSal.style.background = 'rgba(15, 23, 42, 0.6)';
+
+        if (subpestana === 'programaciones') {
+            if (seccionProg) seccionProg.style.display = 'block';
+            if (btnProg) btnProg.style.background = 'rgba(74, 99, 161, 0.8)';
+        } else if (subpestana === 'entradas') {
+            if (seccionEnt) seccionEnt.style.display = 'block';
+            if (btnEnt) btnEnt.style.background = 'rgba(74, 99, 161, 0.8)';
+        } else if (subpestana === 'salidas') {
+            if (seccionSal) seccionSal.style.display = 'block';
+            if (btnSal) btnSal.style.background = 'rgba(74, 99, 161, 0.8)';
+        }
+    }
+
+    async function guardarOperacionSupabase(e) {
+        e.preventDefault();
+
+        const tren = document.getElementById('denominacion').value;
+        const fecha = document.getElementById('fecha').value;
+        const noLocomotora = document.getElementById('locomotora').value;
+        const tipo = document.getElementById('tipo').value;
+        const origen = document.getElementById('origen').value;
+        const rumbo = document.getElementById('rumbo').value;
+        
+        let destinoFinal = '';
+        if (tipo === 'Directo') {
+            destinoFinal = document.getElementById('destino-directo').value;
+        } else {
+            destinoFinal = document.getElementById('ruta-final-input').value;
+        }
+
+        const longitud = document.getElementById('longitud').value;
+        const distancia = document.getElementById('distancia').value;
+        const horaSalida = document.getElementById('salida').value;
+        const horaLlegada = document.getElementById('llegada').value;
+        
+        const combRaw = document.getElementById('combustible').value;
+        const combustibleVal = combRaw ? parseFloat(combRaw.replace(/,/g, '')) || 0 : 0;
+
+        const estatus = document.getElementById('estatus').value;
+        const observaciones = document.getElementById('observaciones').value;
+        
+        const cantidadCarros = parseInt(document.getElementById('cantidad-vagones').value) || 1;
+        let totalToneladas = 0;
+        let vagonesArray = [];
+
+        for (let i = 0; i < cantidadCarros; i++) {
+            const selectSerie = document.querySelector(`#vagon_serie_select_${i}`);
+            const inputManual = document.querySelector(`#vagon_serie_manual_${i}`);
+            const serieVal = (inputManual && !inputManual.classList.contains('hidden') && inputManual.value) ? inputManual.value : (selectSerie ? selectSerie.value : '');
+            
+            const tipoVal = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(2) select`)?.value || '';
+            const mercanciaVal = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(3) input`)?.value || '';
+            const tonelajeVal = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(4) input`)?.value || '';
+            const deVal = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(5) select`)?.value || '';
+            const aVal = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(6) select`)?.value || '';
+
+            totalToneladas += parseFloat(tonelajeVal) || 0;
+
+            vagonesArray.push({ serie: serieVal, tipo: tipoVal, mercancia: mercanciaVal, tonelaje: tonelajeVal, de: deVal, a: aVal });
+        }
+
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('Programaciones')
+                .insert([
+                    {
+                        tren: tren,
+                        fecha: fecha,
+                        no_locomotora: noLocomotora,
+                        tipo: tipo,
+                        origen: origen,
+                        rumbo: rumbo,
+                        destino: destinoFinal,
+                        longitud: longitud,
+                        distancia: distancia,
+                        hora_salida: horaSalida || null,
+                        hora_llegada: horaLlegada || null,
+                        estatus: estatus,
+                        observaciones: observaciones,
+                        combustible: combustibleVal,
+                        distribucion_cargamento: String(cantidadCarros),
+                        tonelaje: totalToneladas,
+                        detalle_vagones: JSON.stringify(vagonesArray)
+                    }
+                ]);
+
+            if (error) {
+                console.error('Error de Supabase al guardar:', error);
+                alert('Error al guardar en Supabase: ' + error.message);
+                return;
+            }
+
+            alert('Operación registrada correctamente.');
+            toggleFormulario();
+            document.getElementById('form-operacion').reset();
+            cargarOperacionesSupabase();
+
+        } catch (err) {
+            console.error('Error inesperado:', err);
+            alert('Ocurrió un error inesperado al intentar guardar.');
+        }
+    }
+
+    async function editarOperacion(id) {
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('Programaciones')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error || !data) {
+                alert('No se pudo cargar la información para editar.');
+                return;
+            }
+
+            // 1. Asignar valores generales y origen PRIMERO
+            document.getElementById('denominacion').value = data.tren || '';
+            document.getElementById('fecha').value = data.fecha || '';
+            document.getElementById('locomotora').value = data.no_locomotora || '';
+            document.getElementById('tipo').value = data.tipo || 'Directo';
+            document.getElementById('origen').value = data.origen || 'TM Progreso';
+            document.getElementById('rumbo').value = data.rumbo || 'Horario';
+
+            // Actualizar la vista del formulario (Directo / Escalonado) lo cual dibuja la tabla limpia
+            cambiarTipoRuta();
+
+            if (data.tipo === 'Directo') {
+                document.getElementById('destino-directo').value = data.destino || '';
+            } else {
+                document.getElementById('ruta-final-input').value = data.destino || '';
+                
+                // 2. Marcar correctamente las paradas en la tabla dibujada
+                if (data.destino) {
+                    const estacionesRuta = data.destino.split('-');
+                    const destinoFinalRuta = estacionesRuta[estacionesRuta.length - 1];
+                    const filasParadas = document.querySelectorAll('#tabla-paradas-body tr');
+                    
+                    filasParadas.forEach(fila => {
+                        const nombrePatio = fila.querySelector('td').textContent.trim();
+                        const selectParada = fila.querySelector('.parada-select');
+                        
+                        if (nombrePatio === destinoFinalRuta) {
+                            selectParada.value = '!'; // Destino final
+                        } else if (estacionesRuta.includes(nombrePatio)) {
+                            selectParada.value = 'O'; // Parada intermedia
+                        } else {
+                            selectParada.value = 'X'; // Sin parada
+                        }
+                    });
+                }
+            }
+
+            // 3. Asignar longitud, distancia, horas y combustible
+            document.getElementById('longitud').value = data.longitud || '';
+            document.getElementById('distancia').value = data.distancia || '';
+            document.getElementById('salida').value = data.hora_salida || '';
+            document.getElementById('llegada').value = data.hora_llegada || '';
+            document.getElementById('combustible').value = data.combustible || '';
+            
+            document.getElementById('estatus').value = data.estatus || 'Programado';
+            document.getElementById('observaciones').value = data.observaciones || '';
+
+            // 4. Restaurar cantidad de carros y rellenar la tabla de vagones con sus valores individuales
+            if (data.distribucion_cargamento) {
+                const inputCantidadVagones = document.getElementById('cantidad-vagones');
+                if (inputCantidadVagones) {
+                    inputCantidadVagones.value = data.distribucion_cargamento;
+                    await generarFilasVagones();
+
+                    if (data.detalle_vagones) {
+                        try {
+                            const vagonesArray = JSON.parse(data.detalle_vagones);
+                            
+                            for (let i = 0; i < vagonesArray.length; i++) {
+                                const vagon = vagonesArray[i];
+                                const tipoSel = document.querySelector(`#vagon_tipo_${i}`);
+                                
+                                if (tipoSel && vagon.tipo) {
+                                    tipoSel.value = vagon.tipo;
+                                    await actualizarSeriesVagon(tipoSel, `vagon_serie_select_${i}`, `vagon_serie_manual_${i}`);
+                                }
+
+                                const selectSerie = document.querySelector(`#vagon_serie_select_${i}`);
+                                const inputManual = document.querySelector(`#vagon_serie_manual_${i}`);
+                                
+                                if (selectSerie) {
+                                    let encontrada = false;
+                                    for (let opt of selectSerie.options) {
+                                        if (opt.value === vagon.serie) {
+                                            encontrada = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (encontrada) {
+                                        selectSerie.value = vagon.serie;
+                                    } else if (vagon.serie && inputManual) {
+                                        selectSerie.value = "OTRO";
+                                        inputManual.classList.remove('hidden');
+                                        inputManual.value = vagon.serie;
+                                    }
+                                }
+
+                                const mercanciaIn = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(3) input`);
+                                if (mercanciaIn) mercanciaIn.value = vagon.mercancia || '';
+
+                                const tonelajeIn = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(4) input`);
+                                if (tonelajeIn) tonelajeIn.value = vagon.tonelaje || '';
+
+                                const deSel = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(5) select`);
+                                if (deSel) deSel.value = vagon.de || '';
+
+                                const aSel = document.querySelector(`#tabla-vagones-body tr:nth-child(${i + 1}) td:nth-child(6) select`);
+                                if (aSel) aSel.value = vagon.a || '';
+                            }
+                        } catch (e) {
+                            console.warn("No se pudo parsear el detalle de los vagones:", e);
+                        }
+                    }
+                }
+            }
+
+            // 5. Mostrar el panel del formulario
+            const panel = document.getElementById('panel-formulario');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+            }
+
+        } catch (err) {
+            console.error('Error al preparar la edición:', err);
+        }
+    }
+
+    async function cargarOperacionesSupabase() {
+        const tbody = document.getElementById('tabla-operaciones-body');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-slate-400">Cargando operaciones...</td></tr>';
+
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('Programaciones')
+                .select('*')
+                .order('id', { ascending: false });
+
+            if (error) {
+                console.error('Error al cargar operaciones:', error);
+                tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-red-400">Error al cargar los registros.</td></tr>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-slate-400">No hay operaciones registradas.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            data.forEach(op => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/50';
+                
+                const carrosTexto = op.distribucion_cargamento ? `${op.distribucion_cargamento} carros` : '0 carros';
+                const tonelajeTexto = op.tonelaje ? ` (${op.tonelaje} Ton)` : '';
+
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-emerald-400">${op.tren || 'N/A'}</td>
+                    <td class="p-3 text-slate-300">${op.fecha || ''}</td>
+                    <td class="p-3 text-slate-300">${op.no_locomotora || ''}</td>
+                    <td class="p-3 text-slate-300">${op.origen} ➔ ${op.destino || ''}</td>
+                    <td class="p-3 text-slate-300">${op.hora_salida || '--:--'} / ${op.hora_llegada || '--:--'}</td>
+                    <td class="p-3 text-slate-300">${carrosTexto}${tonelajeTexto}</td>
+                    <td class="p-3 flex items-center justify-between gap-2">
+                        <span class="px-2 py-1 rounded text-xs font-bold bg-amber-500/20 text-amber-400">${op.estatus || 'Programado'}</span>
+                        <div class="flex gap-1">
+                            <button onclick="editarOperacion(${op.id})" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs" title="Editar">✏️</button>
+                            <button onclick="eliminarOperacion(${op.id})" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs" title="Eliminar">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+        } catch (err) {
+            console.error('Error inesperado al cargar:', err);
+        }
+    }
+
+    async function eliminarOperacion(id) {
+        if (!confirm('¿Estás seguro de que deseas eliminar esta operación?')) return;
+
+        try {
+            const { error } = await window.supabaseClient
+                .from('Programaciones')
+                .delete()
+                .eq('id', id);
+
+            if (error) {
+                alert('Error al eliminar: ' + error.message);
+                return;
+            }
+
+            alert('Operación eliminada correctamente.');
+            cargarOperacionesSupabase();
+        } catch (err) {
+            console.error('Error al eliminar:', err);
+        }
+    }
+
+   window.onload = () => {
+        generarFilasVagones();
+        cargarLocomotorasSupabase();
+        cargarClimaSubmenu();
+        cargarOperacionesSupabase();
+        cargarDenominacionesOperaciones();
+        cargarEntradasSupabase();
+        cargarSalidasSupabase(); // <-- Carga automática de registros de salidas
+        
+        const selectorEstacion = document.getElementById("selectorEstacionSubmenu");
+        if (selectorEstacion) {
+            selectorEstacion.addEventListener("change", cargarClimaSubmenu);
+        }
+    };
+
+    function toggleFormularioEntrada() {
+        const panel = document.getElementById('panel-formulario-entrada');
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) {
+            cargarDenominacionesOperaciones();
+        }
+    }
+
+  async function cargarDenominacionesOperaciones() {
+        const selectDenom = document.getElementById('entrada_denominacion');
+        if (!selectDenom) {
+            console.warn("No se encontró el elemento 'entrada_denominacion' en el DOM.");
+            return;
+        }
+
+        selectDenom.innerHTML = '<option value="">Cargando operaciones...</option>';
+
+        try {
+            if (typeof window.supabaseClient !== 'undefined') {
+                const response = await window.supabaseClient.from('Programaciones').select('*');
+                console.log("Respuesta de Supabase en Entradas:", response);
+
+                // Manejar tanto si viene directo como envuelto en objeto de respuesta
+                const data = response.data || response;
+
+                selectDenom.innerHTML = '<option value="">Seleccione denominación...</option>';
+
+                if (data && data.length > 0) {
+                    data.forEach(op => {
+                        const opt = document.createElement('option');
+                        opt.value = op.tren || op.id;
+                        opt.textContent = op.tren || `Operación #${op.id}`;
+                        opt.dataset.operacion = JSON.stringify(op);
+                        selectDenom.appendChild(opt);
+                    });
+                    console.log(`Se cargaron ${data.length} operaciones en el selector de Entradas.`);
+                } else {
+                    selectDenom.innerHTML = '<option value="">No hay operaciones registradas</option>';
+                }
+            } else {
+                console.error("supabaseClient no está definido.");
+            }
+        } catch (err) {
+            console.error("Error al cargar las denominaciones para entradas:", err);
+            selectDenom.innerHTML = '<option value="">Error al cargar operaciones</option>';
+        }
+    }
+
+    function cargarDatosOperacionSeleccionada(valor) {
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) {
+            document.getElementById('entrada_locomotora').value = '';
+            document.getElementById('entrada_ruta').value = '';
+            return;
+        }
+
+        const opData = JSON.parse(selectedOption.dataset.operacion);
+        document.getElementById('entrada_locomotora').value = opData.no_locomotora || '';
+        document.getElementById('entrada_ruta').value = opData.destino || 'Ruta estándar';
+
+        // Actualizar la tabla de vagones automáticamente si ya hay una acción seleccionada
+        const accionTipo = document.getElementById('entrada_accion_tipo').value;
+        if (accionTipo) {
+            poblarTablaGestionVagones(accionTipo, opData);
+        }
+    }
+
+    function cambiarAccionMaterialRodante(accion) {
+        const contenedorVagones = document.getElementById('contenedor-gestion-vagones');
+        const contenedorFinalizar = document.getElementById('contenedor-finalizar-viaje');
+
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        let opData = null;
+        if (selectedOption && selectedOption.dataset.operacion) {
+            opData = JSON.parse(selectedOption.dataset.operacion);
+        }
+
+        if (accion === 'Agregar' || accion === 'Retirar') {
+            contenedorVagones.classList.remove('hidden');
+            contenedorFinalizar.classList.add('hidden');
+            poblarTablaGestionVagones(accion, opData);
+        } else if (accion === 'Finalizar') {
+            contenedorVagones.classList.add('hidden');
+            contenedorFinalizar.classList.remove('hidden');
+        } else {
+            contenedorVagones.classList.add('hidden');
+            contenedorFinalizar.classList.add('hidden');
+        }
+    }
+
+    async function poblarTablaGestionVagones(modo, opData) {
+        const contenedorVagones = document.getElementById('contenedor-gestion-vagones');
+        
+        let htmlContenedor = `
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs text-slate-300">Material rodante asociado a la operación:</span>
+                ${modo === 'Agregar' ? `
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-300">Cantidad de vagones a añadir:</span>
+                    <input type="number" id="entrada-cantidad-vagones" min="1" value="1" onchange="renderizarFilasAdicionalesEntrada()" class="w-20 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-sm text-center text-white">
+                </div>` : ''}
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-800 text-slate-300">
+                            <th class="p-2 border border-slate-700">No. Serie</th>
+                            <th class="p-2 border border-slate-700">Tipo</th>
+                            <th class="p-2 border border-slate-700">Mercancía</th>
+                            <th class="p-2 border border-slate-700">Tonelaje</th>
+                            <th class="p-2 border border-slate-700">Acción / Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-gestion-vagones-body"></tbody>
+                </table>
+            </div>
+        `;
+        contenedorVagones.innerHTML = htmlContenedor;
+        const tbody = document.getElementById('tabla-gestion-vagones-body');
+
+        if (!opData || !opData.detalle_vagones) {
+            tbody.innerHTML = '<tr><td colspan="5" class="p-2 text-center text-slate-400">Seleccione una denominación válida.</td></tr>';
+            return;
+        }
+
+        try {
+            const vagones = JSON.parse(opData.detalle_vagones);
+            if (!vagones || vagones.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-2 text-center text-slate-400">No hay material rodante asociado.</td></tr>';
+                return;
+            }
+
+            // 1. Pintar los vagones ya existentes (con serie y tipo bloqueados para edición, permitiendo editar mercancía/tonelaje)
+            vagones.forEach((vagon, index) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td class="p-2 border border-slate-700">
+            <input type="text" value="${vagon.serie || ''}" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-emerald-400 font-semibold cursor-not-allowed" title="Registrado en operación (Bloqueado)">
+        </td>
+        <td class="p-2 border border-slate-700">
+            <input type="text" value="${vagon.tipo || ''}" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-300 cursor-not-allowed">
+        </td>
+        <td class="p-2 border border-slate-700">
+            <input type="text" value="${vagon.mercancia || ''}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+        </td>
+        <td class="p-2 border border-slate-700">
+            <input type="text" value="${vagon.tonelaje || ''}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+        </td>
+        <td class="p-2 border border-slate-700 flex gap-1">
+            <button type="button" onclick="actualizarVagonExistenteEntrada(${index})" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold w-1/2" title="Guardar cambios">✏️ Editar</button>
+            <button type="button" onclick="retirarVagonEntrada(${index})" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs font-bold w-1/2" title="Retirar vagón">🗑️ Retirar</button>
+        </td>
+    `;
+    tbody.appendChild(tr);
+});
+
+            // 2. Si estamos en modo "Agregar", pintamos las filas vacías adicionales con selectores filtrados
+            if (modo === 'Agregar') {
+                await renderizarFilasAdicionalesEntrada();
+            }
+
+        } catch (e) {
+            console.warn("Error al parsear detalle_vagones:", e);
+            tbody.innerHTML = '<tr><td colspan="5" class="p-2 text-center text-red-400">Error al cargar el material rodante.</td></tr>';
+        }
+    }
+
+    async function renderizarFilasAdicionalesEntrada() {
+        const cantidadExtra = parseInt(document.getElementById('entrada-cantidad-vagones')?.value) || 1;
+        const tbody = document.getElementById('tabla-gestion-vagones-body');
+        if (!tbody) return;
+
+        // Eliminar filas de adición previa para recrearlas limpias según el número seleccionado
+        const filasAdicionales = tbody.querySelectorAll('.fila-adicional-entrada');
+        filasAdicionales.forEach(f => f.remove());
+
+        // Obtener series ya ocupadas en la operación para excluirlas de los desplegables
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        let seriesOcupadas = [];
+        if (selectedOption && selectedOption.dataset.operacion) {
+            try {
+                const opData = JSON.parse(selectedOption.dataset.operacion);
+                if (opData.detalle_vagones) {
+                    const vagonesExistentes = JSON.parse(opData.detalle_vagones);
+                    seriesOcupadas = vagonesExistentes.map(v => v.serie);
+                }
+            } catch (err) {}
+        }
+
+        const tipoDefault = "Carro tanque";
+        if (!cacheSeriesMaterialRodante[tipoDefault] || cacheSeriesMaterialRodante[tipoDefault].length === 0) {
+            cacheSeriesMaterialRodante[tipoDefault] = await cargarSeriesDesdeSupabase(tipoDefault);
+        }
+
+        const seriesDisponibles = cacheSeriesMaterialRodante[tipoDefault].filter(s => !seriesOcupadas.includes(s));
+
+        for (let i = 0; i < cantidadExtra; i++) {
+            const tr = document.createElement('tr');
+            tr.className = 'fila-adicional-entrada';
+tr.innerHTML = `
+    <td class="p-2 border border-slate-700">
+        <select id="entrada_serie_nueva_${i}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+            <option value="">Seleccione serie disponible...</option>
+            ${seriesDisponibles.map(s => `<option value="${s}">${s}</option>`).join('')}
+        </select>
+    </td>
+    <td class="p-2 border border-slate-700">
+        <select id="entrada_tipo_nuevo_${i}" onchange="actualizarSeriesEntradaDinamica(this, 'entrada_serie_nueva_${i}')" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+            <option selected>Carro tanque</option>
+            <option>Furgón</option>
+            <option>Góndola</option>
+            <option>Tolva</option>
+            <option>Plataforma intermodal</option>
+        </select>
+    </td>
+    <td class="p-2 border border-slate-700"><input type="text" placeholder="Mercancía..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+    <td class="p-2 border border-slate-700"><input type="text" placeholder="Tonelaje..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+    <td class="p-2 border border-slate-700"><button type="button" onclick="agregarVagonEntrada(this)" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded text-xs font-bold w-full">➕ Añadir</button></td>
+`;
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarSeriesEntradaDinamica(selectTipo, selectSerieId) {
+        const tipoSeleccionado = selectTipo.value;
+        const selectSerie = document.getElementById(selectSerieId);
+        selectSerie.innerHTML = '<option value="">Cargando series...</option>';
+
+        if (!cacheSeriesMaterialRodante[tipoSeleccionado] || cacheSeriesMaterialRodante[tipoSeleccionado].length === 0) {
+            cacheSeriesMaterialRodante[tipoSeleccionado] = await cargarSeriesDesdeSupabase(tipoSeleccionado);
+        }
+
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        let seriesOcupadas = [];
+        if (selectedOption && selectedOption.dataset.operacion) {
+            try {
+                const opData = JSON.parse(selectedOption.dataset.operacion);
+                if (opData.detalle_vagones) {
+                    const vagonesExistentes = JSON.parse(opData.detalle_vagones);
+                    seriesOcupadas = vagonesExistentes.map(v => v.serie);
+                }
+            } catch (err) {}
+        }
+
+        const seriesDisponibles = cacheSeriesMaterialRodante[tipoSeleccionado].filter(s => !seriesOcupadas.includes(s));
+
+        selectSerie.innerHTML = '<option value="">Seleccione serie disponible...</option>';
+        seriesDisponibles.forEach(serie => {
+            const opt = document.createElement('option');
+            opt.value = serie;
+            opt.textContent = serie;
+            selectSerie.appendChild(opt);
+        });
+    }
+    async function agregarVagonEntrada(buttonElement) {
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) {
+            alert('Por favor, seleccione una denominación válida.');
+            return;
+        }
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+        
+        // Encontrar la fila (TR) donde se hizo clic en el botón de añadir
+        const filaTR = buttonElement.closest('tr');
+        if (!filaTR) return;
+
+        const selectSerie = filaTR.querySelector('select[id^="entrada_serie_nueva_"]');
+        const selectTipo = filaTR.querySelector('select[id^="entrada_tipo_nuevo_"]');
+        const inputMercancia = filaTR.querySelector('td:nth-child(3) input');
+        const inputTonelaje = filaTR.querySelector('td:nth-child(4) input');
+
+        const serieVal = selectSerie ? selectSerie.value : '';
+        const tipoVal = selectTipo ? selectTipo.value : 'Carro tanque';
+        
+        if (!serieVal) {
+            alert('Debe seleccionar un número de serie disponible.');
+            return;
+        }
+
+        const mercanciaVal = inputMercancia ? inputMercancia.value : '';
+        const tonelajeVal = inputTonelaje ? inputTonelaje.value : '';
+
+        try {
+            let vagonesActuales = [];
+            if (opData.detalle_vagones) {
+                vagonesActuales = JSON.parse(opData.detalle_vagones);
+            }
+
+            // Agregar el nuevo carro al arreglo
+            vagonesActuales.push({
+                serie: serieVal,
+                tipo: tipoVal,
+                mercancia: mercanciaVal,
+                tonelaje: tonelajeVal,
+                de: opData.origen || '',
+                a: opData.destino || ''
+            });
+
+            const nuevaCantidad = vagonesActuales.length;
+            let nuevoTonelajeTotal = vagonesActuales.reduce((acc, v) => acc + (parseFloat(v.tonelaje) || 0), 0);
+
+            // Actualizar en Supabase
+            const { error } = await window.supabaseClient
+                .from('Programaciones')
+                .update({
+                    detalle_vagones: JSON.stringify(vagonesActuales),
+                    distribucion_cargamento: String(nuevaCantidad),
+                    tonelaje: nuevoTonelajeTotal
+                })
+                .eq('id', opData.id);
+
+            if (error) {
+                alert('Error al añadir el vagón: ' + error.message);
+                return;
+            }
+
+            alert('¡Material rodante añadido correctamente a la formación!');
+            
+            // Actualizar el dataset local con los nuevos datos
+            opData.detalle_vagones = JSON.stringify(vagonesActuales);
+            opData.distribucion_cargamento = String(nuevaCantidad);
+            opData.tonelaje = nuevoTonelajeTotal;
+            selectedOption.dataset.operacion = JSON.stringify(opData);
+
+            // Refrescar la tabla de gestión de vagones
+            poblarTablaGestionVagones('Agregar', opData);
+
+        } catch (err) {
+            console.error('Error al guardar el nuevo vagón:', err);
+            alert('Ocurrió un error inesperado al intentar añadir el vagón.');
+        }
+    }
+async function retirarVagonEntrada(index) {
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) {
+            alert('Seleccione una denominación válida.');
+            return;
+        }
+
+        if (!confirm('¿Estás seguro de que deseas retirar este vagón de la formación?')) return;
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+
+        try {
+            let vagonesActuales = JSON.parse(opData.detalle_vagones || '[]');
+            
+            // Eliminar el vagón de la posición correspondiente
+            vagonesActuales.splice(index, 1);
+
+            const nuevaCantidad = vagonesActuales.length;
+            let nuevoTonelajeTotal = vagonesActuales.reduce((acc, v) => acc + (parseFloat(v.tonelaje) || 0), 0);
+
+            // Actualizar en Supabase
+            const { error } = await window.supabaseClient
+                .from('Programaciones')
+                .update({
+                    detalle_vagones: JSON.stringify(vagonesActuales),
+                    distribucion_cargamento: String(nuevaCantidad),
+                    tonelaje: nuevoTonelajeTotal
+                })
+                .eq('id', opData.id);
+
+            if (error) {
+                alert('Error al retirar el vagón: ' + error.message);
+                return;
+            }
+
+            alert('Vagón retirado correctamente de la formación.');
+            
+            // Actualizar dataset local
+            opData.detalle_vagones = JSON.stringify(vagonesActuales);
+            opData.distribucion_cargamento = String(nuevaCantidad);
+            opData.tonelaje = nuevoTonelajeTotal;
+            selectedOption.dataset.operacion = JSON.stringify(opData);
+
+            // Refrescar tabla
+            poblarTablaGestionVagones('Agregar', opData);
+
+        } catch (err) {
+            console.error('Error al retirar el vagón:', err);
+            alert('Ocurrió un error inesperado al intentar retirar el vagón.');
+        }
+    }
+
+    async function actualizarVagonExistenteEntrada(index) {
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) return;
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+        const tbody = document.getElementById('tabla-gestion-vagones-body');
+        const filaTR = tbody.children[index];
+
+        if (!filaTR) return;
+
+        const nuevaMercancia = filaTR.querySelector('td:nth-child(3) input').value;
+        const nuevoTonelaje = filaTR.querySelector('td:nth-child(4) input').value;
+
+        try {
+            let vagonesActuales = JSON.parse(opData.detalle_vagones || '[]');
+            
+            vagonesActuales[index].mercancia = nuevaMercancia;
+            vagonesActuales[index].tonelaje = nuevoTonelaje;
+
+            let nuevoTonelajeTotal = vagonesActuales.reduce((acc, v) => acc + (parseFloat(v.tonelaje) || 0), 0);
+
+            const { error } = await window.supabaseClient
+                .from('Programaciones')
+                .update({
+                    detalle_vagones: JSON.stringify(vagonesActuales),
+                    tonelaje: nuevoTonelajeTotal
+                })
+                .eq('id', opData.id);
+
+            if (error) {
+                alert('Error al actualizar: ' + error.message);
+                return;
+            }
+
+            alert('¡Información del vagón actualizada correctamente!');
+            opData.detalle_vagones = JSON.stringify(vagonesActuales);
+            opData.tonelaje = nuevoTonelajeTotal;
+            selectedOption.dataset.operacion = JSON.stringify(opData);
+
+        } catch (err) {
+            console.error('Error al actualizar vagón:', err);
+            alert('Ocurrió un error al actualizar los datos.');
+        }
+    }
+    async function cargarEntradasSupabase() {
+        const tbody = document.getElementById('tabla-entradas-body');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Cargando entradas...</td></tr>';
+
+        try {
+            // Eliminamos el filtro estricto de 'Finalizado' para que muestre todos los registros disponibles
+            const { data, error } = await window.supabaseClient
+                .from('Programaciones')
+                .select('*')
+                .order('id', { ascending: false });
+
+            if (error) {
+                console.error('Error al cargar entradas:', error);
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-red-400">Error al cargar los registros de entradas.</td></tr>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">No hay registros de entradas.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            data.forEach(op => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/50';
+
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-emerald-400">${op.tren || 'N/A'}</td>
+                    <td class="p-3 text-slate-300">${op.origen || ''} ➔ ${op.destino || ''}</td>
+                    <td class="p-3 text-slate-300">${op.no_locomotora || ''}</td>
+                    <td class="p-3 text-slate-300">${op.fecha_llegada || op.fecha || ''} ${op.hora_llegada || ''}</td>
+                    <td class="p-3 text-slate-300">${op.responsable_recibe || 'N/A'}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-1 rounded text-xs font-bold bg-amber-500/20 text-amber-400">${op.estatus || 'Programado'}</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+        } catch (err) {
+            console.error('Error inesperado al cargar entradas:', err);
+        }
+    }
+    async function guardarEntradaSupabase(e) {
+        e.preventDefault();
+
+        const selectDenom = document.getElementById('entrada_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) {
+            alert('Por favor, seleccione una denominación válida.');
+            return;
+        }
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+
+        const fechaLlegada = document.getElementById('entrada_fecha_llegada').value;
+        const horaLlegada = document.getElementById('entrada_hora_llegada').value;
+        const kmRecorridos = document.getElementById('entrada_km_recorridos').value;
+        const combRestante = document.getElementById('entrada_combustible_restante').value;
+        const combUtilizado = document.getElementById('entrada_combustible_utilizado').value;
+        const tiempoTotal = document.getElementById('entrada_tiempo_total').value;
+        const responsable = document.getElementById('entrada_responsable').value;
+        const estatusEntrada = document.getElementById('entrada_estatus').value;
+        const incidencias = document.getElementById('entrada_incidencias').value;
+
+        try {
+            const { error } = await window.supabaseClient
+                .from('Programaciones')
+                .update({
+                    fecha_llegada: fechaLlegada || null,
+                    hora_llegada: horaLlegada || null,
+                    km_recorridos: kmRecorridos || null,
+                    combustible_restante: combRestante || null,
+                    combustible_utilizado: combUtilizado || null,
+                    tiempo_total: tiempoTotal || null,
+                    responsable_recibe: responsable || null,
+                    estatus: estatusEntrada || 'Finalizado',
+                    observaciones: incidencias ? (opData.observaciones ? opData.observaciones + ' | ' + incidencias : incidencias) : opData.observaciones
+                })
+                .eq('id', opData.id);
+
+            if (error) {
+                alert('Error al guardar la entrada en Supabase: ' + error.message);
+                return;
+            }
+
+            alert('¡Entrada registrada y guardada correctamente!');
+            toggleFormularioEntrada();
+            document.getElementById('form-entrada').reset();
+            
+            // Refrescar tablas
+            if (typeof cargarOperacionesSupabase === 'function') {
+                cargarOperacionesSupabase();
+            }
+            cargarEntradasSupabase(); // <-- Actualiza la tabla inferior de entradas
+
+        } catch (err) {
+            console.error('Error inesperado al guardar la entrada:', err);
+            alert('Ocurrió un error inesperado al intentar guardar.');
+        }
+    }
+
+    // Activar pestaña de salidas en el menú superior
+    function cambiarSubPestanaOperaciones(subpestana) {
+        const seccionProg = document.getElementById("seccionProgramaciones");
+        const seccionEnt = document.getElementById("seccionEntradas");
+        const seccionSal = document.getElementById("seccionSalidas");
+        
+        const btnProg = document.getElementById("subTabProgramaciones");
+        const btnEnt = document.getElementById("subTabEntradas");
+        const btnSal = document.getElementById("subTabSalidas");
+
+        if (seccionProg) seccionProg.style.display = 'none';
+        if (seccionEnt) seccionEnt.style.display = 'none';
+        if (seccionSal) seccionSal.style.display = 'none';
+
+        if (btnProg) btnProg.style.background = 'rgba(15, 23, 42, 0.6)';
+        if (btnEnt) btnEnt.style.background = 'rgba(15, 23, 42, 0.6)';
+        if (btnSal) btnSal.style.background = 'rgba(15, 23, 42, 0.6)';
+
+        if (subpestana === 'programaciones') {
+            if (seccionProg) seccionProg.style.display = 'block';
+            if (btnProg) btnProg.style.background = 'rgba(74, 99, 161, 0.8)';
+        } else if (subpestana === 'entradas') {
+            if (seccionEnt) seccionEnt.style.display = 'block';
+            if (btnEnt) btnEnt.style.background = 'rgba(74, 99, 161, 0.8)';
+            cargarDenominacionesOperaciones();
+            cargarEntradasSupabase();
+        } else if (subpestana === 'salidas') {
+            if (seccionSal) seccionSal.style.display = 'block';
+            if (btnSal) btnSal.style.background = 'rgba(74, 99, 161, 0.8)';
+            cargarDenominacionesOperacionesSalida();
+            cargarSalidasSupabase();
+        }
+    }
+
+    function toggleFormularioSalida() {
+        const panel = document.getElementById('panel-formulario-salida');
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) {
+            cargarDenominacionesOperacionesSalida();
+        }
+    }
+
+    async function cargarDenominacionesOperacionesSalida() {
+        const selectDenom = document.getElementById('salida_denominacion');
+        if (!selectDenom) return;
+
+        selectDenom.innerHTML = '<option value="">Cargando operaciones...</option>';
+
+        try {
+            if (typeof window.supabaseClient !== 'undefined') {
+                const response = await window.supabaseClient.from('Programaciones').select('*');
+                const data = response.data || response;
+
+                selectDenom.innerHTML = '<option value="">Seleccione denominación...</option>';
+
+                if (data && data.length > 0) {
+                    data.forEach(op => {
+                        const opt = document.createElement('option');
+                        opt.value = op.tren || op.id;
+                        opt.textContent = op.tren || `Operación #${op.id}`;
+                        opt.dataset.operacion = JSON.stringify(op);
+                        selectDenom.appendChild(opt);
+                    });
+                } else {
+                    selectDenom.innerHTML = '<option value="">No hay operaciones registradas</option>';
+                }
+            }
+        } catch (err) {
+            console.error("Error al cargar denominaciones para salidas:", err);
+        }
+    }
+
+    function cargarDatosOperacionSalidaSeleccionada(valor) {
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.operacion) {
+            document.getElementById('salida_locomotora').value = '';
+            document.getElementById('salida_ruta').value = '';
+            return;
+        }
+
+        const opData = JSON.parse(selectedOption.dataset.operacion);
+        document.getElementById('salida_locomotora').value = opData.no_locomotora || '';
+        document.getElementById('salida_ruta').value = opData.destino || 'Ruta estándar';
+
+        const accionTipo = document.getElementById('salida_accion_tipo').value;
+        if (accionTipo) {
+            poblarTablaGestionVagonesSalida(accionTipo, opData);
+        }
+    }
+
+    function cambiarAccionMaterialRodanteSalida(accion) {
+        const contenedorVagones = document.getElementById('contenedor-gestion-vagones-salida');
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        let opData = null;
+        if (selectedOption && selectedOption.dataset.operacion) {
+            opData = JSON.parse(selectedOption.dataset.operacion);
+        }
+
+        if (accion === 'Agregar' || accion === 'Retirar') {
+            contenedorVagones.classList.remove('hidden');
+            poblarTablaGestionVagonesSalida(accion, opData);
+        } else {
+            contenedorVagones.classList.add('hidden');
+        }
+    }
+
+    async function poblarTablaGestionVagonesSalida(modo, opData) {
+        const contenedorVagones = document.getElementById('contenedor-gestion-vagones-salida');
+        
+        let htmlContenedor = `
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs text-slate-300">Material rodante asociado a la operación:</span>
+                ${modo === 'Agregar' ? `
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-300">Cantidad a añadir:</span>
+                    <input type="number" id="salida-cantidad-vagones" min="1" value="1" onchange="renderizarFilasAdicionalesSalida()" class="w-20 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-sm text-center text-white">
+                </div>` : ''}
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-800 text-slate-300">
+                            <th class="p-2 border border-slate-700">No. Serie</th>
+                            <th class="p-2 border border-slate-700">Tipo</th>
+                            <th class="p-2 border border-slate-700">Mercancía</th>
+                            <th class="p-2 border border-slate-700">Tonelaje</th>
+                            <th class="p-2 border border-slate-700">Acción / Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-gestion-vagones-salida-body"></tbody>
+                </table>
+            </div>
+        `;
+        contenedorVagones.innerHTML = htmlContenedor;
+        const tbody = document.getElementById('tabla-gestion-vagones-salida-body');
+
+        if (!opData || !opData.detalle_vagones) {
+            tbody.innerHTML = '<tr><td colspan="5" class="p-2 text-center text-slate-400">Seleccione una denominación válida.</td></tr>';
+            return;
+        }
+
+        try {
+            const vagones = JSON.parse(opData.detalle_vagones);
+            if (!vagones || vagones.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-2 text-center text-slate-400">No hay material rodante asociado.</td></tr>';
+                return;
+            }
+
+            vagones.forEach((vagon, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-2 border border-slate-700"><input type="text" value="${vagon.serie || ''}" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-emerald-400 font-semibold cursor-not-allowed"></td>
+                    <td class="p-2 border border-slate-700"><input type="text" value="${vagon.tipo || ''}" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-300 cursor-not-allowed"></td>
+                    <td class="p-2 border border-slate-700"><input type="text" value="${vagon.mercancia || ''}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                    <td class="p-2 border border-slate-700"><input type="text" value="${vagon.tonelaje || ''}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                    <td class="p-2 border border-slate-700 flex gap-1">
+                        <button type="button" onclick="actualizarVagonExistenteSalida(${index})" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold w-1/2">✏️ Editar</button>
+                        <button type="button" onclick="retirarVagonSalida(${index})" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs font-bold w-1/2">🗑️ Retirar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (modo === 'Agregar') {
+                await renderizarFilasAdicionalesSalida();
+            }
+        } catch (e) {
+            console.warn("Error al parsear vagones de salida:", e);
+        }
+    }
+
+    async function renderizarFilasAdicionalesSalida() {
+        const cantidadExtra = parseInt(document.getElementById('salida-cantidad-vagones')?.value) || 1;
+        const tbody = document.getElementById('tabla-gestion-vagones-salida-body');
+        if (!tbody) return;
+
+        const filasAdicionales = tbody.querySelectorAll('.fila-adicional-salida');
+        filasAdicionales.forEach(f => f.remove());
+
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        let seriesOcupadas = [];
+        if (selectedOption && selectedOption.dataset.operacion) {
+            try {
+                const opData = JSON.parse(selectedOption.dataset.operacion);
+                if (opData.detalle_vagones) {
+                    seriesOcupadas = JSON.parse(opData.detalle_vagones).map(v => v.serie);
+                }
+            } catch (err) {}
+        }
+
+        const tipoDefault = "Carro tanque";
+        if (!cacheSeriesMaterialRodante[tipoDefault] || cacheSeriesMaterialRodante[tipoDefault].length === 0) {
+            cacheSeriesMaterialRodante[tipoDefault] = await cargarSeriesDesdeSupabase(tipoDefault);
+        }
+
+        const seriesDisponibles = cacheSeriesMaterialRodante[tipoDefault].filter(s => !seriesOcupadas.includes(s));
+
+        for (let i = 0; i < cantidadExtra; i++) {
+            const tr = document.createElement('tr');
+            tr.className = 'fila-adicional-salida';
+            tr.innerHTML = `
+                <td class="p-2 border border-slate-700">
+                    <select id="salida_serie_nueva_${i}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                        <option value="">Seleccione serie disponible...</option>
+                        ${seriesDisponibles.map(s => `<option value="${s}">${s}</option>`).join('')}
+                    </select>
+                </td>
+                <td class="p-2 border border-slate-700">
+                    <select id="salida_tipo_nuevo_${i}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                        <option selected>Carro tanque</option>
+                        <option>Furgón</option>
+                        <option>Góndola</option>
+                        <option>Tolva</option>
+                        <option>Plataforma intermodal</option>
+                    </select>
+                </td>
+                <td class="p-2 border border-slate-700"><input type="text" placeholder="Mercancía..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                <td class="p-2 border border-slate-700"><input type="text" placeholder="Tonelaje..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white"></td>
+                <td class="p-2 border border-slate-700"><button type="button" onclick="agregarVagonSalida(this)" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded text-xs font-bold w-full">➕ Añadir</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function agregarVagonSalida(buttonElement) {
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        if (!selectedOption || !selectedOption.dataset.operacion) return;
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+        const filaTR = buttonElement.closest('tr');
+        if (!filaTR) return;
+
+        const serieVal = filaTR.querySelector('select[id^="salida_serie_nueva_"]')?.value || '';
+        const tipoVal = filaTR.querySelector('select[id^="salida_tipo_nuevo_"]')?.value || 'Carro tanque';
+        if (!serieVal) {
+            alert('Debe seleccionar un número de serie.');
+            return;
+        }
+
+        const mercanciaVal = filaTR.querySelector('td:nth-child(3) input')?.value || '';
+        const tonelajeVal = filaTR.querySelector('td:nth-child(4) input')?.value || '';
+
+        try {
+            let vagonesActuales = opData.detalle_vagones ? JSON.parse(opData.detalle_vagones) : [];
+            vagonesActuales.push({ serie: serieVal, tipo: tipoVal, mercancia: mercanciaVal, tonelaje: tonelajeVal, de: opData.origen || '', a: opData.destino || '' });
+
+            const nuevaCantidad = vagonesActuales.length;
+            let nuevoTonelajeTotal = vagonesActuales.reduce((acc, v) => acc + (parseFloat(v.tonelaje) || 0), 0);
+
+            const { error } = await window.supabaseClient.from('Programaciones').update({
+                detalle_vagones: JSON.stringify(vagonesActuales),
+                distribucion_cargamento: String(nuevaCantidad),
+                tonelaje: nuevoTonelajeTotal
+            }).eq('id', opData.id);
+
+            if (error) { alert('Error: ' + error.message); return; }
+            alert('¡Material rodante añadido a la salida!');
+            opData.detalle_vagones = JSON.stringify(vagonesActuales);
+            selectedOption.dataset.operacion = JSON.stringify(opData);
+            poblarTablaGestionVagonesSalida('Agregar', opData);
+        } catch (err) { console.error(err); }
+    }
+
+    async function retirarVagonSalida(index) {
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        if (!selectedOption || !selectedOption.dataset.operacion) return;
+        if (!confirm('¿Desea retirar este vagón?')) return;
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+        try {
+            let vagonesActuales = JSON.parse(opData.detalle_vagones || '[]');
+            vagonesActuales.splice(index, 1);
+            const nuevaCantidad = vagonesActuales.length;
+            let nuevoTonelajeTotal = vagonesActuales.reduce((acc, v) => acc + (parseFloat(v.tonelaje) || 0), 0);
+
+            await window.supabaseClient.from('Programaciones').update({
+                detalle_vagones: JSON.stringify(vagonesActuales),
+                distribucion_cargamento: String(nuevaCantidad),
+                tonelaje: nuevoTonelajeTotal
+            }).eq('id', opData.id);
+
+            opData.detalle_vagones = JSON.stringify(vagonesActuales);
+            selectedOption.dataset.operacion = JSON.stringify(opData);
+            poblarTablaGestionVagonesSalida('Agregar', opData);
+        } catch (err) { console.error(err); }
+    }
+
+    async function cargarSalidasSupabase() {
+        const tbody = document.getElementById('tabla-salidas-body');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Cargando salidas...</td></tr>';
+
+        try {
+            const { data, error } = await window.supabaseClient.from('Programaciones').select('*').order('id', { ascending: false });
+            if (error || !data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">No hay registros de salidas.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            data.forEach(op => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/50';
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-emerald-400">${op.tren || 'N/A'}</td>
+                    <td class="p-3 text-slate-300">${op.origen || ''} ➔ ${op.destino || ''}</td>
+                    <td class="p-3 text-slate-300">${op.no_locomotora || ''}</td>
+                    <td class="p-3 text-slate-300">${op.fecha_salida || ''} ${op.hora_salida || ''}</td>
+                    <td class="p-3 text-slate-300">${op.no_candado || 'N/A'}</td>
+                    <td class="p-3"><span class="px-2 py-1 rounded text-xs font-bold bg-amber-500/20 text-amber-400">${op.estatus || 'En curso'}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } catch (err) { console.error(err); }
+    }
+
+    async function guardarSalidaSupabase(e) {
+        e.preventDefault();
+        const selectDenom = document.getElementById('salida_denominacion');
+        const selectedOption = selectDenom.options[selectDenom.selectedIndex];
+        if (!selectedOption || !selectedOption.dataset.operacion) return;
+
+        let opData = JSON.parse(selectedOption.dataset.operacion);
+
+        try {
+            const { error } = await window.supabaseClient.from('Programaciones').update({
+                fecha_salida: document.getElementById('salida_fecha_salida').value || null,
+                hora_salida: document.getElementById('salida_hora_salida').value || null,
+                no_candado: document.getElementById('salida_no_candado').value || null,
+                combustible_cargado: document.getElementById('salida_combustible_cargado').value || null,
+                combustible_total: document.getElementById('salida_combustible_total').value || null,
+                responsable_recibe: document.getElementById('salida_responsable').value || null,
+                estatus: document.getElementById('salida_estatus').value || 'En curso',
+                observaciones: document.getElementById('salida_incidencia').value || opData.observaciones
+            }).eq('id', opData.id);
+
+            if (error) { alert('Error: ' + error.message); return; }
+            alert('¡Salida registrada correctamente!');
+            toggleFormularioSalida();
+            document.getElementById('form-salida').reset();
+            cargarSalidasSupabase();
+        } catch (err) { console.error(err); }
+    }
+</script>
+<script>
+    function actualizarPildoraSubmenu(botonActivo) {
+        const contenedor = document.getElementById("subNavBar");
+        if (!contenedor) return;
+        const pill = contenedor.querySelector(".sub-nav-pill");
+        if (!pill) return;
+
+        const contRect = contenedor.getBoundingClientRect();
+        const btnRect = botonActivo.getBoundingClientRect();
+
+        const leftPos = btnRect.left - contRect.left;
+        const widthBtn = btnRect.width;
+
+        pill.style.left = `${leftPos}px`;
+        pill.style.width = `${widthBtn}px`;
+    }
+
+    function cambiarSubPestanaOperaciones(subpestana, elementoBtn) {
+        const seccionProg = document.getElementById("seccionProgramaciones");
+        const seccionEnt = document.getElementById("seccionEntradas");
+        const seccionSal = document.getElementById("seccionSalidas");
+
+        if (seccionProg) seccionProg.style.display = 'none';
+        if (seccionEnt) seccionEnt.style.display = 'none';
+        if (seccionSal) seccionSal.style.display = 'none';
+
+        // Mover la píldora hacia el botón seleccionado
+        if (elementoBtn) {
+            actualizarPildoraSubmenu(elementoBtn);
+        }
+
+        if (subpestana === 'programaciones') {
+            if (seccionProg) seccionProg.style.display = 'block';
+        } else if (subpestana === 'entradas') {
+            if (seccionEnt) seccionEnt.style.display = 'block';
+            cargarDenominacionesOperaciones();
+            cargarEntradasSupabase();
+        } else if (subpestana === 'salidas') {
+            if (seccionSal) seccionSal.style.display = 'block';
+            cargarDenominacionesOperacionesSalida();
+            cargarSalidasSupabase();
+        }
+    }
+
+    // Inicializar la posición de la píldora al cargar la página
+    window.addEventListener("DOMContentLoaded", () => {
+        const botonActivoInicial = document.querySelector(".sub-btn.activa") || document.querySelector(".sub-btn");
+        if (botonActivoInicial) {
+            const contenedor = document.getElementById("subNavBar");
+            const pill = contenedor ? contenedor.querySelector(".sub-nav-pill") : null;
+            if (pill) {
+                pill.style.transition = "none";
+                actualizarPildoraSubmenu(botonActivoInicial);
+                setTimeout(() => {
+                    pill.style.transition = "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)";
+                }, 50);
+            }
+        }
+    });
+</script>
+
+<!-- Proyecto 1: estilos unificados, última capa de presentación -->
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+/* PROYECTO 1 | CAPA VISUAL UNIFICADA V8 | 2026-11-12
+   Solo presentación. No cambia Supabase, IDs, formularios ni lógica. */
+:root {
+  --p1-azul:#06364b;--p1-turquesa:#087f98;--p1-verde:#123c2a;
+  --p1-dorado:#e5b969;--p1-fondo:#edf5f6;--p1-texto:#183443;
+  --p1-radio:14px;--p1-sombra:0 6px 24px rgba(3,37,52,.11);
+  --p1-font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+html {font-size:16px;scroll-behavior:smooth;overflow-x:clip}
+*,*::before,*::after {box-sizing:border-box}
+body,body.tm-v5,body.tm-v6,body.tm-carga-exacta {font-family:var(--p1-font)!important;min-height:100dvh;overflow-x:clip}
+body:not(.tm-v6):not(.tm-v5) {background:linear-gradient(150deg,#eaf5f6,#f5fafb)!important;color:var(--p1-texto)}
+/* Amplitud real: sin limitar el sistema a 1200/1400 px. */
+body .dashboard,body.tm-v6 .dashboard,body.tm-v5 .dashboard,
+body .contenedor,body .contenedor-global,body .max-w-\[1400px\],
+body .contenedor-principal,body main {width:calc(100% - 40px)!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important}
+body .dashboard-header,body .encabezado {width:100%;max-width:none}
+/* Tipografía consistente y legible */
+body h1,body h2,body h3,body h4,body .tm-titular h1 {letter-spacing:-.025em;line-height:1.2}
+body h1 {font-size:clamp(1.5rem,2.6vw,2.8rem)}
+body h2 {font-size:clamp(1.2rem,1.7vw,1.75rem)}
+body h3 {font-size:clamp(1.05rem,1.35vw,1.35rem)}
+body p,body label,body td,body th,body button,body input,body select,body textarea {font-family:var(--p1-font)!important}
+body input,body select,body textarea {font-size:clamp(14px,1vw,16px)!important;min-height:40px;max-width:100%}
+body button,body .btn,body a[role=button] {font-size:clamp(13px,1vw,15px);touch-action:manipulation}
+/* Navegación adaptable sin recortar pestañas */
+body .menu-dashboard,body .nav-bar,body .menu-navegacion-unificado,
+body .sub-menu-botones,body .sub-menu-capsulas {max-width:100%!important;flex-wrap:wrap;gap:6px}
+body .menu-dashboard {display:flex!important;align-items:stretch;justify-content:center}
+body .menu-dashboard button,body .menu-dashboard a {flex:1 1 125px;min-width:0;white-space:normal!important;line-height:1.25;text-align:center}
+body .nav-bar .nav-btn {flex:1 1 120px!important;white-space:normal!important}
+body .pestana,body .sub-menu-botones button {white-space:normal;min-height:40px}
+/* Paneles y formularios: respetar grillas existentes y prevenir desbordes */
+body .dashboard-grid,body .indicadores,body .graficas-dashboard,
+body .formulario,body .form-grid,body .grid {min-width:0}
+body .dashboard-grid > *,body .indicadores > *,body .graficas-dashboard > *,
+body .formulario > *,body .grid > * {min-width:0}
+body .panel,body .tarjeta,body .dashboard-card,body .formulario-seccion {max-width:100%;border-radius:var(--p1-radio)}
+body .tabla-contenedor,body .table-responsive,body .overflow-x-auto {max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+body table {max-width:100%;font-size:clamp(12px,.9vw,14px)}
+body th,body td {overflow-wrap:anywhere}
+body img,body svg,body video,body canvas {max-width:100%}
+body .dashboard-card canvas,body .graficas-dashboard canvas {max-width:100%!important}
+/* Dispositivos medianos */
+@media(max-width:1024px){
+ body .dashboard,body .contenedor,body .contenedor-global,body main {width:calc(100% - 28px)!important}
+ body .menu-dashboard button,body .menu-dashboard a {flex:1 1 150px}
+ body .dashboard-grid,body .graficas-dashboard {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body .tm-v5-access-grid,body .tm-accesos-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+/* Teléfonos: una columna, botones accesibles y tablas desplazables */
+@media(max-width:680px){
+ html {font-size:15px}
+ body .dashboard,body.tm-v6 .dashboard,body.tm-v5 .dashboard,
+ body .contenedor,body .contenedor-global,body main {width:calc(100% - 20px)!important;padding-left:0!important;padding-right:0!important}
+ body .dashboard-header,body .encabezado,body.tm-v6.tm-page-dashboard .dashboard-header,
+ body.tm-v6:not(.tm-page-dashboard) .encabezado {height:auto!important;min-height:170px!important;padding:18px!important;flex-wrap:wrap;gap:12px}
+ body .dashboard-header>div:first-child,body .encabezado>div:first-child {flex-wrap:wrap;min-width:0}
+ body .fecha-dashboard,body.tm-page-dashboard .fecha-dashboard {position:static!important;max-width:100%!important;width:auto!important;min-width:0!important;margin:8px 0!important}
+ body .menu-dashboard {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;padding:7px!important}
+ body .menu-dashboard button,body .menu-dashboard a {width:100%;min-width:0!important;min-height:48px!important;padding:8px 5px!important;font-size:12px!important;flex:auto}
+ body .menu-dashboard button img,body .menu-dashboard .tm-ico-nav {width:22px!important;height:22px!important}
+ body .dashboard-grid,body .indicadores,body .zona-estadisticas,
+ body .graficas-dashboard,body .formulario,body .form-grid,
+ body .tm-v5-access-grid,body .tm-accesos-grid,body .tm-v5-data-layout {display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ body .formulario label,body .formulario textarea {grid-column:auto!important}
+ body .dashboard-card,body .panel,body .tarjeta,body .formulario-seccion {padding:14px!important}
+ body .tabla-contenedor,body .dashboard-card:has(table),body .panel:has(table) {overflow-x:auto;-webkit-overflow-scrolling:touch}
+ body table {width:max-content;min-width:100%;font-size:12px}
+ body table th,body table td {white-space:nowrap;overflow-wrap:normal}
+ body .tm-v5-access {height:auto!important;min-height:190px}
+ body .temayin-ventana {max-width:calc(100vw - 20px)!important;right:10px!important;bottom:80px!important}
+}
+@media(max-width:380px){body .menu-dashboard{grid-template-columns:minmax(0,1fr)!important}body .tm-logo-marco{max-width:80px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}

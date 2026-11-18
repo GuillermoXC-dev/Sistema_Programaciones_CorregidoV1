@@ -1,0 +1,152 @@
+/* Encabezados y barras solicitados. Mantiene las fotografías del tema existente. */
+@layer dcofc {
+  .dashboard-header.p1-header {
+    display: grid !important;
+    grid-template-columns: 92px minmax(0, 1fr) minmax(210px, 290px) !important;
+    align-items: center !important;
+    gap: 28px !important;
+    min-height: 238px !important;
+    height: auto !important;
+    padding: 30px 36px !important;
+    margin-block: 16px !important;
+    overflow: visible !important;
+  }
+  .p1-header > .p1-logo {
+    display: block !important;
+    width: 92px !important;
+    height: 116px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+  }
+  .p1-header > .p1-identidad {
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .p1-header .p1-titulo {
+    display: block !important;
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: clamp(26px, 2.55vw, 46px) !important;
+    font-weight: 800 !important;
+    line-height: 1.12 !important;
+    letter-spacing: .015em !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+  }
+  .p1-header .p1-titulo > span {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit !important;
+    color: #fff !important;
+  }
+  .p1-header .p1-titulo > .p1-titulo-dorado { color: #f5d084 !important; }
+  .p1-header .p1-modulo {
+    display: block !important;
+    color: #f5d084 !important;
+    font-size: .875rem !important;
+    font-weight: 650 !important;
+    line-height: 1.4 !important;
+    letter-spacing: .12em !important;
+    text-transform: uppercase !important;
+    margin: 14px 0 0 !important;
+  }
+  .p1-header > .p1-fecha {
+    position: static !important;
+    display: block !important;
+    justify-self: end !important;
+    align-self: start !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 12px 18px !important;
+    border: 1px solid #e5b969 !important;
+    border-radius: 999px !important;
+    background: #04384be8 !important;
+    color: #fff !important;
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: .75rem !important;
+    font-weight: 650 !important;
+    letter-spacing: .04em !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    white-space: normal !important;
+  }
+  body.tm-page-index #subMenuOperaciones {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: none !important;
+    gap: 12px !important;
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+  body.tm-page-index #subNavBar {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+  }
+  body.tm-page-index #subNavBar > button {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 46px !important;
+    padding: 12px 8px !important;
+    margin: 0 !important;
+    border: 1px solid #d2dfe4 !important;
+    border-radius: 9px !important;
+    background: #eaf3f6 !important;
+    color: #06364b !important;
+    font-weight: 700 !important;
+    white-space: normal !important;
+  }
+  body.tm-page-index #subNavBar > button.activa {
+    background: #08667c !important;
+    color: #fff !important;
+    border-color: #08667c !important;
+  }
+  body.tm-page-index #climaSubmenuOperaciones {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 12px 20px !important;
+    margin: 0 !important;
+    color: #183443 !important;
+  }
+  body.tm-page-index #climaSubmenuOperaciones :is(span,strong) { color: #075168 !important; }
+  body.tm-page-servicio-patio #subMenuOperaciones { display: none !important; }
+  @media (max-width: 1000px) {
+    .dashboard-header.p1-header { grid-template-columns: 80px minmax(0, 1fr) !important; gap: 16px 22px !important; padding: 26px !important; }
+    .p1-header > .p1-logo { width: 80px !important; height: 100px !important; }
+    .p1-header > .p1-fecha { grid-column: 2 !important; justify-self: start !important; }
+  }
+  @media (max-width: 680px) {
+    .dashboard-header.p1-header { grid-template-columns: 54px minmax(0, 1fr) !important; gap: 14px !important; min-height: 190px !important; padding: 20px 14px !important; }
+    .p1-header > .p1-logo { width: 54px !important; height: 76px !important; }
+    .p1-header .p1-titulo { font-size: clamp(18px, 4.8vw, 30px) !important; }
+    .p1-header .p1-modulo { font-size: .75rem !important; margin-top: 10px !important; letter-spacing: .06em !important; }
+    .p1-header > .p1-fecha { grid-column: 1 / -1 !important; justify-self: stretch !important; font-size: .6875rem !important; }
+    body.tm-page-index #subNavBar > button { font-size: .75rem !important; padding: 10px 4px !important; }
+  }
+  @media (max-width: 360px) { .p1-header .p1-titulo { font-size: 16px !important; } }
+}

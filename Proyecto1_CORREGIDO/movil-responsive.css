@@ -1,0 +1,105 @@
+/* =========================================================
+   1. BARRA DE NAVEGACIÓN UNIFORME (Todas las pestañas miden igual)
+========================================================= */
+.nav-bar {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 6px;
+    margin: 9px 0 15px 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--tm-verde-oscuro, #4b5d84), var(--tm-verde, #082c79), var(--tm-jade, #008f83));
+    box-shadow: 0 4px 14px rgba(0, 60, 50, 0.07);
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #dfe7e4;
+}
+
+.nav-btn {
+    flex: 1 !important;             /* Reparte el ancho de forma estrictamente igual */
+    width: 100% !important;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 8px 6px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   2. ADAPTACIÓN RESPONSIVE GLOBAL PARA MÓVILES
+========================================================= */
+@media (max-width: 768px) {
+    .dashboard, .contenedor-global {
+        width: 100% !important;
+        padding: 8px !important;
+        margin: 4px auto !important;
+    }
+
+    .nav-bar {
+        display: flex;
+        flex-wrap: wrap; /* Se acomodan en filas ordenadas en celulares */
+        justify-content: center;
+    }
+
+    .nav-btn {
+        flex: 1 1 30% !important; 
+        min-height: 38px;
+        font-size: 11px !important;
+    }
+
+    .nav-btn:not(:last-child)::after {
+        display: none; /* Oculta divisores verticales en móviles */
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .fecha-dashboard {
+        width: 100%;
+        text-align: left;
+        border-left: none;
+        border-top: 1px solid var(--tm-dorado, #c8a951);
+        padding-top: 8px;
+    }
+
+    .indicadores, 
+    .zona-estadisticas, 
+    .graficas-dashboard {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* Tablas con desplazamiento horizontal automático en móviles */
+    .overflow-x-auto, table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    /* 1. Ocultar la píldora flotante que causa el amontonamiento */
+  .nav-pill {
+    display: none !important;
+  }
+
+  /* 2. Iluminar directamente el botón que está seleccionado */
+  .nav-btn.active {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+  }
+}
